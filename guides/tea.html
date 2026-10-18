@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Complete World of Tea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3ECDA;
+    --paper-deep:#EAE0C8;
+    --ink:#241F17;
+    --ink-soft:#5C543F;
+    --forest:#22301D;
+    --forest-light:#334528;
+    --line: rgba(36,31,23,0.14);
+    --line-strong: rgba(36,31,23,0.32);
+
+    --green:#3F6142;      --green-bg:#DEE8DA;      --green-soft:#EFF4EC;
+    --yellow:#A8811E;     --yellow-bg:#F1E4BE;     --yellow-soft:#F8F0DA;
+    --white-t:#8C7E45;    --white-bg:#EFE9CF;      --white-soft:#F7F3E5;
+    --oolong:#A6642A;     --oolong-bg:#F1DCB9;     --oolong-soft:#F8ECD8;
+    --black-t:#7C3626;    --black-bg:#EDD3C4;      --black-soft:#F6E7DE;
+    --dark-t:#5A3324;     --dark-bg:#E4D0C2;       --dark-soft:#F1E5DB;
+
+    --chamomile:#A9821A;  --chamomile-bg:#F1E4BC;
+    --peppermint:#3E7052; --peppermint-bg:#D9E9DF;
+    --hibiscus:#9C3B45;   --hibiscus-bg:#F0D6D9;
+    --rooibos:#9C5A2E;    --rooibos-bg:#EFDBC7;
+    --lemongrass:#69802B; --lemongrass-bg:#E3EACB;
+    --ginger:#B06B25;     --ginger-bg:#F2E0C4;
+    --lavender:#71659E;   --lavender-bg:#E6E1F0;
+    --turmeric:#C1791E;   --turmeric-bg:#F3E2C0;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Work Sans', sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 1.5rem;}
+  h1,h2,h3,h4{font-family:'Fraunces', serif;color:var(--ink);margin:0;}
+  .eyebrow{font-size:0.72rem;font-weight:600;color:var(--ink-soft);letter-spacing:0.02em;}
+  section{padding:3.4rem 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{max-width:640px;margin-bottom:1.6rem;}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.15rem);font-weight:700;line-height:1.1;margin-bottom:0.6rem;}
+  .section-head p{color:var(--ink-soft);font-size:0.98rem;margin:0;}
+  .hint{font-size:0.78rem;color:var(--ink-soft);font-style:italic;margin:0 0 1.3rem;}
+
+  /* ---------- Nav ---------- */
+  nav{ position:sticky; top:0; z-index:50; background:var(--forest); color:#EFE9D6; }
+  .nav-inner{ max-width:1120px; margin:0 auto; padding:0 1.5rem; display:flex; align-items:center; gap:1.6rem; height:3.2rem; }
+  .brand{font-family:'Fraunces',serif; font-weight:600; font-size:1.02rem; white-space:nowrap;}
+  .nav-links{ display:flex; gap:1.3rem; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; flex:1; }
+  .nav-links::-webkit-scrollbar{display:none;}
+  .nav-links a{ font-size:0.82rem; font-weight:500; white-space:nowrap; text-decoration:none; color:#D8D2BB; padding:0.3rem 0; border-bottom:2px solid transparent; }
+  .nav-links a:hover{color:#fff; border-color:#C7A15A;}
+
+  /* ---------- Hero ---------- */
+  .hero{ background:var(--forest); color:#F2EEDD; padding:3.2rem 0 3.6rem; overflow:hidden; }
+  .hero-inner{ display:flex; align-items:center; gap:2.6rem; flex-wrap:wrap; }
+  .hero-text{flex:1 1 340px; min-width:280px;}
+  .hero-text .eyebrow{color:#C7A15A;}
+  .hero-text h1{ font-size:clamp(2.1rem, 5vw, 3.3rem); font-weight:700; line-height:1.02; margin:0.5rem 0 1rem; color:#FBF7EA; }
+  .hero-text p.lede{font-size:1.02rem; color:#D8D2BB; max-width:34rem; margin:0 0 1.4rem;}
+  .byline{ display:inline-flex; align-items:center; gap:0.6rem; font-size:0.86rem; color:#C7A15A; border-top:1px solid rgba(255,255,255,0.18); padding-top:0.9rem; margin-top:0.4rem; }
+  .byline b{color:#FBF7EA; font-weight:600;}
+  .hero-art{flex:1 1 300px; min-width:260px; max-width:420px;}
+  .steam-wisp{ transform-box:fill-box; transform-origin:bottom center; animation:rise 3.6s ease-in-out infinite; }
+  .steam-wisp.d2{animation-delay:0.6s;}
+  .steam-wisp.d3{animation-delay:1.2s;}
+  @keyframes rise{
+    0%{ transform:translateY(2px) scaleY(0.9); opacity:0.35; }
+    45%{ opacity:0.85; }
+    100%{ transform:translateY(-14px) scaleY(1.15); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){ .steam-wisp{animation:none; opacity:0.6;} }
+
+  /* ---------- What is tea ---------- */
+  .split{display:grid; grid-template-columns:1.1fr 0.9fr; gap:2.4rem; align-items:center;}
+  @media (max-width:760px){ .split{grid-template-columns:1fr;} }
+  .fact-cards{display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; margin-top:1.2rem;}
+  .fact-card{ background:var(--paper-deep); border-radius:0.6rem; padding:0.9rem 1.05rem; font-size:0.85rem; }
+  .fact-card b{display:block; font-family:'Fraunces',serif; font-size:1rem; margin-bottom:0.2rem;}
+
+  /* ---------- Process strip ---------- */
+  .process{display:grid; grid-template-columns:repeat(6,1fr); gap:0.8rem;}
+  @media (max-width:900px){ .process{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:520px){ .process{grid-template-columns:repeat(2,1fr);} }
+  .p-step{text-align:center;}
+  .p-icon{ width:4.6rem; height:4.6rem; border-radius:50%; margin:0 auto 0.6rem; background:var(--green-soft); display:flex; align-items:center; justify-content:center; border:1px solid var(--line); }
+  .p-icon svg{width:2.4rem; height:2.4rem;}
+  .p-step h4{font-size:0.86rem; font-weight:700; margin-bottom:0.2rem;}
+  .p-step p{font-size:0.76rem; color:var(--ink-soft); margin:0; line-height:1.35;}
+
+  /* ---------- Filter bar ---------- */
+  .filter-bar{ display:flex; flex-wrap:wrap; gap:0.55rem; margin-bottom:1.4rem; }
+  .filter-btn{
+    font-family:'Work Sans',sans-serif; font-size:0.8rem; font-weight:600;
+    padding:0.42rem 0.95rem; border-radius:999px; border:1px solid var(--line-strong);
+    background:#fff; color:var(--ink-soft); cursor:pointer; transition:background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .filter-btn:hover{border-color:var(--forest);}
+  .filter-btn.active{ background:var(--forest); color:#F2EEDD; border-color:var(--forest); }
+
+  /* ---------- Tea type cards (accordion) ---------- */
+  .tea-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:1.3rem; align-items:start;}
+  details.tcard{
+    background:#fff; border-radius:0.9rem; padding:1.4rem 1.5rem;
+    border:1px solid var(--line);
+    transition:box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  details.tcard[open]{ box-shadow:0 10px 26px rgba(36,31,23,0.1); border-color:var(--line-strong); }
+  details.tcard summary{ cursor:pointer; list-style:none; position:relative; }
+  details.tcard summary::-webkit-details-marker{display:none;}
+  .tcard .top{display:flex; align-items:flex-start; justify-content:space-between; gap:0.6rem;}
+  .tcard h3{font-size:1.28rem; font-weight:700;}
+  .tcard .latin{display:block; font-style:italic; font-size:0.76rem; color:var(--ink-soft); margin-top:0.15rem; font-weight:500;}
+  .tcard .icon-badge{width:3.6rem; height:3.6rem; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;}
+  .tcard .icon-badge svg{width:2.3rem; height:2.3rem;}
+  .tcard .meta{font-size:0.82rem; font-weight:600; margin:0.7rem 0 0;}
+  .tcard .meta span{font-weight:400; color:var(--ink-soft);}
+  .tcard .oxid{display:flex; align-items:center; gap:0.25rem; margin:0.55rem 0 0.1rem;}
+  .tcard .oxid .lbl{font-size:0.72rem; font-weight:600; margin-right:0.3rem; color:var(--ink-soft);}
+  .dot{width:0.55rem; height:0.55rem; border-radius:50%; border:1.4px solid currentColor;}
+  .dot.on{background:currentColor;}
+  .chevron{
+    position:absolute; right:0; top:0.15rem; width:1.4rem; height:1.4rem;
+    display:flex; align-items:center; justify-content:center; color:var(--c);
+    transition:transform 0.25s ease;
+  }
+  details.tcard[open] .chevron{ transform:rotate(180deg); }
+  .tap-hint{ font-size:0.7rem; color:var(--ink-soft); margin:0.5rem 0 0; }
+  details.tcard[open] .tap-hint{display:none;}
+  .body-wrap{ padding-top:0.9rem; }
+  .tcard .label{font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft); margin:0.7rem 0 0.15rem;}
+  .tcard .label:first-child{margin-top:0;}
+  .tcard p.body{font-size:0.85rem; line-height:1.45; margin:0; color:var(--ink);}
+  .tcard .brew{font-size:0.85rem; font-weight:600; margin:0;}
+  .tcard ul{margin:0.25rem 0 0; padding-left:1.05rem; font-size:0.82rem; line-height:1.4;}
+  .tcard ul li{margin-bottom:0.15rem;}
+  .tcard .varieties{font-size:0.8rem; margin:0.15rem 0 0;}
+  .tcard .note{ margin-top:0.9rem; padding-top:0.7rem; border-top:1px dashed var(--line-strong); font-size:0.79rem; line-height:1.4; }
+  .tcard .note b{font-weight:700;}
+
+  .tcard.green{ --c:var(--green); } .tcard.yellow{ --c:var(--yellow); } .tcard.white{ --c:var(--white-t); }
+  .tcard.oolong{ --c:var(--oolong); } .tcard.black{ --c:var(--black-t); } .tcard.dark{ --c:var(--dark-t); }
+  .tcard h3, .tcard .label, .tcard .oxid, .tcard .note{color:var(--c);}
+  .tcard .icon-badge{color:var(--c);}
+  .tcard.green .icon-badge{background:var(--green-bg);} .tcard.yellow .icon-badge{background:var(--yellow-bg);}
+  .tcard.white .icon-badge{background:var(--white-bg);} .tcard.oolong .icon-badge{background:var(--oolong-bg);}
+  .tcard.black .icon-badge{background:var(--black-bg);} .tcard.dark .icon-badge{background:var(--dark-bg);}
+
+  .tcard.chamomile{ --c:var(--chamomile);} .tcard.chamomile .icon-badge{background:var(--chamomile-bg);}
+  .tcard.peppermint{ --c:var(--peppermint);} .tcard.peppermint .icon-badge{background:var(--peppermint-bg);}
+  .tcard.hibiscus{ --c:var(--hibiscus);} .tcard.hibiscus .icon-badge{background:var(--hibiscus-bg);}
+  .tcard.rooibos{ --c:var(--rooibos);} .tcard.rooibos .icon-badge{background:var(--rooibos-bg);}
+  .tcard.lemongrass{ --c:var(--lemongrass);} .tcard.lemongrass .icon-badge{background:var(--lemongrass-bg);}
+  .tcard.ginger{ --c:var(--ginger);} .tcard.ginger .icon-badge{background:var(--ginger-bg);}
+  .tcard.lavender{ --c:var(--lavender);} .tcard.lavender .icon-badge{background:var(--lavender-bg);}
+  .tcard.turmeric{ --c:var(--turmeric);} .tcard.turmeric .icon-badge{background:var(--turmeric-bg);}
+  .tcard.chamomile h3,.tcard.peppermint h3,.tcard.hibiscus h3,.tcard.rooibos h3,.tcard.lemongrass h3,.tcard.ginger h3,.tcard.lavender h3,.tcard.turmeric h3{color:var(--c);}
+  .tcard.chamomile .icon-badge,.tcard.peppermint .icon-badge,.tcard.hibiscus .icon-badge,.tcard.rooibos .icon-badge,.tcard.lemongrass .icon-badge,.tcard.ginger .icon-badge,.tcard.lavender .icon-badge,.tcard.turmeric .icon-badge{color:var(--c);}
+  .tcard.chamomile .note,.tcard.peppermint .note,.tcard.hibiscus .note,.tcard.rooibos .note,.tcard.lemongrass .note,.tcard.ginger .note,.tcard.lavender .note,.tcard.turmeric .note{color:var(--c);}
+  .tcard.chamomile .chevron,.tcard.peppermint .chevron,.tcard.hibiscus .chevron,.tcard.rooibos .chevron,.tcard.lemongrass .chevron,.tcard.ginger .chevron,.tcard.lavender .chevron,.tcard.turmeric .chevron{color:var(--c);}
+
+  /* ---------- Culture cards ---------- */
+  .culture-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:1.2rem;}
+  .cculture{ background:var(--paper-deep); border-radius:0.9rem; padding:1.25rem 1.4rem; display:flex; gap:1rem; align-items:flex-start; }
+  .cculture .icon-badge{width:3.2rem;height:3.2rem;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .cculture .icon-badge svg{width:1.8rem;height:1.8rem;color:var(--forest);}
+  .cculture h4{font-size:1.02rem;font-weight:700;margin-bottom:0.25rem;}
+  .cculture p{font-size:0.83rem;color:var(--ink-soft);margin:0;line-height:1.42;}
+
+  /* ---------- Health / caffeine bars ---------- */
+  .health-grid{display:grid; grid-template-columns:1fr 1fr; gap:2rem;}
+  @media (max-width:760px){ .health-grid{grid-template-columns:1fr;} }
+  .compound{margin-bottom:1.1rem;}
+  .compound h4{font-size:0.95rem;font-weight:700;margin-bottom:0.2rem;}
+  .compound p{font-size:0.84rem;color:var(--ink-soft);margin:0;line-height:1.45;}
+  .bar-row{display:grid; grid-template-columns:5.4rem 1fr 2.4rem; align-items:center; gap:0.6rem; margin-bottom:0.55rem;}
+  .bar-row .name{font-size:0.8rem;font-weight:600;}
+  .bar-track{background:var(--paper-deep); border-radius:999px; height:0.55rem; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:999px; background:var(--forest); transform-origin:left; animation:grow 1.1s ease-out;}
+  @keyframes grow{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+  .bar-row .val{font-size:0.74rem; color:var(--ink-soft); text-align:right;}
+
+  /* ---------- Brewing table ---------- */
+  .table-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:0.8rem;}
+  table{border-collapse:collapse; width:100%; min-width:640px; font-size:0.84rem;}
+  thead th{ text-align:left; background:var(--forest); color:#F2EEDD; padding:0.7rem 0.9rem; font-weight:600; font-size:0.78rem; }
+  tbody td{padding:0.65rem 0.9rem; border-bottom:1px solid var(--line);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:nth-child(even){background:var(--paper-deep);}
+
+  /* ---------- Storage ---------- */
+  .tips-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:1.1rem;}
+  .tip{background:#fff; border:1px solid var(--line); border-radius:0.8rem; padding:1.1rem 1.25rem;}
+  .tip h4{font-size:0.95rem; font-weight:700; margin-bottom:0.35rem;}
+  .tip p{font-size:0.83rem; color:var(--ink-soft); margin:0; line-height:1.45;}
+
+  /* ---------- Glossary (accordion) ---------- */
+  .glossary{display:grid; grid-template-columns:1fr 1fr; gap:0 2.4rem;}
+  @media (max-width:640px){ .glossary{grid-template-columns:1fr;} }
+  details.gterm{ border-bottom:1px solid var(--line); padding:0.65rem 0; }
+  details.gterm summary{ cursor:pointer; list-style:none; font-family:'Fraunces',serif; font-weight:600; font-size:0.95rem; position:relative; padding-right:1.4rem; }
+  details.gterm summary::-webkit-details-marker{display:none;}
+  details.gterm summary .chevron{ color:var(--forest); top:-0.1rem; }
+  details.gterm[open] summary .chevron{transform:rotate(180deg);}
+  details.gterm dd{ margin:0.35rem 0 0; font-size:0.82rem; color:var(--ink-soft); line-height:1.4; }
+
+  /* ---------- Footer ---------- */
+  footer{ background:var(--forest); color:#D8D2BB; padding:2.4rem 0 5.5rem; text-align:center; font-size:0.83rem; }
+  footer .author{color:#FBF7EA; font-family:'Fraunces',serif; font-size:1.1rem; font-weight:600;}
+  footer .note{margin-top:0.8rem; color:#9C9578; font-size:0.75rem;}
+
+  /* ---------- Back to top ---------- */
+  #topBtn{
+    position:fixed; right:1.3rem; bottom:1.3rem; z-index:60;
+    width:3rem; height:3rem; border-radius:50%; border:none;
+    background:var(--forest); color:#F2EEDD; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.28);
+    opacity:0; transform:translateY(12px) scale(0.9); pointer-events:none;
+    transition:opacity 0.25s ease, transform 0.25s ease;
+  }
+  #topBtn.show{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  #topBtn svg{width:1.3rem; height:1.3rem;}
+  #topBtn span{font-size:0.55rem; font-weight:700; letter-spacing:0.03em; margin-top:0.05rem;}
+</style>
+<link rel="icon" href="../assets/favicon.png"></head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">🍵 The World of Tea</div>
+    <div class="nav-links">
+      <a href="#what-is-tea">What Is Tea</a>
+      <a href="#processing">Processing</a>
+      <a href="#true-teas">True Teas</a>
+      <a href="#herbal">Herbal Teas</a>
+      <a href="#culture">World Culture</a>
+      <a href="#health">Health</a>
+      <a href="#brewing">Brewing Guide</a>
+      <a href="#storage">Storage</a>
+      <a href="#glossary">Glossary</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+      <div class="eyebrow">A COMPLETE FIELD GUIDE</div>
+      <h1>The Complete World of Tea</h1>
+      <p class="lede">Everything worth knowing about tea in one place — where each style comes from, how it's made, how to brew it properly, and what it actually does for you. Tap any card to explore, or use the filters to narrow things down.</p>
+      <div class="byline">☕ Compiled by <b>Kamal Kant Gautam</b></div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="liquidHero" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C7A15A"/>
+            <stop offset="100%" stop-color="#8A6B32"/>
+          </linearGradient>
+        </defs>
+        <path d="M40 70 C60 30 110 15 150 30 C160 10 195 8 210 28 C250 20 280 55 265 90 C300 95 305 140 270 155 C280 190 250 210 220 195" fill="none" stroke="#4C6A45" stroke-width="4" opacity="0.55"/>
+        <g>
+          <ellipse cx="120" cy="52" rx="20" ry="12" fill="#4C6A45" transform="rotate(-25 120 52)"/>
+          <path d="M120 52 L120 52" stroke="#2F4A2A" stroke-width="1" opacity="0.4"/>
+          <ellipse cx="150" cy="35" rx="18" ry="11" fill="#5B7A52" transform="rotate(10 150 35)"/>
+          <ellipse cx="185" cy="48" rx="20" ry="12" fill="#4C6A45" transform="rotate(30 185 48)"/>
+          <ellipse cx="95" cy="85" rx="16" ry="10" fill="#5B7A52" transform="rotate(-10 95 85)"/>
+        </g>
+        <g transform="translate(90,150)">
+          <ellipse cx="90" cy="118" rx="95" ry="10" fill="#241F17" opacity="0.08"/>
+          <path d="M10 30 h150 a12 12 0 0 1 12 12 c0 46 -30 78 -87 78 S-2 88 -2 42 a12 12 0 0 1 12 -12z" fill="#FBF7EA" stroke="#241F17" stroke-width="3" opacity="0.95"/>
+          <path d="M14 40 h142 c0 40 -26 66 -71 66 S14 80 14 40Z" fill="url(#liquidHero)"/>
+          <path d="M172 45 c30 -8 42 18 16 34 c-8 5 -16 4 -20 0" fill="none" stroke="#241F17" stroke-width="4"/>
+          <path class="steam-wisp" d="M40 6 c6 14 -8 16 0 30" stroke="#8A8163" stroke-width="3.4" fill="none" stroke-linecap="round" opacity="0.7"/>
+          <path class="steam-wisp d2" d="M75 -4 c6 14 -8 16 0 30" stroke="#8A8163" stroke-width="3.4" fill="none" stroke-linecap="round" opacity="0.7"/>
+          <path class="steam-wisp d3" d="M108 6 c6 14 -8 16 0 30" stroke="#8A8163" stroke-width="3.4" fill="none" stroke-linecap="round" opacity="0.7"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- WHAT IS TEA -->
+  <section id="what-is-tea" class="wrap">
+    <div class="split">
+      <div>
+        <div class="eyebrow">THE BASICS</div>
+        <h2>One plant, almost every tea you've had</h2>
+        <p style="color:var(--ink-soft); font-size:0.95rem;">Green, yellow, white, oolong, black and dark (including pu-erh) all come from the same evergreen shrub, <i>Camellia sinensis</i>. Nothing about the plant changes between them — what changes is how the leaf is handled the moment it's picked: how much it withers, how it's shaped, and above all, how much it's allowed to oxidise before the process is stopped. That single variable — oxidation — is the entire reason tea comes in so many colours and flavours.</p>
+        <div class="fact-cards">
+          <div class="fact-card"><b>2 varieties</b>Camellia sinensis var. sinensis (China, smaller leaf) and var. assamica (Assam, larger leaf, bolder flavour)</div>
+          <div class="fact-card"><b>Not tea at all</b>Herbal "teas" are tisanes — infusions of herbs, flowers, fruit or root with no Camellia sinensis in them</div>
+          <div class="fact-card"><b>~5,000 years</b>of continuous cultivation and drinking history, longer than almost any beverage besides water</div>
+          <div class="fact-card"><b>2nd most-drunk</b>beverage in the world after water, ahead of coffee</div>
+        </div>
+      </div>
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="130" cy="130" r="120" fill="var(--green-soft)"/>
+        <path d="M130 40 C90 60 70 100 80 150 C88 190 115 215 130 220 C145 215 172 190 180 150 C190 100 170 60 130 40Z" fill="var(--green-bg)" stroke="var(--green)" stroke-width="3"/>
+        <path d="M130 55 V210" stroke="var(--green)" stroke-width="2.4" opacity="0.8"/>
+        <path d="M130 90 C110 96 98 106 92 118 M130 130 C150 136 162 146 168 158 M130 165 C112 170 100 180 94 190" stroke="var(--green)" stroke-width="1.8" fill="none" opacity="0.7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- PROCESSING -->
+  <section id="processing" class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">FROM BUSH TO CUP</div>
+      <h2>How tea is actually made</h2>
+      <p>Six broad steps turn a fresh leaf into every style on this page — how far it goes through them, and in what order, decides which category it lands in.</p>
+    </div>
+    <div class="process">
+      <div class="p-step">
+        <div class="p-icon"><svg viewBox="0 0 48 48" fill="none" stroke="var(--green)" stroke-width="2.6"><path d="M24 10 C16 14 14 24 20 30" stroke-linecap="round"/><circle cx="21" cy="30" r="4" fill="var(--green)" stroke="none"/><path d="M30 34 L38 42" stroke-linecap="round"/></svg></div>
+        <h4>1. Pluck</h4><p>Two leaves and a bud, hand-picked at the shoot tip.</p>
+      </div>
+      <div class="p-step">
+        <div class="p-icon"><svg viewBox="0 0 48 48" fill="none" stroke="var(--yellow)" stroke-width="2.6"><circle cx="24" cy="14" r="5" fill="var(--yellow)" stroke="none"/><path d="M10 34 c8 -6 20 -6 28 0" stroke-linecap="round"/><path d="M24 22 v10" stroke-linecap="round"/></svg></div>
+        <h4>2. Wither</h4><p>Leaves lose moisture, going soft and pliable.</p>
+      </div>
+      <div class="p-step">
+        <div class="p-icon"><svg viewBox="0 0 48 48" fill="none" stroke="var(--oolong)" stroke-width="2.6"><path d="M14 24 a10 10 0 1 1 20 0 a10 10 0 1 1 -20 0" stroke-linecap="round"/><path d="M24 24 l8 -4" stroke-linecap="round"/></svg></div>
+        <h4>3. Roll / Shape</h4><p>Bruises the leaf, releasing juices and enzymes.</p>
+      </div>
+      <div class="p-step">
+        <div class="p-icon"><svg viewBox="0 0 48 48" fill="none" stroke="var(--black-t)" stroke-width="2.6"><path d="M14 30 C14 18 34 18 34 30 C34 36 14 36 14 30Z"/><path d="M18 30 L30 30" stroke-linecap="round"/></svg></div>
+        <h4>4. Oxidise</h4><p>Open air turns leaf enzymes darker and stronger — stopped early for green, longer for black.</p>
+      </div>
+      <div class="p-step">
+        <div class="p-icon"><svg viewBox="0 0 48 48" fill="none" stroke="var(--dark-t)" stroke-width="2.6"><path d="M24 12 c-6 8 -6 14 0 20 c6 -6 6 -12 0 -20Z"/><path d="M14 34 h20" stroke-linecap="round"/></svg></div>
+        <h4>5. Fix / Dry</h4><p>Heat locks in the flavour and halts oxidation for good.</p>
+      </div>
+      <div class="p-step">
+        <div class="p-icon"><svg viewBox="0 0 48 48" fill="none" stroke="var(--forest)" stroke-width="2.6"><rect x="12" y="14" width="24" height="20" rx="2"/><path d="M12 22 h24 M12 28 h24" stroke-width="1.6"/></svg></div>
+        <h4>6. Sort &amp; Grade</h4><p>Leaves are graded by size and quality before packing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUE TEAS -->
+  <section id="true-teas" class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">THE SIX CLASSIC CATEGORIES</div>
+      <h2>The true teas, by oxidation level</h2>
+      <p>Ordered from least to most processed — the traditional Chinese classification that the rest of the world's tea names still map onto.</p>
+    </div>
+    <p class="hint">Tap a card to open it. Use the filters to narrow down by oxidation level.</p>
+    <div class="filter-bar" data-target="teaGrid">
+      <button class="filter-btn active" data-filter="all">All 6</button>
+      <button class="filter-btn" data-filter="none">Unoxidised</button>
+      <button class="filter-btn" data-filter="light">Lightly oxidised</button>
+      <button class="filter-btn" data-filter="semi">Semi-oxidised</button>
+      <button class="filter-btn" data-filter="full">Fully oxidised</button>
+      <button class="filter-btn" data-filter="fermented">Fermented</button>
+    </div>
+    <div class="tea-grid" id="teaGrid">
+
+      <!-- WHITE -->
+      <details class="tcard white" data-filter-tags="light">
+        <summary>
+          <div class="top">
+            <div><h3>White Tea</h3><span class="latin">Minimally processed</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><ellipse cx="32" cy="50" rx="22" ry="4" fill="currentColor" opacity="0.12" stroke="none"/><path d="M14 24 h32 a4 4 0 0 1 4 4 c0 14 -9 24 -20 24 S10 42 10 28 a4 4 0 0 1 4 -4Z"/><path d="M18 30 h24 c0 12 -7 20 -12 20 s-12 -8 -12 -20Z" fill="currentColor" stroke="none" opacity="0.28"/><path d="M46 28 c9 -3 13 6 5 12 c-2 1.4 -5 1.6 -7 0.6" stroke-width="3"/><path d="M22 10 c5 5 -3 7 1 13 M31 6 c5 5 -3 7 1 13 M40 10 c5 5 -3 7 1 13" stroke-width="2.6" stroke-linecap="round" opacity="0.55"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>Fujian, China — Fuding &amp; Zhenghe counties</span></p>
+          <div class="oxid"><span class="lbl">Oxidation</span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <p class="tap-hint">Tap to see history, brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p>
+          <p class="body">Prized at the Song dynasty imperial court a thousand years ago; the modern Silver Needle style was refined for export trade in the 1800s.</p>
+          <p class="varieties"><b>Notable styles:</b> Silver Needle (Bai Hao Yinzhen), White Peony (Bai Mudan)</p>
+          <p class="label">Brewing</p>
+          <p class="brew">75–85°C · 2g per 200ml · steep 4–5 min</p>
+          <p class="label">Benefits</p>
+          <ul><li>Highest antioxidant retention of any tea due to minimal processing</li><li>Gentle, low caffeine</li></ul>
+          <div class="note"><b>Know this:</b> made only from young buds and first leaves, still coated in fine silvery down.</div>
+        </div>
+      </details>
+
+      <!-- YELLOW -->
+      <details class="tcard yellow" data-filter-tags="light">
+        <summary>
+          <div class="top">
+            <div><h3>Yellow Tea</h3><span class="latin">Lightly, slowly oxidised</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><ellipse cx="32" cy="50" rx="22" ry="4" fill="currentColor" opacity="0.12" stroke="none"/><path d="M14 24 h32 a4 4 0 0 1 4 4 c0 14 -9 24 -20 24 S10 42 10 28 a4 4 0 0 1 4 -4Z"/><path d="M18 30 h24 c0 12 -7 20 -12 20 s-12 -8 -12 -20Z" fill="currentColor" stroke="none" opacity="0.28"/><path d="M46 28 c9 -3 13 6 5 12 c-2 1.4 -5 1.6 -7 0.6" stroke-width="3"/><path d="M22 10 c5 5 -3 7 1 13 M31 6 c5 5 -3 7 1 13 M40 10 c5 5 -3 7 1 13" stroke-width="2.6" stroke-linecap="round" opacity="0.55"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>Hunan &amp; Sichuan, China — Junshan Island, Mengding Mountain</span></p>
+          <div class="oxid"><span class="lbl">Oxidation</span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <p class="tap-hint">Tap to see history, brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p>
+          <p class="body">A rare imperial tribute tea through the Ming and Qing dynasties. Its extra "sealing yellow" step is slow and labour-intensive, which kept it niche even in China.</p>
+          <p class="varieties"><b>Notable styles:</b> Junshan Yinzhen, Huoshan Huangya</p>
+          <p class="label">Brewing</p>
+          <p class="brew">75–85°C · 2g per 200ml · steep 2–3 min</p>
+          <p class="label">Benefits</p>
+          <ul><li>Similar antioxidants to green tea, milder on the stomach</li><li>Smoother, less grassy than green</li></ul>
+          <div class="note"><b>Know this:</b> leaves rest wrapped in cloth or paper after firing, mellowing the flavour without full oxidation — one of the rarest tea styles left.</div>
+        </div>
+      </details>
+
+      <!-- GREEN -->
+      <details class="tcard green" data-filter-tags="none">
+        <summary>
+          <div class="top">
+            <div><h3>Green Tea</h3><span class="latin">Unoxidised</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><ellipse cx="32" cy="50" rx="22" ry="4" fill="currentColor" opacity="0.12" stroke="none"/><path d="M14 24 h32 a4 4 0 0 1 4 4 c0 14 -9 24 -20 24 S10 42 10 28 a4 4 0 0 1 4 -4Z"/><path d="M18 30 h24 c0 12 -7 20 -12 20 s-12 -8 -12 -20Z" fill="currentColor" stroke="none" opacity="0.28"/><path d="M46 28 c9 -3 13 6 5 12 c-2 1.4 -5 1.6 -7 0.6" stroke-width="3"/><path d="M22 10 c5 5 -3 7 1 13 M31 6 c5 5 -3 7 1 13 M40 10 c5 5 -3 7 1 13" stroke-width="2.6" stroke-linecap="round" opacity="0.55"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>China (Zhejiang, Fujian) &amp; Japan (Uji, Shizuoka)</span></p>
+          <div class="oxid"><span class="lbl">Oxidation</span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <p class="tap-hint">Tap to see history, brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p>
+          <p class="body">Legend credits Emperor Shennong in 2737 BCE. Buddhist monks carried it to Japan by the 9th century, where it evolved into matcha and the tea ceremony.</p>
+          <p class="varieties"><b>Notable styles:</b> Dragon Well (Longjing), Sencha, Matcha, Gunpowder</p>
+          <p class="label">Brewing</p>
+          <p class="brew">70–80°C · 2g per 200ml · steep 2–3 min</p>
+          <p class="label">Benefits</p>
+          <ul><li>Rich in EGCG catechins, a potent antioxidant</li><li>L-theanine gives calm, focused energy</li></ul>
+          <div class="note"><b>Know this:</b> never use boiling water — it scorches the leaf and turns the cup bitter and grassy.</div>
+        </div>
+      </details>
+
+      <!-- OOLONG -->
+      <details class="tcard oolong" data-filter-tags="semi">
+        <summary>
+          <div class="top">
+            <div><h3>Oolong Tea</h3><span class="latin">Semi-oxidised (10–80%)</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><ellipse cx="32" cy="50" rx="22" ry="4" fill="currentColor" opacity="0.12" stroke="none"/><path d="M14 24 h32 a4 4 0 0 1 4 4 c0 14 -9 24 -20 24 S10 42 10 28 a4 4 0 0 1 4 -4Z"/><path d="M18 30 h24 c0 12 -7 20 -12 20 s-12 -8 -12 -20Z" fill="currentColor" stroke="none" opacity="0.28"/><path d="M46 28 c9 -3 13 6 5 12 c-2 1.4 -5 1.6 -7 0.6" stroke-width="3"/><path d="M22 10 c5 5 -3 7 1 13 M31 6 c5 5 -3 7 1 13 M40 10 c5 5 -3 7 1 13" stroke-width="2.6" stroke-linecap="round" opacity="0.55"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>Fujian &amp; Guangdong, China; Taiwan's high mountains</span></p>
+          <div class="oxid"><span class="lbl">Oxidation</span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+          <p class="tap-hint">Tap to see history, brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p>
+          <p class="body">Named "black dragon," it emerged in the Wuyi Mountains under the Qing dynasty. Taiwanese growers spent the 19th–20th centuries refining high-mountain versions.</p>
+          <p class="varieties"><b>Notable styles:</b> Tie Guan Yin, Da Hong Pao, Dong Ding, Taiwanese High Mountain</p>
+          <p class="label">Brewing</p>
+          <p class="brew">85–95°C · 3g per 150ml · short 3–5 min infusions, re-steeped</p>
+          <p class="label">Benefits</p>
+          <ul><li>Metabolism-supporting compounds</li><li>A calmer lift than coffee or black tea</li></ul>
+          <div class="note"><b>Know this:</b> oxidation ranges from 10–80%, so flavour swings from light and floral to dark and roasted.</div>
+        </div>
+      </details>
+
+      <!-- BLACK -->
+      <details class="tcard black" data-filter-tags="full">
+        <summary>
+          <div class="top">
+            <div><h3>Black Tea</h3><span class="latin">Fully oxidised</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><ellipse cx="32" cy="50" rx="22" ry="4" fill="currentColor" opacity="0.12" stroke="none"/><path d="M14 24 h32 a4 4 0 0 1 4 4 c0 14 -9 24 -20 24 S10 42 10 28 a4 4 0 0 1 4 -4Z"/><path d="M18 30 h24 c0 12 -7 20 -12 20 s-12 -8 -12 -20Z" fill="currentColor" stroke="none" opacity="0.4"/><path d="M46 28 c9 -3 13 6 5 12 c-2 1.4 -5 1.6 -7 0.6" stroke-width="3"/><path d="M22 10 c5 5 -3 7 1 13 M31 6 c5 5 -3 7 1 13 M40 10 c5 5 -3 7 1 13" stroke-width="2.6" stroke-linecap="round" opacity="0.55"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>China (Wuyi), India (Assam, Darjeeling), Sri Lanka, Kenya</span></p>
+          <div class="oxid"><span class="lbl">Oxidation</span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+          <p class="tap-hint">Tap to see history, brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p>
+          <p class="body">Developed in Fujian's Wuyi Mountains in the 1600s. The British East India Company's taste for it drove colonial-era plantations across Assam from the 1830s.</p>
+          <p class="varieties"><b>Notable styles:</b> Assam, Darjeeling, Ceylon, Keemun, Lapsang Souchong</p>
+          <p class="label">Brewing</p>
+          <p class="brew">95–100°C · 2.5g per 200ml · steep 3–5 min</p>
+          <p class="label">Benefits</p>
+          <ul><li>Highest caffeine of the true teas</li><li>Theaflavins linked to heart health</li></ul>
+          <div class="note"><b>Know this:</b> the base of most blends — English Breakfast, Earl Grey and classic chai all start here.</div>
+        </div>
+      </details>
+
+      <!-- DARK / PU-ERH -->
+      <details class="tcard dark" data-filter-tags="fermented">
+        <summary>
+          <div class="top">
+            <div><h3>Dark Tea (Pu-erh)</h3><span class="latin">Post-fermented &amp; aged</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="20" fill="currentColor" opacity="0.12" stroke="none"/><path d="M32 14 L32 50 M14 32 L50 32 M19 19 L45 45 M45 19 L19 45" stroke-width="1.4" opacity="0.4"/><circle cx="32" cy="32" r="6" fill="currentColor" stroke="none" opacity="0.5"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>Yunnan, China</span></p>
+          <div class="oxid"><span class="lbl">Process</span><span style="font-size:0.75rem;font-weight:600;">Fermented &amp; aged, months to decades</span></div>
+          <p class="tap-hint">Tap to see history, brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p>
+          <p class="body">Compressed into cakes for the Ancient Tea Horse Road since the Tang dynasty, so it could survive long journeys by mule — ageing was later prized much like wine.</p>
+          <p class="varieties"><b>Notable styles:</b> Sheng (raw, ages naturally), Shou (ripe, fast-fermented), Liu Bao</p>
+          <p class="label">Brewing</p>
+          <p class="brew">95–100°C · rinse leaves first, then 3–5 min, re-steeps many times</p>
+          <p class="label">Benefits</p>
+          <ul><li>Traditionally used to aid digestion</li><li>May support healthy cholesterol levels</li></ul>
+          <div class="note"><b>Know this:</b> two styles — raw <i>sheng</i>, which ages naturally over years, and ripe <i>shou</i>, fermented quickly by humid piling.</div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- HERBAL -->
+  <section id="herbal" class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">TISANES</div>
+      <h2>Herbal teas — not tea, but every bit as worth knowing</h2>
+      <p>No <i>Camellia sinensis</i> in any of these — just herbs, flowers, fruit or root, brewed the same simple way. All are naturally caffeine-free.</p>
+    </div>
+    <p class="hint">Tap a card to open it. Filter by what you're looking for.</p>
+    <div class="filter-bar" data-target="herbalGrid">
+      <button class="filter-btn active" data-filter="all">All 8</button>
+      <button class="filter-btn" data-filter="relaxation">Relaxation</button>
+      <button class="filter-btn" data-filter="digestion">Digestion</button>
+      <button class="filter-btn" data-filter="antioxidant">Antioxidant</button>
+    </div>
+    <div class="tea-grid" id="herbalGrid">
+
+      <details class="tcard chamomile" data-filter-tags="relaxation">
+        <summary>
+          <div class="top"><div><h3>Chamomile</h3><span class="latin">Matricaria chamomilla</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="5" fill="currentColor"/><g stroke="currentColor" stroke-width="2.4"><ellipse cx="24" cy="12" rx="3.4" ry="7"/><ellipse cx="24" cy="36" rx="3.4" ry="7"/><ellipse cx="12" cy="24" rx="7" ry="3.4"/><ellipse cx="36" cy="24" rx="7" ry="3.4"/><ellipse cx="15.5" cy="15.5" rx="3.4" ry="7" transform="rotate(-45 15.5 15.5)"/><ellipse cx="32.5" cy="32.5" rx="3.4" ry="7" transform="rotate(-45 32.5 32.5)"/><ellipse cx="32.5" cy="15.5" rx="3.4" ry="7" transform="rotate(45 32.5 15.5)"/><ellipse cx="15.5" cy="32.5" rx="3.4" ry="7" transform="rotate(45 15.5 32.5)"/></g></svg></div>
+          </div>
+          <p class="meta">Origin: <span>Egypt &amp; Europe</span></p>
+          <p class="tap-hint">Tap for brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p><p class="body">An ancient Egyptian medicinal herb, valued for centuries as a calming remedy.</p>
+          <p class="label">Brewing</p><p class="brew">90–95°C · steep 5–7 min</p>
+          <p class="label">Flavour &amp; caffeine</p><p class="body">Sweet, floral · caffeine-free</p>
+          <p class="label">Benefits</p><ul><li>Relaxation and better sleep</li><li>Soothes digestion</li></ul>
+          <div class="note"><b>Service tip:</b> best offered after dinner; pairs well with honey.</div>
+        </div>
+      </details>
+
+      <details class="tcard peppermint" data-filter-tags="digestion">
+        <summary>
+          <div class="top"><div><h3>Peppermint</h3><span class="latin">Mentha × piperita</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M24 6 C36 14 38 28 24 42 C10 28 12 14 24 6Z"/><path d="M24 10 V38 M24 18 c4 1.6 7 3.6 9 6 M24 27 c-4 1.6 -7 3.6 -9 6"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>Europe &amp; the Middle East</span></p>
+          <p class="tap-hint">Tap for brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p><p class="body">Used since Greek and Roman times as a digestive aid.</p>
+          <p class="label">Brewing</p><p class="brew">95°C · steep 5–7 min</p>
+          <p class="label">Flavour &amp; caffeine</p><p class="body">Cool, refreshing · caffeine-free</p>
+          <p class="label">Benefits</p><ul><li>Aids digestion</li><li>Relieves bloating</li></ul>
+          <div class="note"><b>Service tip:</b> an excellent post-meal digestive tea.</div>
+        </div>
+      </details>
+
+      <details class="tcard hibiscus" data-filter-tags="antioxidant">
+        <summary>
+          <div class="top"><div><h3>Hibiscus</h3><span class="latin">Hibiscus sabdariffa</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 48 48" fill="currentColor"><circle cx="24" cy="24" r="4.4"/><g opacity="0.88"><path d="M24 21 C19 14 14 14 12 9 C19 9 23 14 24 21Z"/><path d="M27 21 C32 14 37 14 39 9 C32 9 28 14 27 21Z"/><path d="M21 24 C14 19 14 14 9 12 C9 19 14 23 21 24Z"/><path d="M27 27 C34 32 34 37 39 39 C39 32 34 28 27 27Z"/><path d="M21 27 C14 32 14 37 9 39 C9 32 14 28 21 27Z"/></g></svg></div>
+          </div>
+          <p class="meta">Origin: <span>Africa</span></p>
+          <p class="tap-hint">Tap for brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p><p class="body">A traditional drink in Egypt and Sudan for generations.</p>
+          <p class="label">Brewing</p><p class="brew">95°C · steep 5–8 min</p>
+          <p class="label">Flavour &amp; caffeine</p><p class="body">Tart, cranberry-like · caffeine-free</p>
+          <p class="label">Benefits</p><ul><li>Rich in vitamin C</li><li>High in antioxidants</li></ul>
+          <div class="note"><b>Service tip:</b> serve iced as a refreshing welcome drink.</div>
+        </div>
+      </details>
+
+      <details class="tcard rooibos" data-filter-tags="antioxidant">
+        <summary>
+          <div class="top"><div><h3>Rooibos</h3><span class="latin">Aspalathus linearis</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M16 40 C14 28 12 16 10 6"/><path d="M22 42 C21 28 20 16 19 4"/><path d="M27 42 C28 28 29 16 30 4"/><path d="M33 40 C35 28 37 16 39 6"/><path d="M24.5 43 C24.5 28 24.5 16 24.5 8"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>South Africa</span></p>
+          <p class="tap-hint">Tap for brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p><p class="body">An indigenous Khoisan herbal drink, harvested for generations in the Cederberg region.</p>
+          <p class="label">Brewing</p><p class="brew">95–100°C · steep 5–10 min</p>
+          <p class="label">Flavour &amp; caffeine</p><p class="body">Nutty, naturally sweet · caffeine-free</p>
+          <p class="label">Benefits</p><ul><li>Antioxidants</li><li>Gentle on the stomach</li></ul>
+          <div class="note"><b>Service tip:</b> ideal caffeine-free stand-in for black tea.</div>
+        </div>
+      </details>
+
+      <details class="tcard lemongrass" data-filter-tags="digestion">
+        <summary>
+          <div class="top"><div><h3>Lemongrass</h3><span class="latin">Cymbopogon citratus</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M19 42 C17 30 21 16 26 4"/><path d="M24 42 C23 30 26 16 30 3"/><path d="M29 42 C29 30 32 18 34 6"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>India &amp; Southeast Asia</span></p>
+          <p class="tap-hint">Tap for brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p><p class="body">A staple Ayurvedic herb, used for its cooling, citrus qualities.</p>
+          <p class="label">Brewing</p><p class="brew">95°C · steep 5–7 min</p>
+          <p class="label">Flavour &amp; caffeine</p><p class="body">Citrusy, light · caffeine-free</p>
+          <p class="label">Benefits</p><ul><li>Supports digestion</li><li>Calming effect</li></ul>
+          <div class="note"><b>Service tip:</b> works well on wellness and spa menus.</div>
+        </div>
+      </details>
+
+      <details class="tcard ginger" data-filter-tags="digestion">
+        <summary>
+          <div class="top"><div><h3>Ginger</h3><span class="latin">Zingiber officinale</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 48 48" fill="currentColor" opacity="0.88"><path d="M13 27 C10 20 15 12 22 14 C24 8 33 7 37 13 C46 12 50 22 43 27 C48 32 45 42 37 42 C34 48 24 49 20 42 C11 45 5 37 13 27Z"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>South Asia</span></p>
+          <p class="tap-hint">Tap for brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p><p class="body">Central to Ayurveda and Traditional Chinese Medicine for millennia.</p>
+          <p class="label">Brewing</p><p class="brew">95–100°C · steep 7–10 min</p>
+          <p class="label">Flavour &amp; caffeine</p><p class="body">Spicy, warming · caffeine-free</p>
+          <p class="label">Benefits</p><ul><li>Eases nausea and aids digestion</li><li>Supports immunity</li></ul>
+          <div class="note"><b>Service tip:</b> popular in monsoon and winter as a warming drink.</div>
+        </div>
+      </details>
+
+      <details class="tcard lavender" data-filter-tags="relaxation">
+        <summary>
+          <div class="top"><div><h3>Lavender</h3><span class="latin">Lavandula angustifolia</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M24 44 V22" stroke-linecap="round"/><g fill="currentColor" stroke="none" opacity="0.85"><ellipse cx="24" cy="10" rx="4.2" ry="6"/><ellipse cx="19" cy="14" rx="4.2" ry="6" transform="rotate(-30 19 14)"/><ellipse cx="29" cy="14" rx="4.2" ry="6" transform="rotate(30 29 14)"/><ellipse cx="24" cy="19" rx="4.2" ry="6"/><ellipse cx="19.5" cy="22" rx="4.2" ry="6" transform="rotate(-25 19.5 22)"/><ellipse cx="28.5" cy="22" rx="4.2" ry="6" transform="rotate(25 28.5 22)"/></g></svg></div>
+          </div>
+          <p class="meta">Origin: <span>Mediterranean, chiefly Provence, France</span></p>
+          <p class="tap-hint">Tap for brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p><p class="body">Used since Roman times for bathing, perfumery, and calming remedies.</p>
+          <p class="label">Brewing</p><p class="brew">90–95°C · steep 4–5 min</p>
+          <p class="label">Flavour &amp; caffeine</p><p class="body">Floral, slightly sweet · caffeine-free</p>
+          <p class="label">Benefits</p><ul><li>May ease anxiety and tension headaches</li><li>Supports restful sleep</li></ul>
+          <div class="note"><b>Service tip:</b> blends beautifully with chamomile for a bedtime pot.</div>
+        </div>
+      </details>
+
+      <details class="tcard turmeric" data-filter-tags="antioxidant digestion">
+        <summary>
+          <div class="top"><div><h3>Turmeric</h3><span class="latin">Curcuma longa</span></div>
+            <div class="icon-badge"><svg viewBox="0 0 48 48" fill="currentColor" opacity="0.88"><path d="M16 30 C12 22 18 13 26 16 C30 10 40 12 41 20 C46 24 44 33 37 34 C36 41 26 44 22 38 C13 39 9 32 16 30Z"/></svg></div>
+          </div>
+          <p class="meta">Origin: <span>South Asia, primarily India</span></p>
+          <p class="tap-hint">Tap for brewing &amp; benefits →</p>
+          <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="body-wrap">
+          <p class="label">History</p><p class="body">Central to Ayurveda for thousands of years, used as both medicine and dye.</p>
+          <p class="label">Brewing</p><p class="brew">Simmer 8–10 min, often with black pepper &amp; ginger for absorption</p>
+          <p class="label">Flavour &amp; caffeine</p><p class="body">Earthy, warm, peppery · caffeine-free</p>
+          <p class="label">Benefits</p><ul><li>Curcumin has anti-inflammatory properties</li><li>Traditionally used for joint comfort</li></ul>
+          <div class="note"><b>Service tip:</b> popular as "golden milk" — simmered with milk and honey.</div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- CULTURE -->
+  <section id="culture" class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">RITUAL &amp; SERVICE</div>
+      <h2>Tea around the world</h2>
+      <p>The same leaf, shaped into six very different rituals — worth knowing for anyone serving guests from these traditions.</p>
+    </div>
+    <div class="culture-grid">
+      <div class="cculture">
+        <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M14 22 h20 v6 c0 8 -4.5 14 -10 14 S14 36 14 28Z"/><path d="M34 24 c6 -2 8 4 3 8"/><ellipse cx="24" cy="22" rx="10" ry="2.4"/></svg></div>
+        <div><h4>China — Gongfu Cha</h4><p>Small clay Yixing pots and many short, deliberate infusions, treating tea appreciation as a slow, attentive ritual rather than a quick drink.</p></div>
+      </div>
+      <div class="cculture">
+        <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 22 a12 6 0 0 0 24 0 Z"/><path d="M12 22 c0 8 5.4 14 12 14 s12 -6 12 -14"/><path d="M24 6 v8"/></svg></div>
+        <div><h4>Japan — Chanoyu</h4><p>Matcha whisked to a froth in a ceremony rooted in wabi-sabi — imperfection, stillness, and quiet hospitality practised in dedicated tea houses.</p></div>
+      </div>
+      <div class="cculture">
+        <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 20 h18 a4 4 0 0 1 4 4 c0 8 -5 13 -13 13 S8 32 8 24 a4 4 0 0 1 4 -4z"/><path d="M34 22 c6 -2 8 4 2 8"/></svg></div>
+        <div><h4>Britain — Afternoon Tea</h4><p>Black tea with milk, plus scones and finger sandwiches — a tradition credited to the Duchess of Bedford in the 1840s to bridge the gap to a late dinner.</p></div>
+      </div>
+      <div class="cculture">
+        <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M16 18 h12 v6 c0 8 -3 14 -6 14 s-6 -6 -6 -14Z"/><path d="M12 26 c4 6 12 6 16 0" opacity="0.6"/></svg></div>
+        <div><h4>India — Masala Chai</h4><p>Black tea boiled with milk, sugar, and warming spices — cardamom, ginger, cloves, cinnamon — sold fresh by chai-wallahs on nearly every street corner.</p></div>
+      </div>
+      <div class="cculture">
+        <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M18 14 h12 v22 h-12 Z"/><path d="M12 22 c4 -3 8 3 12 0" opacity="0.6"/></svg></div>
+        <div><h4>Morocco — Atay (Mint Tea)</h4><p>Green tea with fresh mint and sugar, poured from height into small glasses to build a foam — a ritual gesture of hospitality offered to every guest.</p></div>
+      </div>
+      <div class="cculture">
+        <div class="icon-badge"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M16 30 a8 8 0 0 1 16 0 v4 h-16Z"/><rect x="20" y="12" width="8" height="10" rx="2"/><path d="M12 34 h24"/></svg></div>
+        <div><h4>Russia — Samovar Tea</h4><p>A strong concentrate (zavarka) brewed separately and diluted to taste with hot water from a samovar, often sipped with jam or a sugar cube.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HEALTH -->
+  <section id="health" class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">WHAT'S ACTUALLY IN THE CUP</div>
+      <h2>Tea's key compounds</h2>
+      <p>Most of what tea is known for traces back to a handful of naturally occurring compounds — present in different amounts depending on how the leaf was processed.</p>
+    </div>
+    <div class="health-grid">
+      <div>
+        <div class="compound"><h4>Polyphenols &amp; catechins</h4><p>Plant antioxidants, most concentrated in unoxidised teas. EGCG, the standout catechin in green tea, is one of the most studied antioxidants in the plant kingdom.</p></div>
+        <div class="compound"><h4>Theaflavins &amp; thearubigins</h4><p>Formed as catechins oxidise during black tea processing — they give black tea its colour and are linked to cardiovascular benefits.</p></div>
+        <div class="compound"><h4>L-theanine</h4><p>An amino acid found almost exclusively in tea. It promotes calm, focused alertness and takes the edge off caffeine's jitteriness.</p></div>
+        <div class="compound"><h4>Caffeine</h4><p>Naturally occurring stimulant; the amount varies by tea type, leaf grade, water temperature, and steep time — not just by category.</p></div>
+      </div>
+      <div>
+        <h4 style="font-size:0.9rem;margin-bottom:0.8rem;">Relative caffeine per cup (approximate)</h4>
+        <div class="bar-row"><span class="name">White</span><div class="bar-track"><div class="bar-fill" style="width:28%;"></div></div><span class="val">Low</span></div>
+        <div class="bar-row"><span class="name">Green</span><div class="bar-track"><div class="bar-fill" style="width:34%;"></div></div><span class="val">Low–med</span></div>
+        <div class="bar-row"><span class="name">Yellow</span><div class="bar-track"><div class="bar-fill" style="width:34%;"></div></div><span class="val">Low–med</span></div>
+        <div class="bar-row"><span class="name">Oolong</span><div class="bar-track"><div class="bar-fill" style="width:55%;"></div></div><span class="val">Medium</span></div>
+        <div class="bar-row"><span class="name">Pu-erh</span><div class="bar-track"><div class="bar-fill" style="width:60%;"></div></div><span class="val">Medium</span></div>
+        <div class="bar-row"><span class="name">Black</span><div class="bar-track"><div class="bar-fill" style="width:80%;"></div></div><span class="val">High</span></div>
+        <div class="bar-row"><span class="name">Coffee</span><div class="bar-track"><div class="bar-fill" style="width:100%; background:var(--black-t);"></div></div><span class="val">Highest</span></div>
+        <div class="bar-row"><span class="name">Herbal</span><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><span class="val">None</span></div>
+        <p style="font-size:0.74rem; color:var(--ink-soft); margin-top:0.6rem;">Figures are approximate and shown for reference only — actual caffeine depends heavily on leaf grade, water temperature and steep time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREWING GUIDE -->
+  <section id="brewing" class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">GET IT RIGHT</div>
+      <h2>Brewing guide, at a glance</h2>
+      <p>Water temperature is the single most common mistake — too hot for a delicate tea scorches it; too cool for a robust one under-extracts it.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Oxidation</th><th>Water Temp</th><th>Leaf Amount</th><th>Steep Time</th><th>Re-steeping</th></tr></thead>
+        <tbody>
+          <tr><td>White</td><td>Minimal</td><td>75–85°C</td><td>2g / 200ml</td><td>4–5 min</td><td>1–2 times</td></tr>
+          <tr><td>Yellow</td><td>Light</td><td>75–85°C</td><td>2g / 200ml</td><td>2–3 min</td><td>1–2 times</td></tr>
+          <tr><td>Green</td><td>None</td><td>70–80°C</td><td>2g / 200ml</td><td>2–3 min</td><td>2–3 times</td></tr>
+          <tr><td>Oolong</td><td>10–80%</td><td>85–95°C</td><td>3g / 150ml</td><td>3–5 min</td><td>3–5+ times</td></tr>
+          <tr><td>Black</td><td>Full</td><td>95–100°C</td><td>2.5g / 200ml</td><td>3–5 min</td><td>1–2 times</td></tr>
+          <tr><td>Dark / Pu-erh</td><td>Fermented</td><td>95–100°C</td><td>3g / 150ml</td><td>rinse, then 3–5 min</td><td>5+ times</td></tr>
+          <tr><td>Herbal / Tisane</td><td>N/A</td><td>90–100°C</td><td>1.5–2g / 200ml</td><td>5–10 min</td><td>Rarely</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- STORAGE -->
+  <section id="storage" class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">KEEP IT FRESH</div>
+      <h2>Storage &amp; serving notes</h2>
+    </div>
+    <div class="tips-grid">
+      <div class="tip"><h4>Air, light, heat, moisture</h4><p>The four enemies of tea. Store leaves airtight, away from sunlight and away from strong-smelling foods or spices, which tea absorbs readily.</p></div>
+      <div class="tip"><h4>Use it within its window</h4><p>Green and white teas taste best within 6–12 months of production; black and oolong hold up longer. Pu-erh is the exception — it's meant to age for years.</p></div>
+      <div class="tip"><h4>Water quality matters</h4><p>Heavily chlorinated or very hard water flattens flavour — filtered water gives a noticeably cleaner cup.</p></div>
+      <div class="tip"><h4>Bitterness is usually a brewing fault</h4><p>Over-steeping or over-heating the water is the most common cause of a bitter cup, not the tea itself.</p></div>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section id="glossary" class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">SPEAK THE LANGUAGE</div>
+      <h2>Glossary of tea terms</h2>
+    </div>
+    <p class="hint">Tap a term to reveal its definition.</p>
+    <dl class="glossary">
+      <details class="gterm"><summary>Oxidation <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>The chemical reaction between leaf enzymes and oxygen that darkens the leaf and deepens flavour — the main axis separating tea types.</dd></details>
+      <details class="gterm"><summary>Flush <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>A harvest period. Darjeeling's "first flush" (spring) is light and floral; the "second flush" (summer) is fuller and muscatel.</dd></details>
+      <details class="gterm"><summary>Terroir <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>How soil, altitude and climate at a specific origin shape a tea's character — the same idea used for wine.</dd></details>
+      <details class="gterm"><summary>Orthodox vs. CTC <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>Orthodox tea is rolled whole-leaf by hand or gentle machine; CTC (Crush-Tear-Curl) is cut into small uniform pellets for strong, fast-brewing tea, common in chai.</dd></details>
+      <details class="gterm"><summary>Single-origin <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>Tea from one estate or garden, kept unblended, so its specific terroir and character come through.</dd></details>
+      <details class="gterm"><summary>Tisane <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>The correct term for any herbal infusion that contains no Camellia sinensis — technically not "tea" at all.</dd></details>
+      <details class="gterm"><summary>Liquor <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>The tea industry's term for the brewed liquid itself — its colour, clarity and taste.</dd></details>
+      <details class="gterm"><summary>Astringency <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>The dry, puckering sensation from tannins, especially in over-steeped or high-temperature brewed tea.</dd></details>
+      <details class="gterm"><summary>Umami <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>A savoury depth found especially in shade-grown Japanese greens like gyokuro and matcha.</dd></details>
+      <details class="gterm"><summary>Flowering tea <span class="chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></span></summary><dd>Hand-tied bundles of tea leaves and flowers that unfurl into a bloom shape when steeped in hot water.</dd></details>
+    </dl>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="author">Compiled by Kamal Kant Gautam</div>
+    <div class="note">A complete reference guide to the world of tea — true teas, herbal tisanes, brewing, culture and care.</div>
+  </div>
+</footer>
+
+<button id="topBtn" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+  // Category filters
+  document.querySelectorAll('.filter-bar').forEach(function(bar){
+    var grid = document.getElementById(bar.getAttribute('data-target'));
+    if(!grid) return;
+    var buttons = bar.querySelectorAll('.filter-btn');
+    buttons.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        buttons.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var val = btn.getAttribute('data-filter');
+        grid.querySelectorAll('[data-filter-tags]').forEach(function(card){
+          var tags = card.getAttribute('data-filter-tags').split(' ');
+          card.style.display = (val === 'all' || tags.indexOf(val) !== -1) ? '' : 'none';
+        });
+      });
+    });
+  });
+
+  // Back to top button
+  var topBtn = document.getElementById('topBtn');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 420){ topBtn.classList.add('show'); }
+    else { topBtn.classList.remove('show'); }
+  });
+  topBtn.addEventListener('click', function(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+<a href="../index.html" style="position:fixed;top:12px;left:12px;z-index:9999;padding:8px 14px;border-radius:999px;background:rgba(20,20,24,.72);color:#fff;font:600 13px system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(10px)">← Flavour IQ</a></body>
+</html>

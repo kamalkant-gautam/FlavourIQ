@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pasta Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<script>document.documentElement.className='js';</script>
+<style>
+:root{--cream:#fbf4e4;--semolina:#f2dfa8;--durum:#d9a441;--gold:#b8801f;--tomato:#c0392b;--basil:#3f6b3a;--ink:#2b2118;--mute:#6b5a48;--card:#fffaf0;--line:#e6d5ab;--navbg:rgba(251,244,228,.95);--bowl:#fff7e3;--inkbox:#2b2118;--onink:#fbf4e4}
+html[data-theme=dark]{--cream:#17120d;--semolina:#3a2e17;--card:#221a12;--ink:#f3e8d0;--mute:#bba98c;--line:#3a2d1e;--navbg:rgba(23,18,13,.95);--bowl:#3a2d1e;--inkbox:#2e2418;--onink:#f3e8d0;--gold:#e0a840}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Karla',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;transition:background .3s,color .3s}
+h1,h2,h3,.nm{font-family:'Fraunces',serif}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--tomato);z-index:90}
+nav{position:sticky;top:0;z-index:50;background:var(--navbg);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:10px 64px 10px 14px;justify-content:center}
+nav a{white-space:nowrap;text-decoration:none;color:var(--ink);font-size:.88rem;font-weight:500;padding:5px 12px;border-radius:20px}
+nav a:hover{background:var(--semolina)}
+#theme{position:fixed;top:6px;right:10px;z-index:95;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:1.15rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.hero{text-align:center;padding:48px 20px 44px;background:radial-gradient(circle at 50% 0,var(--semolina),var(--cream) 70%)}
+.hsv{width:230px;max-width:70%;height:auto;margin-bottom:6px;overflow:visible}
+.steam path{animation:st 3s ease-in infinite;opacity:0}
+@keyframes st{0%{transform:translateY(12px);opacity:0}40%{opacity:.9}100%{transform:translateY(-16px);opacity:0}}
+.bob{animation:bob 4s ease-in-out infinite alternate;transform-origin:120px 110px}
+@keyframes bob{to{transform:translateY(-4px) rotate(-1.5deg)}}
+.eyebrow{letter-spacing:.2em;text-transform:uppercase;font-size:.75rem;color:var(--tomato);font-weight:700}
+.hero h1{font-size:clamp(2.4rem,7vw,4.2rem);font-weight:800;line-height:1.05;margin:8px 0 12px}
+.hero h1 em{color:var(--tomato);font-weight:400}
+.hero p{max-width:560px;margin:auto;color:var(--mute);font-size:1.05rem}
+section{max-width:1060px;margin:auto;padding:40px 20px}
+.kick{color:var(--gold);font-weight:700;letter-spacing:.16em;font-size:.72rem;text-transform:uppercase}
+h2{font-size:clamp(1.7rem,4vw,2.4rem);margin:4px 0 12px;font-weight:600}
+.lead{max-width:700px;color:var(--mute);margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;transition:transform .3s,box-shadow .3s}
+.box:hover,.card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(120,80,10,.15)}
+.box h3{font-size:1.05rem;margin-bottom:6px;color:var(--tomato)}
+.box p{font-size:.92rem;color:var(--mute)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:14px}
+.stat{background:var(--inkbox);color:var(--onink);border-radius:12px;padding:14px;text-align:center}
+.stat b{display:block;font-family:'Fraunces',serif;font-size:1.5rem;color:var(--durum)}
+.stat span{font-size:.8rem;opacity:.85}
+.tl{border-left:3px solid var(--durum);margin-left:8px;padding-left:22px}
+.tl div{position:relative;margin-bottom:18px}
+.tl div:before{content:"";position:absolute;left:-30px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--tomato);border:3px solid var(--cream)}
+.tl b{font-family:'Fraunces',serif;color:var(--gold)}
+.tl p{color:var(--mute);font-size:.94rem}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.step{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px 14px;position:relative}
+.step:before{content:counter(s);position:absolute;top:-12px;left:16px;background:var(--tomato);color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.step h3{font-size:1.02rem;margin:4px 0}
+.step p{font-size:.9rem;color:var(--mute)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.filters button{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--card);padding:6px 14px;border-radius:20px;cursor:pointer;color:var(--ink)}
+.filters button.on,.filters button:hover{background:var(--tomato);color:#fff;border-color:var(--tomato)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.art{background:radial-gradient(circle at 50% 45%,var(--semolina),transparent 78%);padding:10px 8px 0}
+.art svg{width:100%;height:150px;animation:fl 5s ease-in-out infinite alternate;transition:transform .4s}
+.card:nth-child(2n) .art svg{animation-delay:-2s}.card:nth-child(3n) .art svg{animation-delay:-3.5s}
+.card:hover .art svg{transform:scale(1.07) rotate(-2deg)}
+@keyframes fl{to{transform:translateY(-5px)}}
+.ci{padding:6px 16px 16px;font-size:.88rem;color:var(--mute)}
+.ci .nm{font-size:1.2rem;font-weight:600;color:var(--ink);display:block}
+.tag{font-size:.7rem;color:var(--basil);font-weight:700;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:6px}
+html[data-theme=dark] .tag{color:#8fc08a}
+.ci p{margin-top:5px}.ci b{color:var(--ink)}
+.rule{background:var(--inkbox);color:var(--onink);border-radius:16px;padding:22px;margin-top:24px}
+.rule h3{color:var(--durum);margin-bottom:8px}
+.rule li{margin:4px 0 4px 18px;font-size:.93rem}
+.gl{background:var(--card);border:1px solid var(--line);border-radius:14px}
+.gl summary{cursor:pointer;padding:14px 16px;font-family:'Fraunces',serif;font-size:1.1rem;font-weight:600}
+.gl dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 28px;padding:4px 16px 18px}
+.gl dt{font-family:'Fraunces',serif;font-weight:600;color:var(--tomato)}
+.gl dd{font-size:.9rem;color:var(--mute);margin-bottom:6px}
+footer{text-align:center;padding:34px 20px 70px;color:var(--mute);font-size:.9rem;border-top:1px solid var(--line)}
+.fab{position:fixed;right:16px;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3);z-index:85}
+#top{bottom:18px;background:var(--ink);color:var(--cream);opacity:0;transform:scale(.7);pointer-events:none;transition:.25s}
+#top.show{opacity:1;transform:none;pointer-events:auto}
+#ask{bottom:80px;background:var(--tomato);color:#fff}
+.fab svg{width:24px;height:24px}
+#modal{position:fixed;inset:0;background:rgba(30,20,10,.6);display:none;place-items:center;z-index:100;padding:16px}
+#modal.open{display:grid}
+.mc{background:var(--cream);color:var(--ink);border-radius:16px;padding:24px;width:100%;max-width:400px;position:relative}
+.mc h3{font-size:1.3rem;margin-bottom:4px}
+.mc p{font-size:.88rem;color:var(--mute);margin-bottom:12px}
+.mc input,.mc textarea{width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px;margin-bottom:10px;background:var(--card);color:var(--ink)}
+.mc textarea{min-height:100px;resize:vertical}
+.mc button[type=submit]{width:100%;background:var(--tomato);color:#fff;border:none;padding:11px;border-radius:8px;font:inherit;font-weight:700;cursor:pointer}
+.mc button:disabled{opacity:.6}
+.x{position:absolute;top:8px;right:12px;background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--mute)}
+.js .rv{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
+</style>
+<link rel="icon" href="../assets/favicon.png"></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8e6a6"/><stop offset=".55" stop-color="#e3b24c"/><stop offset="1" stop-color="#b98a14"/></linearGradient>
+<linearGradient id="ge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe9a0"/><stop offset=".55" stop-color="#f1c640"/><stop offset="1" stop-color="#c99414"/></linearGradient>
+<radialGradient id="gr" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#fbe9a8"/><stop offset=".6" stop-color="#e3b24c"/><stop offset="1" stop-color="#b98a14"/></radialGradient>
+</defs></svg>
+<div id="prog"></div>
+<button id="theme" aria-label="Toggle dark or light mode">🌙</button>
+<nav>
+<a href="#basics">Basics</a><a href="#history">History</a><a href="#making">Making</a><a href="#shapes">Types &amp; Shapes</a><a href="#sauces">Sauces</a><a href="#cook">Cooking</a><a href="#glossary">Glossary</a>
+</nav>
+
+<header class="hero">
+<svg class="hsv" viewBox="0 0 240 200" fill="none" stroke-linecap="round">
+<ellipse cx="120" cy="112" rx="90" ry="14" fill="none" stroke="var(--ink)" stroke-width="4"/>
+<g class="steam" stroke="#d9a441" stroke-width="3"><path d="M95 52c-8-10 8-14 0-26"/><path d="M120 46c-8-10 8-14 0-26" style="animation-delay:.8s"/><path d="M146 52c-8-10 8-14 0-26" style="animation-delay:1.6s"/></g>
+<path d="M30 112Q30 186 120 186T210 112Z" fill="var(--card)" stroke="var(--ink)" stroke-width="4"/>
+<path d="M44 150Q120 176 196 150" stroke="#c0392b" stroke-width="5"/>
+<g class="bob">
+<path d="M52 112Q56 50 120 50T188 112Z" fill="#e3b24c" stroke="#a87418" stroke-width="2"/>
+<g stroke-width="5"><path d="M56 110Q120 34 184 110" stroke="#a87418"/><path d="M62 110Q120 44 178 110" stroke="#f8e6a6"/><path d="M70 110Q120 54 170 110" stroke="#c99414"/><path d="M78 110Q120 62 162 110" stroke="#f8e6a6"/><path d="M88 110Q120 70 152 110" stroke="#a87418"/><path d="M98 110Q120 80 142 110" stroke="#f8e6a6"/></g>
+<ellipse cx="120" cy="66" rx="22" ry="12" fill="#c0392b"/><ellipse cx="113" cy="62" rx="7" ry="3" fill="#e8735a"/>
+<path d="M126 62Q142 40 156 52Q146 70 126 62Z" fill="#3f6b3a"/><path d="M128 61L150 52" stroke="#9fd09a" stroke-width="1.5"/>
+</g>
+</svg>
+<div class="eyebrow">Compiled by Kamal Kant Gautam</div>
+<h1>The Pasta <em>Guide</em></h1>
+<p>From a handful of flour and water to hundreds of shapes — what pasta is, how it's made, where it came from, how each shape looks and feels, and which sauce belongs with it.</p>
+</header>
+
+<section id="basics">
+<div class="kick rv">The Foundation</div><h2 class="rv">What Is Pasta?</h2>
+<p class="lead rv">Pasta is an unleavened dough of wheat flour and water (or eggs), shaped, then cooked in boiling water. Simple ingredients, endless variety — the shape, the flour and the sauce decide everything.</p>
+<div class="grid rv">
+<div class="box"><h3>Durum Semolina</h3><p>Coarse flour from hard durum wheat. High in protein and gluten, it gives dried pasta its golden colour and firm "al dente" bite.</p></div>
+<div class="box"><h3>Soft Wheat (00)</h3><p>Finely milled, silky and tender. Mixed with eggs, it makes delicate fresh pasta such as tagliatelle and filled pastas.</p></div>
+<div class="box"><h3>Water or Eggs</h3><p>Dried pasta is usually semolina and water only. Fresh egg pasta uses roughly one egg per 100 g of flour for a rich, supple dough.</p></div>
+<div class="box"><h3>Other Grains</h3><p>Whole wheat, buckwheat, chickpea, lentil and rice flours make wholegrain and gluten-free versions. Colour can come from spinach, beetroot, tomato or squid ink.</p></div>
+</div>
+<div class="two rv">
+<div class="box"><h3>Fresh Pasta (Pasta Fresca)</h3><p>Egg and soft flour, rolled and cut by hand or machine. Soft and tender, cooks in 2–4 minutes. Best with butter, cream and light sauces. Short shelf life.</p></div>
+<div class="box"><h3>Dried Pasta (Pasta Secca)</h3><p>Semolina and water, extruded and slow-dried. Firm, holds its shape, cooks in 8–12 minutes. Keeps for up to two years and carries robust, oily or tomato-based sauces.</p></div>
+</div>
+<div class="stats rv"><div class="stat"><b>350+</b><span>recorded shapes</span></div><div class="stat"><b>~1 L</b><span>water per 100 g</span></div><div class="stat"><b>8–12 min</b><span>dried cook time</span></div><div class="stat"><b>2 yrs</b><span>dried shelf life</span></div></div>
+</section>
+
+<section id="history">
+<div class="kick rv">Through the Ages</div><h2 class="rv">A Brief History</h2>
+<div class="tl rv">
+<div><b>Ancient roots</b><p>Noodle-like doughs appear in many early cultures. Etruscan and Roman tables knew <i>lagana</i>, a flat baked sheet that is a distant ancestor of lasagne.</p></div>
+<div><b>~12th century — Sicily</b><p>Dried pasta is documented in Sicily, where durum wheat grows well. The geographer al-Idrisi describes strands of dough made and exported near Palermo.</p></div>
+<div><b>13th–14th century</b><p>Dried pasta travels by sea from ports like Genoa and Naples. Its long shelf life suits ships and trade. The Marco Polo story is a popular myth — pasta was already in Italy.</p></div>
+<div><b>17th–18th century — Naples</b><p>Mechanical presses and drying racks make pasta cheap and plentiful. Naples becomes the pasta capital.</p></div>
+<div><b>19th century</b><p>Tomato sauce joins pasta, creating the pairing now seen as classic. Factories scale up production.</p></div>
+<div><b>20th century onward</b><p>Pasta spreads worldwide with migration, with regional shapes plus wholegrain and gluten-free versions.</p></div>
+</div>
+</section>
+
+<section id="making">
+<div class="kick rv">From Wheat to Plate</div><h2 class="rv">How Pasta Is Made</h2>
+<div class="steps rv">
+<div class="step"><h3>Milling</h3><p>Durum wheat is cleaned and milled into coarse semolina.</p></div>
+<div class="step"><h3>Mixing</h3><p>Semolina and water (or eggs) become a crumbly dough, kneaded until smooth and elastic.</p></div>
+<div class="step"><h3>Shaping</h3><p>Dough is rolled into sheets and cut, or pushed through a die. Bronze dies leave a rough surface that holds sauce; Teflon dies give a smoother finish.</p></div>
+<div class="step"><h3>Drying</h3><p>Dried pasta is dried slowly under controlled heat and humidity, from hours to a couple of days, for strength and flavour.</p></div>
+<div class="step"><h3>Resting &amp; Packing</h3><p>Fresh pasta is rested, cut and used or chilled quickly. Dried pasta is cooled and packed.</p></div>
+<div class="step"><h3>Cooking</h3><p>Boiled in well-salted water to al dente, then finished in the sauce with a splash of starchy pasta water.</p></div>
+</div>
+</section>
+
+<section id="shapes">
+<div class="kick rv">The Shape Directory</div><h2 class="rv">Major Types of Pasta</h2>
+<p class="lead rv">Each card shows what the pasta looks like — its shape, colour and surface — plus how to recognise it and where it is best used. Filter by family.</p>
+<div class="filters" id="filters"></div>
+<div class="cards" id="cards"></div>
+<div class="rule rv"><h3>The Golden Rule of Pairing</h3><ul>
+<li><b>Thin strands</b> (spaghetti, capellini) — light oil, garlic and thin tomato sauces.</li>
+<li><b>Flat ribbons</b> (fettuccine, tagliatelle, pappardelle) — cream and slow-cooked meat ragù.</li>
+<li><b>Tubes and ridges</b> (rigatoni, penne) — chunky sauces and bakes that fill the hollows.</li>
+<li><b>Twists and shells</b> (fusilli, conchiglie) — pesto, chunky vegetables, cold salads.</li>
+<li><b>Tiny shapes</b> (orzo) — soups and light dishes.</li></ul></div>
+</section>
+
+<section id="sauces">
+<div class="kick rv">The Other Half</div><h2 class="rv">Popular Sauces Explained</h2>
+<p class="lead rv">What each sauce is, what goes into it, and how it tastes and feels — plus the shapes that suit it.</p>
+<div class="cards" id="sauceCards"></div>
+</section>
+
+<section id="cook">
+<div class="kick rv">Good Habits</div><h2 class="rv">Cooking Pasta Well</h2>
+<div class="grid rv">
+<div class="box"><h3>Salt the Water</h3><p>About 10 g per litre. It should taste lightly of the sea — the only chance to season the pasta itself.</p></div>
+<div class="box"><h3>Plenty of Water</h3><p>A large pot at a rolling boil so pasta moves freely. No oil needed.</p></div>
+<div class="box"><h3>Al Dente</h3><p>Taste a minute before the packet time. Tender, with slight firmness at the centre.</p></div>
+<div class="box"><h3>Save Pasta Water</h3><p>The starchy water binds sauce to pasta. Add a ladle while tossing for a glossy finish.</p></div>
+<div class="box"><h3>Finish in the Pan</h3><p>Move pasta into the sauce for the last minute so flavours marry. Do not rinse.</p></div>
+<div class="box"><h3>Serve Right Away</h3><p>Pasta keeps cooking and firms up fast. Plate hot, cheese and herbs at the last moment.</p></div>
+</div>
+</section>
+
+<section id="glossary">
+<div class="kick rv">Speak the Language</div><h2 class="rv">Pasta Vocabulary</h2>
+<details class="gl rv"><summary>Open the glossary (12 terms)</summary>
+<dl>
+<div><dt>Al dente</dt><dd>"To the tooth" — cooked but still slightly firm.</dd></div>
+<div><dt>Semolina</dt><dd>Coarsely ground durum wheat used for dried pasta.</dd></div>
+<div><dt>Durum</dt><dd>A hard wheat rich in protein and gluten.</dd></div>
+<div><dt>Bronze die</dt><dd>Metal extruder plate that gives a rough, sauce-gripping surface.</dd></div>
+<div><dt>Pasta fresca</dt><dd>Fresh pasta, usually made with eggs.</dd></div>
+<div><dt>Pasta secca</dt><dd>Dried pasta, usually semolina and water.</dd></div>
+<div><dt>Ragù</dt><dd>Slow-cooked meat sauce.</dd></div>
+<div><dt>Pasta water</dt><dd>Starchy cooking water used to bind and loosen sauce.</dd></div>
+<div><dt>Mantecare</dt><dd>To toss vigorously with fat and starch until creamy.</dd></div>
+<div><dt>Sfoglia</dt><dd>A thin sheet of rolled fresh pasta dough.</dd></div>
+<div><dt>Rigate</dt><dd>Ridged; the grooves hold more sauce.</dd></div>
+<div><dt>Lisce</dt><dd>Smooth; best with lighter, slippery sauces.</dd></div>
+</dl></details>
+</section>
+
+<footer>Compiled by Kamal Kant Gautam</footer>
+
+<button class="fab" id="ask" aria-label="Have a query?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg></button>
+<button class="fab" id="top" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></button>
+
+<div id="modal"><div class="mc"><button class="x" id="close" aria-label="Close" type="button">&times;</button>
+<h3>Have a query?</h3><p>Send your question and it will reach the author directly.</p>
+<form id="form"><input type="text" name="name" placeholder="Your name" required><input type="email" name="email" placeholder="Your email" required><textarea name="message" placeholder="Your query or message" required></textarea><button type="submit">Submit</button></form></div></div>
+
+<script>
+(function(){
+var sd=7;function R(){sd=sd*16807%2147483647;return sd/2147483647}
+function C(c){return c=='e'?['#f1c640','#fbe9a0','#b58610']:['#e3b24c','#f8e6a6','#a87418']}
+function tube(cx,cy,rot,L,H,rg,c,pen){var k=C(c),b=k[0],h=k[1],d=k[2],g='<g transform="translate('+cx+' '+cy+') rotate('+rot+')">',i,y;
+if(pen){var q=H/2;g+='<polygon points="'+(-L/2-q)+','+H/2+' '+(-L/2+q)+','+(-H/2)+' '+(L/2+q)+','+(-H/2)+' '+(L/2-q)+','+H/2+'" fill="'+b+'" stroke="'+d+'" stroke-width="1.5" stroke-linejoin="round"/>';
+for(i=1;i<=rg;i++){y=-H/2+i*H/(rg+1);g+='<line x1="'+(-L/2-y+4)+'" y1="'+y+'" x2="'+(L/2-y-4)+'" y2="'+y+'" stroke="'+d+'" stroke-width="1" opacity=".55"/>'}
+g+='<line x1="'+(-L/2+H/2+6)+'" y1="'+(-H/2+3)+'" x2="'+(L/2+H/2-8)+'" y2="'+(-H/2+3)+'" stroke="'+h+'" stroke-width="2" opacity=".8"/><ellipse cx="'+L/2+'" cy="0" rx="'+H*.2+'" ry="'+H*.7+'" transform="rotate(45 '+L/2+' 0)" fill="'+h+'" stroke="'+d+'"/><ellipse cx="'+L/2+'" cy="0" rx="'+H*.11+'" ry="'+H*.5+'" transform="rotate(45 '+L/2+' 0)" fill="#6b4710"/>'}
+else{g+='<rect x="'+(-L/2)+'" y="'+(-H/2)+'" width="'+L+'" height="'+H+'" rx="5" fill="'+b+'" stroke="'+d+'" stroke-width="1.5"/>';
+for(i=1;i<=rg;i++){y=-H/2+i*H/(rg+1);g+='<line x1="'+(-L/2+3)+'" y1="'+y+'" x2="'+(L/2-3)+'" y2="'+y+'" stroke="'+d+'" stroke-width="1.2" opacity=".6"/>'}
+g+='<line x1="'+(-L/2+6)+'" y1="'+(-H/2+3)+'" x2="'+(L/2-6)+'" y2="'+(-H/2+3)+'" stroke="'+h+'" stroke-width="2" opacity=".8"/><ellipse cx="'+L/2+'" cy="0" rx="'+H*.2+'" ry="'+H/2+'" fill="'+h+'" stroke="'+d+'"/><ellipse cx="'+L/2+'" cy="0" rx="'+H*.11+'" ry="'+H*.36+'" fill="#6b4710"/>'}
+return g+'</g>'}
+function elbow(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M0,0V46Q0,84 38,84H78" fill="none" stroke="#a87418" stroke-width="30"/><path d="M0,0V46Q0,84 38,84H78" fill="none" stroke="#e3b24c" stroke-width="26"/><path d="M-6,0V46Q-6,78 38,78H78" fill="none" stroke="#f8e6a6" stroke-width="5" opacity=".7"/><ellipse cx="0" cy="0" rx="13" ry="5" fill="#6b4710" stroke="#a87418"/><ellipse cx="78" cy="84" rx="5" ry="13" fill="#6b4710" stroke="#a87418"/></g>'}
+function spiral(cx,cy,rot){var g='<g transform="translate('+cx+' '+cy+') rotate('+rot+')">',i,y;for(i=0;i<8;i++){y=-44+i*12;g+='<line x1="-26" y1="'+(y+10)+'" x2="26" y2="'+(y-5)+'" stroke="#a87418" stroke-width="13" stroke-linecap="round"/><line x1="-26" y1="'+(y+10)+'" x2="26" y2="'+(y-5)+'" stroke="'+(i%2?'#e3b24c':'#ecc363')+'" stroke-width="11" stroke-linecap="round"/><line x1="-22" y1="'+(y+7)+'" x2="18" y2="'+(y-3)+'" stroke="#f8e6a6" stroke-width="2" stroke-linecap="round" opacity=".8"/>'}return g+'</g>'}
+function bow(cx,cy,s){return '<g transform="translate('+cx+' '+cy+') scale('+s+')"><path id="w" d="M0,0C-20,-42-58,-48-62,-30C-52,0-52,0-62,30C-58,48-20,42,0,0Z" fill="url(#gs)" stroke="#a87418" stroke-width="1.5"/><path d="M0,0C20,-42 58,-48 62,-30C52,0 52,0 62,30C58,48 20,42 0,0Z" fill="url(#gs)" stroke="#a87418" stroke-width="1.5"/><g stroke="#a87418" stroke-width="1" opacity=".6"><path d="M-8,-2Q-30,-14-48,-22M-8,0Q-32,0-52,0M-8,2Q-30,14-48,22M8,-2Q30,-14 48,-22M8,0Q32,0 52,0M8,2Q30,14 48,22"/></g><rect x="-7" y="-14" width="14" height="28" rx="4" fill="#d6a23e" stroke="#a87418"/><path d="M-3,-10V10M3,-10V10" stroke="#a87418" opacity=".7"/></g>'}
+function shell(cx,cy,s,rot){var g='<g transform="translate('+cx+' '+cy+') rotate('+rot+') scale('+s+')"><path d="M-40,26C-58,10-52,-30-12,-40C30,-50 58,-10 44,22C34,34 10,40-40,26Z" fill="url(#gr)" stroke="#a87418" stroke-width="1.5"/>',i;for(i=-4;i<=4;i++)g+='<path d="M-40,26Q'+(-20+i*8)+','+(-14-Math.abs(i)*2)+' '+(i*9+2)+','+(-38+Math.abs(i)*4)+'" stroke="#a87418" fill="none" opacity=".55"/>';return g+'<path d="M-10,34C14,40 36,34 44,22C34,8 4,10-10,34Z" fill="#6b4710"/><path d="M-10,34C14,40 36,34 44,22" stroke="#f8e6a6" fill="none" stroke-width="2"/></g>'}
+function ear(x,y,rx,ry,rot){return '<g transform="rotate('+rot+' '+x+' '+y+')"><ellipse cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'" fill="url(#gr)" stroke="#a87418" stroke-width="1.5"/><ellipse cx="'+x+'" cy="'+y+'" rx="'+rx*.62+'" ry="'+ry*.6+'" fill="#d9a843" opacity=".55"/><ellipse cx="'+(x-rx*.15)+'" cy="'+(y-ry*.2)+'" rx="'+rx*.3+'" ry="'+ry*.2+'" fill="#fbe9a8" opacity=".7"/></g>'}
+function sq(x,y,rot,s){return '<g transform="translate('+x+' '+y+') rotate('+rot+') scale('+s+')"><rect x="-36" y="-36" width="72" height="72" rx="10" fill="url(#ge)" stroke="#b58610" stroke-width="1.5"/><rect x="-29" y="-29" width="58" height="58" rx="6" fill="none" stroke="#b58610" stroke-width="1.5" stroke-dasharray="2 3"/><ellipse cx="0" cy="0" rx="22" ry="20" fill="#fbe9a0" opacity=".45"/><ellipse cx="-8" cy="-8" rx="9" ry="6" fill="#fff6c9" opacity=".6"/></g>'}
+function tort(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+s+')"><ellipse cx="0" cy="0" rx="38" ry="32" fill="url(#ge)" stroke="#b58610" stroke-width="1.5"/><path d="M-34,-10Q0,-40 34,-10" fill="none" stroke="#b58610" stroke-width="1.5"/><ellipse cx="0" cy="8" rx="11" ry="9" fill="#6b4710" stroke="#b58610"/><path d="M-26,14Q0,38 26,14" fill="none" stroke="#b58610" opacity=".6"/><ellipse cx="-14" cy="-14" rx="10" ry="5" fill="#fff6c9" opacity=".55"/></g>'}
+function sheets(){var g='',i,j,y;for(i=0;i<3;i++){y=10+i*44;if(i<2)g+='<rect x="22" y="'+(y+18)+'" width="156" height="30" fill="'+(i?'#fff3d6':'#c0392b')+'"/>';
+g+='<path d="M20,'+y+'H180V'+(y+16)+(function(){var s='';for(j=0;j<13;j++)s+='q-6,8 -12,0';return s})()+'Z" fill="url(#gs)" stroke="#a87418" stroke-width="1.5"/><line x1="26" y1="'+(y+4)+'" x2="174" y2="'+(y+4)+'" stroke="#f8e6a6" stroke-width="2"/>'}return g}
+var ART={
+strands:function(n,w,c,hol){var k=C(c),s='',i,x,sg,p;n=+n;w=+w;for(i=0;i<n;i++){x=30+i*(140/(n-1));sg=i%2?1:-1;p='M'+x+',8C'+(x+10*sg)+',48 '+(x-10*sg)+',92 '+x+',130';s+='<path d="'+p+'" stroke="'+k[2]+'" stroke-width="'+(w+1.6)+'" fill="none" stroke-linecap="round" transform="translate(1.5 1.5)" opacity=".5"/><path d="'+p+'" stroke="'+k[0]+'" stroke-width="'+w+'" fill="none" stroke-linecap="round"/><path d="'+p+'" stroke="'+k[1]+'" stroke-width="'+w*.28+'" fill="none" stroke-linecap="round" transform="translate('+(-w*.22)+' 0)" opacity=".8"/>';if(+hol)s+='<ellipse cx="'+x+'" cy="129" rx="'+w*.5+'" ry="'+w*.34+'" fill="#6b4710" stroke="'+k[2]+'"/>'}return s},
+ribbon:function(w,c){var k=C(c),s='',n=w>20?3:w>10?4:5,i,x,j,y,t,bt;w=+w;for(i=0;i<n;i++){y=12+i*((128-w)/(n-1));t='';bt='';for(x=14;x<=188;x+=8){j=y+7*Math.sin(x/16+i*1.3);t+=(x==14?'M':'L')+x+','+j.toFixed(1);bt='L'+x+','+(j+w).toFixed(1)+bt}s+='<path d="'+t+bt+'Z" fill="'+k[0]+'" stroke="'+k[2]+'" stroke-width="1.2" stroke-linejoin="round"/><path d="'+t+'" fill="none" stroke="'+k[1]+'" stroke-width="1.8" transform="translate(0 2)" opacity=".8"/>'}return s},
+penne:function(){return tube(100,30,-12,84,30,6,'s',1)+tube(92,72,8,84,30,6,'s',1)+tube(106,112,-6,84,30,6,'s',1)},
+tube:function(){return tube(96,38,-10,84,38,7)+tube(104,100,8,84,38,7)},
+paccheri:function(){return tube(100,40,-8,104,54,0)+tube(100,104,6,104,54,0)},
+elbow:function(){return elbow(22,8,.8)+elbow(116,6,.8)+elbow(70,74,.58)},
+spiral:function(){return spiral(58,72,-24)+spiral(142,70,22)},
+bow:function(){return bow(52,70,.78)+bow(148,70,.78)},
+shell:function(){return shell(56,64,.95,-10)+shell(146,78,.8,14)},
+ear:function(){return ear(52,46,34,24,-14)+ear(142,42,32,23,12)+ear(60,102,30,22,10)+ear(146,100,34,24,-10)},
+sq:function(){return sq(60,66,-10,.9)+sq(142,76,12,.9)},
+tort:function(){return tort(58,70,.95)+tort(144,68,.95)},
+sheet:sheets,
+rice:function(){var s='',i,x,y,r;for(i=0;i<48;i++){x=16+R()*168;y=14+R()*112;r=R()*180;s+='<g transform="rotate('+r.toFixed(0)+' '+x.toFixed(0)+' '+y.toFixed(0)+')"><ellipse cx="'+x.toFixed(0)+'" cy="'+y.toFixed(0)+'" rx="11" ry="4.4" fill="#ecc363" stroke="#a87418" stroke-width=".8"/><ellipse cx="'+(x-2).toFixed(0)+'" cy="'+(y-1.5).toFixed(0)+'" rx="5" ry="1.2" fill="#f8e6a6"/></g>'}return s}};
+function art(a){var p=a.split(',');return '<svg viewBox="0 0 200 140" role="img">'+ART[p[0]].apply(null,p.slice(1))+'</svg>'}
+function bowlArt(c,d,g,t){var s='<path d="M28,62Q28,128 100,128T172,62Z" style="fill:var(--bowl)" stroke="#a87418" stroke-width="3"/><ellipse cx="100" cy="62" rx="72" ry="22" style="fill:var(--bowl)" stroke="#a87418" stroke-width="3"/><ellipse cx="100" cy="62" rx="62" ry="16" fill="'+c+'"/>',i;
+for(i=0;i<16;i++)s+='<ellipse cx="'+(48+R()*104).toFixed(0)+'" cy="'+(55+R()*14).toFixed(0)+'" rx="5" ry="2.6" fill="'+d+'" opacity=".85"/>';
+for(i=0;i<12;i++)s+='<circle cx="'+(52+R()*96).toFixed(0)+'" cy="'+(54+R()*15).toFixed(0)+'" r="1.6" fill="'+g+'"/>';
+if(t=='b')s+='<path d="M92,58Q108,36 126,48Q112,68 92,58Z" fill="#3f6b3a"/><path d="M94,57L120,48" stroke="#9fd09a"/>';
+return '<svg viewBox="0 0 200 140" role="img">'+s+'</svg>'}
+// name|family|art|origin|size|how to identify|texture & colour|best used
+var SH=["Spaghetti|Long|strands,6,5,s,0|Italy (Naples)|About 2 mm thick, 25–30 cm long|Long, thin, perfectly round rods|Smooth, pale gold, firm bite|Aglio e olio, carbonara, pomodoro, meatballs",
+"Linguine|Long|ribbon,5,s|Italy (Liguria)|About 4 mm wide, flat-oval|Looks like flattened spaghetti; 'little tongues'|Smooth and slightly slippery, pale gold|Pesto, clams, lemon-olive oil and seafood sauces",
+"Bucatini|Long|strands,5,8,s,1|Italy (Lazio)|About 3 mm thick, hollow|A thick strand with a tiny hole running through it|Chewy, springy, golden|Amatriciana, carbonara, buttery tomato sauces",
+"Fettuccine|Ribbon|ribbon,11,e|Italy (Rome)|6–8 mm wide, flat|Flat ribbons, evenly cut; bright egg-yellow|Silky, soft, rich egg colour|Alfredo, mushroom cream, ragù",
+"Tagliatelle|Ribbon|ribbon,15,e|Italy (Emilia-Romagna)|6–10 mm wide, flat|Slightly wider, rougher ribbons, often sold as nests|Porous, egg-yellow; grips sauce|Bolognese ragù, truffle butter, mushroom",
+"Pappardelle|Ribbon|ribbon,28,e|Italy (Tuscany)|2–3 cm wide, flat|Very wide ribbons, often with ruffled edges|Broad, silky, substantial|Slow-cooked meat, game, hearty ragù",
+"Penne|Tubes|penne|Italy (Campania)|About 4 cm long tube|Tube with diagonal pen-nib cut ends; ridged (rigate) or smooth|Pale gold, ridges catch sauce|Arrabbiata, vodka sauce, baked pasta, chunky vegetables",
+"Rigatoni|Tubes|tube|Italy (Rome)|About 4 cm long, wide tube|Wide ridged tube with straight-cut ends|Rough, deeply ridged, hearty|Amatriciana, ragù, sausage sauces, baked pasta",
+"Paccheri|Tubes|paccheri|Italy (Naples)|3–4 cm across, large tube|Very wide smooth tube, can flatten when cooked|Smooth, chewy, golden|Seafood sauces, ragù, stuffed and baked",
+"Macaroni (Elbow)|Tubes|elbow|Italy; popular worldwide|About 2 cm, curved tube|Short, hollow, bent like an elbow|Smooth, pale gold, soft|Mac and cheese, soups, pasta salads",
+"Fusilli|Short|spiral|Southern Italy|About 3–4 cm, tight spiral|Corkscrew spring shape|Grooved spiral, golden|Pesto, chunky vegetable sauces, pasta salads",
+"Farfalle|Short|bow|Italy (Lombardy/Emilia)|About 3 cm, pinched bow|Butterfly or bow-tie with a crimped centre|Soft wings, firm centre, pale gold|Cream sauces, light tomato, salads, peas and ham",
+"Conchiglie|Short|shell|Italy|From small to jumbo|Seashell shape with a hollow opening|Ridged outside, hollow inside|Chunky sauces, baked stuffed shells, mac and cheese",
+"Orecchiette|Short|ear|Italy (Puglia)|About 2 cm, domed disc|'Little ears': thick rim, thin concave centre|Chewy rim, slightly rough, golden|Broccoli rabe and sausage, tomato with ricotta",
+"Ravioli|Filled|sq|Italy (Genoa)|4–6 cm, square or round|Two sheets of dough sealed around a filling, crimped edge|Soft egg pasta, yellow, plump|Ricotta-spinach or pumpkin with butter-sage or light tomato",
+"Tortellini|Filled|tort|Italy (Emilia-Romagna)|About 3 cm, ring-shaped|Folded, navel-like ring with a pinched centre|Soft, yellow, stuffed with meat or cheese|In broth, or with cream or butter sauce",
+"Lasagne|Sheets|sheet|Italy (Emilia-Romagna, Naples)|Flat sheet, about 10 × 20 cm|Wide flat sheets with ruffled edges, layered in a bake|Smooth sheets; layers of red ragù and white béchamel|Bolognese and béchamel bakes, vegetable or ricotta layers",
+"Orzo|Small|rice|Italy and the Mediterranean|About 6 mm grains|Tiny rice-shaped pasta|Smooth, small, creamy when cooked|Soups, pilaf-style dishes, salads"];
+// name|category|sauce colour|chunk colour|garnish colour|garnish type|what it is|ingredients|character|pairs with
+var SA=["Pomodoro (Marinara)|Tomato|#c8412b|#e8735a|#3f6b3a|b|Italy's simplest tomato sauce, built on ripe tomatoes and olive oil.|Ripe tomatoes, olive oil, garlic, basil, salt|Fresh, light, slightly sweet; ready in about 20 minutes|Spaghetti, penne, rigatoni",
+"Arrabbiata|Tomato|#b52a1b|#8f1d12|#e03a1a|r|From Rome. 'Arrabbiata' means 'angry' — a tomato sauce made fiery with chilli.|Tomatoes, garlic, dried red chilli, olive oil, parsley|Hot, sharp and bright red; the heat builds with each bite|Penne, rigatoni",
+"Puttanesca|Tomato|#9c3320|#2b1a14|#7a8a3a|o|A bold Naples pantry sauce made from preserved ingredients, with no fresh meat or cream.|Tomatoes, black olives, capers, anchovies, garlic, chilli|Salty, briny, punchy and deeply savoury|Spaghetti, linguine, penne",
+"Amatriciana|Tomato & pork|#c0482a|#e8c9a0|#f3e2b0|c|From Amatrice in Lazio; cured pork cheek gives a smoky richness.|Guanciale (pork cheek), tomato, pecorino romano, chilli, white wine|Smoky, salty-sweet with a gentle heat|Bucatini, spaghetti, rigatoni",
+"Bolognese (Ragù)|Meat|#8a3a1e|#5e2412|#c9a06a|0|A slow-cooked meat sauce from Bologna, richer and meatier than a tomato sauce.|Minced beef and pork, soffritto (onion, carrot, celery), tomato, wine, milk|Thick, deep and rich; simmers 2–3 hours|Tagliatelle, pappardelle, lasagne",
+"Carbonara|Egg & cheese|#f1d58a|#7a4a2a|#222|p|A Roman sauce made without cream; the egg and cheese create the creaminess.|Egg yolks, pecorino romano, guanciale, black pepper|Silky, glossy, peppery and salty|Spaghetti, rigatoni",
+"Alfredo|Cream|#f7e6bd|#fffaf0|#d9c28a|c|A rich butter-and-cheese sauce, popularised in Rome and the USA.|Butter, Parmigiano-Reggiano, cream (in many versions), black pepper|Pale, velvety, rich and mild|Fettuccine",
+"Aglio e Olio|Oil-based|#e6c24a|#fff3c0|#c0392b|r|'Garlic and oil': a quick sauce from Naples, ready in the time it takes to boil pasta.|Olive oil, garlic, chilli flakes, parsley|Light, glossy, garlicky with a little heat|Spaghetti, linguine",
+"Pesto Genovese|Herb|#5f8d3a|#3f6b3a|#f3e2b0|b|From Genoa; a raw sauce traditionally pounded in a mortar.|Basil, pine nuts, Parmigiano and pecorino, garlic, olive oil|Fresh, herby, nutty and vivid green; never boiled|Linguine, trofie, fusilli",
+"Cacio e Pepe|Cheese|#f3e2b0|#fffaf0|#222|p|'Cheese and pepper': a Roman classic with just three ingredients.|Pecorino romano, black pepper, pasta water|Creamy without cream, sharp and peppery|Tonnarelli, spaghetti",
+"Vongole (Clam)|Seafood|#e8d9a8|#b8a583|#3f6b3a|b|A seaside sauce from Naples, white (bianco) or with tomato (rosso).|Clams, garlic, white wine, olive oil, parsley, chilli|Briny, light and aromatic|Linguine, spaghetti",
+"Béchamel (Besciamella)|Baked|#f6ecd0|#fffaf0|#d9c28a|0|A white sauce of French origin, essential in Italian baked pasta.|Butter, flour, milk, nutmeg|Smooth, mild and creamy; binds the layers|Lasagne, cannelloni, baked pasta"];
+var io=('IntersectionObserver' in window)?new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.08}):null;
+function reveal(){document.querySelectorAll('.rv:not(.in)').forEach(function(el){io?io.observe(el):el.classList.add('in')})}
+var cards=document.getElementById('cards'),fb=document.getElementById('filters'),fam=['All'],i;
+SH.forEach(function(r){var f=r.split('|')[1];if(fam.indexOf(f)<0)fam.push(f)});
+function draw(f){cards.innerHTML=SH.map(function(r){return r.split('|')}).filter(function(a){return f=='All'||a[1]==f}).map(function(a){return '<article class="card rv"><div class="art">'+art(a[2])+'</div><div class="ci"><span class="nm">'+a[0]+'</span><span class="tag">'+a[1]+' · '+a[3]+'</span><p><b>Size:</b> '+a[4]+'</p><p><b>How to identify:</b> '+a[5]+'</p><p><b>Texture &amp; colour:</b> '+a[6]+'</p><p><b>Best used:</b> '+a[7]+'</p></div></article>'}).join('');reveal()}
+fam.forEach(function(f,n){var b=document.createElement('button');b.textContent=f;if(!n)b.className='on';b.onclick=function(){[].forEach.call(fb.children,function(x){x.classList.remove('on')});b.classList.add('on');draw(f)};fb.appendChild(b)});
+draw('All');
+document.getElementById('sauceCards').innerHTML=SA.map(function(r){var a=r.split('|');return '<article class="card rv"><div class="art">'+bowlArt(a[2],a[3],a[4],a[5])+'</div><div class="ci"><span class="nm">'+a[0]+'</span><span class="tag">'+a[1]+'</span><p><b>What it is:</b> '+a[6]+'</p><p><b>Ingredients:</b> '+a[7]+'</p><p><b>Character:</b> '+a[8]+'</p><p><b>Pairs with:</b> '+a[9]+'</p></div></article>'}).join('');
+reveal();
+// theme
+var root=document.documentElement,tb=document.getElementById('theme'),t;
+try{t=localStorage.getItem('pt')}catch(e){}
+t=t||(window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+function setT(v){root.setAttribute('data-theme',v);tb.textContent=v=='dark'?'☀️':'🌙';try{localStorage.setItem('pt',v)}catch(e){}}
+setT(t);tb.onclick=function(){setT(root.getAttribute('data-theme')=='dark'?'light':'dark')};
+// scroll
+var prog=document.getElementById('prog'),up=document.getElementById('top');
+function sc(){var h=document.documentElement,y=window.pageYOffset||h.scrollTop;prog.style.width=(y/(h.scrollHeight-h.clientHeight)*100)+'%';up.classList.toggle('show',y>300)}
+addEventListener('scroll',sc);sc();
+up.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})};
+// query form
+var modal=document.getElementById('modal'),form=document.getElementById('form'),btn=form.querySelector('button[type="submit"]');
+document.getElementById('ask').onclick=function(){modal.classList.add('open')};
+document.getElementById('close').onclick=function(){modal.classList.remove('open')};
+modal.onclick=function(e){if(e.target===modal)modal.classList.remove('open')};
+form.addEventListener('submit',async function(e){e.preventDefault();
+var fd=new FormData(form);fd.append('access_key','62a0868a-a733-4151-9a07-df85e49ea0cb');fd.append('subject','Pasta Guide query');
+var orig=btn.textContent;btn.textContent='Sending...';btn.disabled=true;
+try{var r=await fetch('https://api.web3forms.com/submit',{method:'POST',body:fd});var d=await r.json();
+if(r.ok){alert('Success! Your message has been sent.');form.reset();modal.classList.remove('open')}else{alert('Error: '+d.message)}}
+catch(err){alert('Something went wrong. Please try again.')}
+finally{btn.textContent=orig;btn.disabled=false}});
+})();
+</script>
+<a href="../index.html" style="position:fixed;top:12px;left:12px;z-index:9999;padding:8px 14px;border-radius:999px;background:rgba(20,20,24,.72);color:#fff;font:600 13px system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(10px)">← Flavour IQ</a></body>
+</html>
