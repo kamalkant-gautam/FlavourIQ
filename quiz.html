@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flavour IQ Quiz</title><link rel="icon" href="assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:Bosch;src:url(assets/bosch.otf) format("opentype");font-display:swap}
+:root{--bg:#faf7f2;--ink:#16161a;--mut:#5d5b66;--glass:rgba(255,255,255,.6);--edge:rgba(255,255,255,.85);--shadow:rgba(40,30,20,.14);--gold:#c9a227;--ok:#bfebd7;--no:#f3c6c6;--peach:#f8dcb4;--lav:#d9d3f6;
+--hbg:radial-gradient(circle at 15% 20%,#bfebd7,transparent 45%),radial-gradient(circle at 85% 25%,#f3c6c6,transparent 45%),radial-gradient(circle at 50% 95%,#d9d3f6,transparent 50%),#faf7f2}
+:root[data-theme=dark]{--bg:#131317;--ink:#f4f1ea;--mut:#a9a6b3;--glass:rgba(255,255,255,.08);--edge:rgba(255,255,255,.16);--shadow:rgba(0,0,0,.55);--gold:#e2bb4b;
+--hbg:linear-gradient(rgba(14,13,18,.62),rgba(14,13,18,.8)),url(assets/bg-night.jpg) center/cover fixed,#131317}
+*{box-sizing:border-box;margin:0}body{font-family:"DM Sans",system-ui,sans-serif;color:var(--ink);background:var(--hbg);background-attachment:fixed;min-height:100vh;line-height:1.6;padding:84px 16px 40px}
+h1,h2,h3{font-family:Bosch,"DM Sans",sans-serif;font-weight:400;line-height:1.15}
+.glass{background:var(--glass);border:1px solid var(--edge);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 8px 32px var(--shadow)}
+.top{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;z-index:5}
+.top a{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-family:Bosch,sans-serif;font-size:1.2rem}.top img{width:40px;height:40px}
+#tg{width:44px;height:44px;border-radius:50%;cursor:pointer;color:var(--ink);font-size:1.15rem}
+.box{max-width:640px;margin:0 auto;border-radius:32px;padding:30px;display:none}.box.on{display:block}
+.box h1,.box h2{font-size:clamp(1.6rem,4.5vw,2.2rem);margin-bottom:10px}.mut{color:var(--mut)}
+input,textarea{width:100%;padding:14px 18px;border-radius:20px;border:1px solid var(--edge);background:var(--glass);color:var(--ink);font:inherit;margin-top:12px}
+.btn{display:inline-block;padding:13px 26px;border-radius:999px;border:1px solid var(--edge);font:700 .95rem "DM Sans",sans-serif;cursor:pointer;color:var(--ink);background:var(--glass);margin:14px 6px 0 0;text-decoration:none}.btn.d{background:var(--ink);color:var(--bg)}.btn:disabled{opacity:.4;cursor:not-allowed}
+.chk{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:.88rem;color:var(--mut)}.chk input{width:auto;margin:4px 0 0}
+.bar{height:8px;border-radius:99px;background:var(--glass);overflow:hidden;margin:6px 0 18px}.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.chip{display:inline-block;padding:3px 12px;border-radius:99px;background:var(--lav);color:#16161a;font-size:.75rem;font-weight:700}
+.opt{display:block;width:100%;text-align:left;margin-top:10px;padding:14px 18px;border-radius:20px;border:1px solid var(--edge);background:var(--glass);color:var(--ink);font:500 1rem "DM Sans",sans-serif;cursor:pointer}.opt:hover{transform:translateX(3px)}.opt.s{background:var(--peach);color:#16161a;border-color:var(--gold)}
+.badge{text-align:center;margin:8px 0 14px}.badge .em{font-size:3.4rem;width:110px;height:110px;line-height:104px;border-radius:50%;border:4px solid var(--gold);margin:auto;background:var(--glass)}.badge h2{margin-top:10px;color:var(--gold)}
+.note{padding:16px 20px;border-radius:22px;background:var(--glass);border:1px solid var(--edge);margin:14px 0}
+.rv{border-radius:22px;padding:16px 18px;margin-top:12px;color:#16161a}.rv.g{background:var(--ok)}.rv.r{background:var(--no)}.rv p{margin-top:4px;font-size:.92rem}.rv .e{margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.12)}
+.tg{display:inline-block;margin:8px 6px 0 0;padding:3px 12px;border-radius:99px;border:1px solid rgba(0,0,0,.25);font-size:.78rem;cursor:pointer;background:rgba(255,255,255,.5)}.tg.s{background:#16161a;color:#fff}
+.stars button{font-size:2rem;background:none;border:0;cursor:pointer;color:var(--mut);padding:0 2px}.stars button.s{color:var(--gold)}
+#msg{margin-top:10px;color:var(--mut)}
+</style></head><body>
+<div class="top"><a href="index.html"><img src="assets/logo.png" alt="">Flavour IQ</a><button id="tg" class="glass" aria-label="Day or night mode">🌙</button></div>
+
+<main>
+<section class="box glass on" id="s1"><h1>Test your Flavour IQ</h1>
+<p class="mut">30 fresh questions on food and beverage. Enter your details to begin and earn your badge.</p>
+<form id="reg"><input id="nm" placeholder="Your name" required autocomplete="name"><input id="mb" type="tel" placeholder="Mobile number" pattern="[0-9+ ]{10,15}" title="Enter a valid mobile number" required autocomplete="tel"><input id="em" type="email" placeholder="Email address" required autocomplete="email">
+<label class="chk"><input type="checkbox" required><span>I agree to share these details with Flavour IQ for my quiz results and updates.</span></label>
+<button class="btn d" type="submit">Start the quiz</button></form></section>
+
+<section class="box glass" id="s2"><div class="mut" style="display:flex;justify-content:space-between"><span id="cn"></span><span class="chip" id="cc"></span></div><div class="bar"><i id="pb"></i></div>
+<h2 id="qt"></h2><div id="op"></div><button class="btn d" id="nx" disabled>Next</button></section>
+
+<section class="box glass" id="s3"><div class="badge"><div class="em" id="be"></div><h2 id="bt"></h2><p class="mut" id="sc"></p></div>
+<div class="note" id="ty"></div>
+<a class="btn d" id="sh" href="#">Share my result</a><button class="btn" id="again">Play again</button>
+<h3 style="margin:26px 0 4px">Review and explanations</h3><p class="mut" style="font-size:.9rem">Tap a tag to tell us how each question felt.</p><div id="rvw"></div>
+<h3 style="margin:28px 0 4px">Rate this quiz</h3>
+<div class="stars" id="st"></div>
+<div id="df"><span class="tg" style="border-color:var(--mut)" data-v="Too easy">Too easy</span><span class="tg" style="border-color:var(--mut)" data-v="Just right">Just right</span><span class="tg" style="border-color:var(--mut)" data-v="Too difficult">Too difficult</span></div>
+<textarea id="cm" placeholder="Anything else? (optional)" style="min-height:80px"></textarea>
+<button class="btn d" id="fs">Send feedback</button><div id="msg" role="status"></div>
+<p class="mut" style="margin-top:18px;font-size:.85rem"><a href="index.html" style="color:var(--gold)">← Back to Flavour IQ</a></p></section>
+</main>
+<script src="data/questions.js"></script>
+<script>
+const $=i=>document.getElementById(i),KEY="62a0868a-a733-4151-9a07-df85e49ea0cb",N=30;
+const sh=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const show=i=>{["s1","s2","s3"].forEach(s=>$(s).classList.toggle("on",s==i));scrollTo(0,0)};
+let P,Q,k,ans,sc,fb,stars=0,diff="";
+/* theme */
+const R=document.documentElement;let th;try{th=localStorage.getItem("fiq-theme")}catch(e){}
+if(!th)th=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";
+const setT=t=>{R.dataset.theme=t;$("tg").textContent=t=="dark"?"☀️":"🌙";try{localStorage.setItem("fiq-theme",t)}catch(e){}};setT(th);$("tg").onclick=()=>setT(R.dataset.theme=="dark"?"light":"dark");
+/* send to Web3Forms (details reach your email inbox) */
+async function send(subject,data){try{const fd=new FormData();fd.append("access_key",KEY);fd.append("subject",subject);Object.entries(data).forEach(([a,b])=>fd.append(a,b));const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:fd});return r.ok}catch(e){return false}}
+/* pick 30 questions the player has not seen recently */
+function pick(){const all=BANK.map((_,i)=>i);let seen=[];try{seen=JSON.parse(localStorage.getItem("fiq-seen")||"[]")}catch(e){}
+ let un=sh(all.filter(i=>!seen.includes(i))),ch=un.slice(0,N);
+ if(ch.length<N){const o=sh(all.filter(i=>!ch.includes(i)));ch=ch.concat(o.slice(0,N-ch.length));seen=[]}
+ try{localStorage.setItem("fiq-seen",JSON.stringify(seen.concat(ch)))}catch(e){}return ch}
+function start(){Q=pick().map(i=>{const b=BANK[i];return{id:i,c:b[0],q:b[1],o:sh([b[2],b[3],b[4],b[5]].map((t,x)=>({t,ok:x==0}))),e:b[6]}});k=0;ans=[];fb={};stars=0;diff="";show("s2");ask()}
+function ask(){const q=Q[k];$("cn").textContent="Question "+(k+1)+" of "+N;$("cc").textContent=q.c;$("pb").style.width=(k/N*100)+"%";$("qt").textContent=q.q;$("nx").disabled=true;$("nx").textContent=k==N-1?"Finish":"Next";
+ $("op").innerHTML="";q.o.forEach((o,x)=>{const b=document.createElement("button");b.className="opt";b.textContent=o.t;b.onclick=()=>{ans[k]=x;[...$("op").children].forEach((c,y)=>c.classList.toggle("s",y==x));$("nx").disabled=false};$("op").appendChild(b)})}
+$("nx").onclick=()=>{if(++k<N)ask();else finish()};
+const BD=s=>s>=27?["👑","Food Master"]:s>=20?["🍷","Flavour Pro"]:s>=10?["🧭","Food Explorer"]:["🌱","Curious Taster"];
+function finish(){sc=Q.filter((q,i)=>q.o[ans[i]].ok).length;const[e,t]=BD(sc);$("be").textContent=e;$("bt").textContent=t;$("sc").textContent="You scored "+sc+" out of "+N;
+ $("ty").innerHTML="<b></b><br><span></span><br><br><span></span><br><b></b>";const c=$("ty").childNodes;c[0].textContent="Thank you, "+P.name+"!";c[2].textContent="I hope you learned something tasty today. Keep exploring, keep tasting, and keep growing your Flavour IQ.";c[5].textContent="Warm regards,";c[7].textContent="Kamal Kant Gautam";
+ const base=location.href.replace(/quiz\.html.*$/,""),txt="I scored "+sc+"/"+N+" and earned the "+t+" badge on Flavour IQ! Can you beat me? "+base;
+ $("sh").onclick=async e=>{e.preventDefault();if(navigator.share){try{await navigator.share({text:txt});return}catch(x){}}open("https://wa.me/?text="+encodeURIComponent(txt),"_blank")};
+ $("rvw").innerHTML="";Q.forEach((q,i)=>{const ok=q.o[ans[i]].ok,d=document.createElement("div");d.className="rv "+(ok?"g":"r");
+  const h=document.createElement("b");h.textContent=(i+1)+". "+q.q;d.appendChild(h);
+  const a=document.createElement("p");a.textContent=(ok?"✓ Your answer: ":"✗ Your answer: ")+q.o[ans[i]].t;d.appendChild(a);
+  if(!ok){const c=document.createElement("p");c.textContent="Correct answer: "+q.o.find(o=>o.ok).t;d.appendChild(c)}
+  const e=document.createElement("p");e.className="e";e.textContent="💡 "+q.e;d.appendChild(e);
+  ["Easy","Hard","Confusing"].forEach(v=>{const s=document.createElement("span");s.className="tg";s.textContent=v;s.onclick=()=>{fb[q.id]=fb[q.id]==v?"":v;[...d.querySelectorAll(".tg")].forEach(x=>x.classList.toggle("s",x.textContent==fb[q.id]))};d.appendChild(s)});
+  $("rvw").appendChild(d)});
+ $("st").innerHTML="";for(let n=1;n<=5;n++){const b=document.createElement("button");b.textContent="★";b.onclick=()=>{stars=n;[...$("st").children].forEach((x,y)=>x.classList.toggle("s",y<n))};$("st").appendChild(b)}
+ $("msg").textContent="";$("fs").disabled=false;show("s3");
+ send("Flavour IQ quiz result: "+P.name,{name:P.name,email:P.email,mobile:P.mobile,score:sc+"/"+N,badge:t})}
+document.querySelectorAll("#df .tg").forEach(t=>t.onclick=()=>{diff=t.dataset.v;document.querySelectorAll("#df .tg").forEach(x=>x.classList.toggle("s",x==t))});
+$("fs").onclick=async()=>{if(!stars&&!diff){$("msg").textContent="Please choose a star rating or difficulty first.";return}$("fs").disabled=true;
+ const flags=Object.entries(fb).filter(x=>x[1]).map(([id,v])=>v+": "+BANK[id][1]).join("\n");
+ const ok=await send("Flavour IQ quiz feedback: "+P.name,{name:P.name,email:P.email,rating:stars+"/5",difficulty:diff,comment:$("cm").value,question_flags:flags||"none"});
+ $("msg").textContent=ok?"Thank you for your feedback! It helps us improve every question.":"Could not send. Please try again.";if(!ok)$("fs").disabled=false};
+$("again").onclick=start;
+$("reg").onsubmit=e=>{e.preventDefault();P={name:$("nm").value.trim(),mobile:$("mb").value.trim(),email:$("em").value.trim()};
+ send("Flavour IQ quiz: new player "+P.name,{name:P.name,email:P.email,mobile:P.mobile});start()};
+</script></body></html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flavour IQ · Learn it. Taste it. Master it.</title>
+<meta name="description" content="Flavour IQ: guides, trends and a quiz to learn food and beverage knowledge.">
+<link rel="icon" href="assets/favicon.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:Bosch;src:url(assets/bosch.otf) format("opentype");font-display:swap}
+:root{--bg:#faf7f2;--sur:#faf7f2;--ink:#16161a;--mut:#5d5b66;--glass:rgba(255,255,255,.55);--edge:rgba(255,255,255,.8);--shadow:rgba(40,30,20,.14);--ddbg:rgba(255,255,255,.94);--dot:rgba(22,22,26,.1);--ovbg:rgba(250,247,242,.4);--gold:#c9a227;--rose:#f3c6c6;--peach:#f8dcb4;--lav:#d9d3f6;--mint:#bfebd7;
+--hbg:radial-gradient(circle at 20% 25%,#bfebd7,transparent 45%),radial-gradient(circle at 80% 30%,#f3c6c6,transparent 45%),radial-gradient(circle at 55% 90%,#d9d3f6,transparent 50%),#faf7f2}
+:root[data-theme=dark]{--bg:#131317;--sur:linear-gradient(180deg,#1d1d24,#131317 40%);--ink:#f4f1ea;--mut:#a9a6b3;--glass:rgba(255,255,255,.08);--edge:rgba(255,255,255,.16);--shadow:rgba(0,0,0,.55);--ddbg:rgba(30,30,38,.92);--dot:rgba(255,255,255,.12);--ovbg:rgba(10,10,14,.5);--gold:#e2bb4b;--rose:#f3c6c6;--peach:#f8dcb4;--lav:#d9d3f6;--mint:#bfebd7;
+--hbg:linear-gradient(rgba(14,13,18,.62),rgba(14,13,18,.8)),url(assets/bg-night.jpg) center/cover,#131317}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{font-family:"DM Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);transition:background .4s,color .4s;line-height:1.6}
+h1,h2,h3,.bd{font-family:Bosch,"DM Sans",sans-serif;font-weight:400;line-height:1.1}
+.glass{background:var(--glass);border:1px solid var(--edge);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 8px 32px var(--shadow)}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#home{position:sticky;top:0;height:100vh;height:100svh;z-index:0;display:grid;place-items:center;padding:24px 24px 24px 120px;overflow:hidden;background:var(--hbg)}
+.hbox{max-width:680px;padding:44px 40px;border-radius:32px;text-align:center}
+.hbox h1{font-size:clamp(2.2rem,5.5vw,4rem);margin-bottom:14px}.hbox p{color:var(--mut);margin-bottom:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;border:1px solid var(--edge);font:700 .95rem "DM Sans",sans-serif;cursor:pointer;color:var(--ink);text-decoration:none;margin:4px;transition:transform .2s}
+.btn.dark{background:var(--ink);color:var(--bg)}.btn:hover{transform:translateY(-2px)}
+.fact{position:absolute;bottom:28px;left:calc(50% + 40px);transform:translateX(-50%);width:min(620px,calc(100% - 170px));padding:14px 28px;border-radius:999px;text-align:center;font-size:.95rem}.fact b{color:var(--gold)}
+.rail{position:fixed;z-index:50;top:18px;left:16px;bottom:18px;width:80px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.brand img{width:52px;height:52px;display:block}
+nav.glass{border-radius:40px;padding:10px 8px;display:flex;flex-direction:column;gap:6px}
+.nl{position:relative;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:0;background:none;color:var(--ink);cursor:pointer;text-decoration:none;transition:background .2s,transform .2s}
+.nl:hover{background:var(--glass);transform:scale(1.08)}.nl.on{background:var(--ink);color:var(--bg)}
+.nl[data-tip]:hover::after{content:attr(data-tip);position:absolute;left:62px;top:50%;transform:translateY(-50%);white-space:nowrap;padding:6px 12px;border-radius:999px;background:var(--ink);color:var(--bg);font:500 .8rem "DM Sans",sans-serif;pointer-events:none}
+.more,.pop{display:none}
+#tg{position:fixed;z-index:60;top:18px;right:18px;width:48px;height:48px;border-radius:50%;cursor:pointer;color:var(--ink);display:grid;place-items:center}
+#up{position:fixed;z-index:60;bottom:22px;right:18px;width:46px;height:46px;border-radius:50%;cursor:pointer;color:var(--ink);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .3s}#up.s{opacity:1;pointer-events:auto}
+.cur{position:relative;z-index:2;min-height:100vh;background:var(--sur);border-radius:36px 36px 0 0;box-shadow:0 -24px 60px var(--shadow);border-top:1px solid var(--edge);padding:90px 40px 80px 120px}
+.cur h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:12px}.cur>p{color:var(--mut);max-width:640px;margin-bottom:28px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;max-width:960px}
+.card{border-radius:26px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;color:#16161a;transition:transform .2s;overflow:hidden}.card:hover{transform:translateY(-4px)}
+.card small{color:#5d5b66;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.7rem}.card h3{font-size:1.25rem;margin:6px 0}
+.rose{background:var(--rose)}.peach{background:var(--peach)}.lav{background:var(--lav)}.mint{background:var(--mint)}
+.tr{padding:0;min-height:300px}.tr .im{height:150px;background:rgba(255,255,255,.4) center/cover;display:grid;place-items:center}.im svg{width:100%;height:100%}.tr .tx{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1;justify-content:space-between}.tr h3{font-size:1.05rem;font-family:"DM Sans",sans-serif;font-weight:700;line-height:1.3}
+.slim .card{min-height:0;padding:16px 20px}.slim p{font-size:.9rem;color:#16161a;opacity:.8}
+.me{display:grid;grid-template-columns:230px 1fr;gap:34px;align-items:center;max-width:960px;margin:34px 0 22px;padding:30px;border-radius:36px;background:var(--glass);border:1px solid var(--edge);position:relative;overflow:hidden}
+.me::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 0 0,var(--mint),transparent 50%),radial-gradient(circle at 100% 100%,var(--rose),transparent 50%);opacity:.5}
+.me>*{position:relative}.me img{width:230px;height:230px;border-radius:50%;border:4px solid var(--gold);padding:6px;background:var(--bg)}
+.me h3{font-size:2rem}.role{color:var(--gold);font-weight:700;margin:4px 0 10px}.me p{color:var(--mut);margin-bottom:16px}
+form{max-width:520px;display:grid;gap:12px}
+input,textarea{width:100%;padding:14px 18px;border-radius:20px;border:1px solid var(--edge);background:var(--glass);color:var(--ink);font:inherit}textarea{min-height:130px;resize:vertical}#st{min-height:1.4em;color:var(--mut)}
+.dd{position:fixed;z-index:80;width:132px;border-radius:20px;padding:10px;display:none;background-color:var(--ddbg);border:1px solid var(--edge);backdrop-filter:blur(18px);box-shadow:0 8px 32px var(--shadow)}
+.dd.o{display:block}.dd h4{font:400 .95rem Bosch,sans-serif;padding:2px 6px 6px}
+.dd a{display:flex;align-items:center;gap:8px;padding:8px;border-radius:14px;text-decoration:none;color:var(--ink);font-weight:500;font-size:.88rem}.dd a:hover{background:var(--glass)}
+.dd a i{width:9px;height:9px;border-radius:50%;flex:none}.dd a span{margin-left:auto;opacity:.5}.dd p{padding:2px 6px;font-size:.8rem;color:var(--mut)}
+#ov{position:fixed;inset:0;z-index:70;display:none;background:var(--ovbg);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2)}
+.ib{width:42px;height:42px;padding:0;justify-content:center}
+.sr{position:fixed;z-index:90;width:min(330px,92vw);display:none}.sr.o{display:block}
+.sr input{height:64px;border-radius:999px;padding:0 26px;font-size:1rem;background:var(--glass);backdrop-filter:blur(18px);box-shadow:0 8px 32px var(--shadow)}
+#rs{margin-top:10px;border-radius:24px;padding:8px;max-height:46vh;overflow:auto;display:none}#rs a{display:block;padding:9px 12px;border-radius:14px;color:var(--ink);text-decoration:none;font-size:.88rem}#rs a:hover{background:var(--glass)}#rs b{display:block;color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}#rs mark{background:var(--peach);color:#16161a;border-radius:3px}
+footer{position:relative;z-index:2;background:var(--bg);text-align:center;padding:26px 20px 28px 120px;color:var(--mut);font-size:.88rem;border-top:1px solid var(--edge)}footer span{display:inline-flex;align-items:center;gap:6px;margin-left:14px;padding:4px 12px;border-radius:999px}
+@media(max-width:800px){
+#home{padding:24px 16px 110px}.hbox{padding:32px 22px}.fact{left:50%;width:calc(100% - 32px);bottom:96px;border-radius:28px}
+.rail{top:auto;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));width:auto}.brand{display:none}
+nav.glass{flex-direction:row;justify-content:space-around;border-radius:999px;padding:6px;width:100%}.nl{width:44px;height:44px}.nl[data-tip]:hover::after{display:none}
+.extra{display:none}.more{display:grid}
+.pop{position:absolute;bottom:68px;right:0;flex-direction:column;gap:2px;padding:10px;border-radius:24px}.rail.open .pop{display:flex}
+.pop a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:16px;color:var(--ink);text-decoration:none;font-size:.95rem}
+.cur{padding:80px 18px 120px;border-radius:28px 28px 0 0}footer{padding:24px 16px 100px}
+#tg{top:max(14px,env(safe-area-inset-top));right:14px}#up{bottom:92px}.me{grid-template-columns:1fr;text-align:center;padding:24px}.me img{margin:auto;width:180px;height:180px}.me .btn{margin:4px}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
+<symbol id="i-food" viewBox="0 0 24 24"><path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v6M9 3v6M17 21V3c-2.5 1.5-4 4-4 7 0 2 1.5 3 4 3"/></symbol>
+<symbol id="i-bev" viewBox="0 0 24 24"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10.5h1.5a2.5 2.5 0 0 1 0 5H16.5M7 3v2M11 3v2M14 3v2"/></symbol>
+<symbol id="i-tr" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></symbol>
+<symbol id="i-q" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></symbol>
+<symbol id="i-i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-m" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 7l9 6 9-6"/></symbol>
+<symbol id="i-s" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+<symbol id="i-u" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+<symbol id="i-d" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-li" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6c.6-1 1.9-1.9 3.9-1.9 4 0 4.8 2.6 4.8 6V21h-4v-5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21h-4z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+</defs></svg>
+<div class="rail" id="rail">
+<a class="brand" href="#home" aria-label="Flavour IQ home"><img src="assets/logo.png" alt="Flavour IQ"></a>
+<nav class="glass" aria-label="Main">
+<a class="nl on" href="#home" data-s="home" data-tip="Home" aria-label="Home"><svg class="ic"><use href="#i-home"/></svg></a>
+<button class="nl" data-m="food" data-tip="Food" aria-label="Food"><svg class="ic"><use href="#i-food"/></svg></button>
+<button class="nl" data-m="bev" data-tip="Beverage" aria-label="Beverage"><svg class="ic"><use href="#i-bev"/></svg></button>
+<a class="nl extra" href="#trending" data-s="trending" data-tip="Trending in Industry" aria-label="Trending"><svg class="ic"><use href="#i-tr"/></svg></a>
+<button class="nl" data-m="quiz" data-tip="Quiz" aria-label="Quiz"><svg class="ic"><use href="#i-q"/></svg></button>
+<a class="nl extra" href="#about" data-s="about" data-tip="About Us" aria-label="About"><svg class="ic"><use href="#i-i"/></svg></a>
+<a class="nl extra" href="#contact" data-s="contact" data-tip="Contact Us" aria-label="Contact"><svg class="ic"><use href="#i-m"/></svg></a>
+<button class="nl" id="sb" data-tip="Search" aria-label="Search"><svg class="ic"><use href="#i-s"/></svg></button>
+<button class="nl more" id="more" aria-label="More"><svg class="ic"><use href="#i-d"/></svg></button>
+</nav>
+<div class="pop glass"><a href="#trending"><svg class="ic"><use href="#i-tr"/></svg>Trending</a><a href="#about"><svg class="ic"><use href="#i-i"/></svg>About Us</a><a href="#contact"><svg class="ic"><use href="#i-m"/></svg>Contact Us</a></div>
+</div>
+<button id="tg" class="glass" aria-label="Switch day or night mode"><svg class="ic"><use href="#i-moon"/></svg></button>
+<button id="up" class="glass" aria-label="Back to top"><svg class="ic"><use href="#i-u"/></svg></button>
+<div id="ov"></div><div class="dd" id="dd"></div>
+<div class="sr" id="sr"><input id="q" type="search" placeholder="Search all guides…" aria-label="Search guides"><div id="rs" class="glass"></div></div>
+
+<header id="home"><div class="hbox glass"><h1>Learn it. Taste it. Master it.</h1>
+<p>Guides, industry trends and a quiz to grow your food and beverage knowledge, all in one place.</p>
+<button class="btn dark" data-m="food">Explore Food</button><button class="btn glass" data-m="bev">Explore Beverage</button></div>
+<div class="fact glass" id="fact"></div></header>
+
+<section class="cur" id="trending"><h2>Trending in Industry</h2>
+<p>The latest from the trade sources that shape flavour, hospitality and hotels. Tap a post to read it at the source.</p>
+<div class="cards" id="tc"></div></section>
+
+<section class="cur" id="about"><h2>About Us</h2>
+<p>Flavour IQ exists to spread practical knowledge of food and beverage. Every guide is written to be read in minutes, remembered for years, and used on the job or in the kitchen at home.</p>
+<div class="me"><img src="assets/kamal.png" alt="Kamal Kant Gautam">
+<div><h3>Kamal Kant Gautam</h3><div class="role">Founder, Flavour IQ · Food &amp; Beverage professional</div>
+<p>I work in food and beverage, where guests, flavours and teams meet every day. I built Flavour IQ to share what I learn in simple, visual guides, so anyone can grow their knowledge, from first-time cooks to hospitality teams.</p>
+<a class="btn dark ib" href="https://www.linkedin.com/in/kamal-kant-gautam-103287101" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ic"><use href="#i-li"/></svg></a>
+<a class="btn glass ib" href="https://www.instagram.com/kamalkantgautam94" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a></div></div>
+<div class="cards slim">
+<div class="card mint"><small>Our promise</small><p>Simple, visual, useful guides.</p></div>
+<div class="card peach"><small>Who it is for</small><p>Learners, foodies and hospitality teams.</p></div>
+<div class="card lav"><small>Our values</small><p>Clarity, curiosity and craft.</p></div></div></section>
+
+<section class="cur" id="contact"><h2>Contact Us</h2><p>Questions, ideas or a guide you would like to see? Send a message.</p>
+<form id="form"><input type="text" name="name" placeholder="Your name" required><input type="email" name="email" placeholder="Your email" required><textarea name="message" placeholder="Your message" required></textarea>
+<button class="btn dark" type="submit">Send message</button><div id="st" role="status"></div></form></section>
+<footer>© <span style="all:unset" id="yr"></span> Kamal Kant Gautam · Flavour IQ. All rights reserved.<span class="glass" id="vc" hidden><svg class="ic" style="width:16px;height:16px"><use href="#i-eye"/></svg><b id="vn"></b> visitors</span></footer>
+
+<script src="data/search-index.js"></script>
+<script>
+const $=i=>document.getElementById(i),A=(s,f)=>document.querySelectorAll(s).forEach(f);
+const GD=[["Pasta","guides/pasta.html","var(--rose)"],["Cheese","guides/cheese.html","var(--peach)"],["Pastry","guides/pastry.html","var(--lav)"],["Tea","guides/tea.html","var(--mint)"],["Coffee","guides/coffee.html","var(--rose)"]];
+const G={food:["Food guides",[0,1,2]],bev:["Beverage guides",[3,4]]};
+const F=["Coffee beans are really the seeds of a fruit called the coffee cherry.","White, green, oolong, black and pu-erh tea all come from the same plant, Camellia sinensis.","Espresso is a brewing method, not a type of bean.","The holes in Swiss cheese come from gas bubbles made by bacteria during ripening.","Parmigiano Reggiano is aged for at least 12 months.","Saffron threads are the hand-picked stigmas of a crocus flower.","Vanilla is often named the second most expensive spice, after saffron.","Traditional dried pasta is made from durum wheat semolina.","Cold brew coffee is steeped in cold water, usually for 12 hours or more.","Honey sealed in a jar barely spoils; edible honey has been found in ancient tombs.","Italy makes hundreds of pasta shapes, each paired with a sauce that suits it.","Laminated doughs like croissants get their flaky layers from folding butter into dough again and again."];
+$("fact").innerHTML="<b>Did you know?</b> "+F[Math.floor(Math.random()*F.length)];$("yr").textContent=new Date().getFullYear();
+const dd=$("dd"),sr=$("sr"),rail=$("rail");
+function closeAll(){dd.classList.remove("o");sr.classList.remove("o");$("ov").style.display="none";rail.classList.remove("open")}
+A('a[href="#home"]',a=>a.onclick=e=>{e.preventDefault();closeAll();scrollTo({top:0,behavior:"smooth"})});
+A("[data-m]",b=>b.onclick=e=>{e.stopPropagation();const k=b.dataset.m;if(k=="quiz"){location.href="quiz.html";return}const was=dd.classList.contains("o")&&dd.dataset.k==k;closeAll();if(was)return;
+ dd.dataset.k=k;dd.innerHTML=k=="quiz"?"<h4>Quiz</h4><p>Coming soon</p>":"<h4>"+G[k][0]+"</h4>"+G[k][1].map(i=>`<a href="${GD[i][1]}"><i style="background:${GD[i][2]}"></i>${GD[i][0]}<span>→</span></a>`).join("");
+ dd.classList.add("o");const r=b.getBoundingClientRect();
+ if(innerWidth>800){dd.style.left=Math.min(r.right+14,innerWidth-dd.offsetWidth-12)+"px";dd.style.top=Math.max(12,Math.min(r.top-10,innerHeight-dd.offsetHeight-12))+"px";dd.style.bottom="auto"}
+ else{dd.style.left=Math.max(10,Math.min(r.left-100,innerWidth-262))+"px";dd.style.top="auto";dd.style.bottom=innerHeight-r.top+12+"px"}});
+let ht;const hov=matchMedia("(hover:hover)").matches,hold=()=>clearTimeout(ht),sch=()=>{if(hov){clearTimeout(ht);ht=setTimeout(()=>dd.classList.remove("o"),250)}};
+dd.onmouseenter=hold;dd.onmouseleave=sch;A("[data-m]",b=>{b.addEventListener("mouseenter",hold);b.addEventListener("mouseleave",sch)});
+document.addEventListener("click",e=>{if(!dd.contains(e.target)&&!sr.contains(e.target))closeAll()});
+document.addEventListener("keydown",e=>{if(e.key=="Escape")closeAll()});
+$("more").onclick=e=>{e.stopPropagation();const o=rail.classList.contains("open");closeAll();if(!o)rail.classList.add("open")};
+/* theme */
+const R=document.documentElement,tg=$("tg");let th;try{th=localStorage.getItem("fiq-theme")}catch(e){}
+if(!th)th=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";
+function setT(t){R.dataset.theme=t;tg.innerHTML='<svg class="ic"><use href="#i-'+(t=="dark"?"sun":"moon")+'"/></svg>';try{localStorage.setItem("fiq-theme",t)}catch(e){}}
+setT(th);tg.onclick=()=>setT(R.dataset.theme=="dark"?"light":"dark");
+/* scroll: active nav + back to top */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)A("[data-s]",a=>a.classList.toggle("on",a.dataset.s==e.target.id))}),{threshold:.5});
+["home","trending","about","contact"].forEach(i=>io.observe($(i)));
+addEventListener("scroll",()=>$("up").classList.toggle("s",scrollY>400),{passive:true});$("up").onclick=()=>scrollTo({top:0,behavior:"smooth"});
+/* search across guides: uses the pre-built index in data/search-index.js */
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+/*S*/function srch(q){const w=q.toLowerCase().split(/\s+/).filter(Boolean);if(!w.length)return[];const out=[];
+ GD.forEach(g=>{if(w.some(x=>g[0].toLowerCase().includes(x)))out.push({n:g[0],u:g[1],s:"Open the "+g[0]+" guide",p:-1})});
+ let m=SIDX.filter(x=>w.every(k=>x[2].toLowerCase().includes(k)));if(!m.length&&w.length>1)m=SIDX.filter(x=>w.some(k=>x[2].toLowerCase().includes(k)));
+ const cnt={};m.map(x=>({n:x[0],u:x[1],s:x[2],p:x[2].toLowerCase().indexOf(w[0])})).sort((a,b)=>(a.p<0)-(b.p<0)||a.p-b.p).forEach(x=>{cnt[x.n]=(cnt[x.n]||0)+1;if(cnt[x.n]<=3)out.push(x)});
+ return out.slice(0,10)}/*E*/
+$("sb").onclick=async e=>{e.stopPropagation();const o=sr.classList.contains("o");closeAll();if(o)return;$("ov").style.display="block";sr.classList.add("o");const r=$("sb").getBoundingClientRect();
+ if(innerWidth>800){sr.style.left=r.right+14+"px";sr.style.top=Math.max(12,Math.min(r.top-8,innerHeight-330))+"px"}else{sr.style.left=Math.max(10,(innerWidth-330)/2)+"px";sr.style.top="16%"}
+ $("q").focus()};
+$("q").oninput=()=>{const q=$("q").value.trim(),rs=$("rs");if(q.length<2){rs.style.display="none";return}
+ const m=srch(q),w=q.toLowerCase().split(/\s+/).filter(Boolean);rs.style.display="block";
+ rs.innerHTML=m.length?m.map(x=>{let s=x.s;if(x.p>0){const a=Math.max(0,x.p-45);s=(a?"…":"")+s.slice(a,a+140)+(a+140<s.length?"…":"")}else if(x.p==0&&s.length>140)s=s.slice(0,140)+"…";
+  let h=esc(s);w.forEach(k=>h=h.replace(new RegExp("("+k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig"),"<mark>$1</mark>"));
+  return`<a href="${x.u}${x.p<0?"":"#:~:text="+encodeURIComponent(w[0])}"><b>${x.n}</b>${h}</a>`}).join(""):"<a>No results found. Try another word, like tea, coffee or pasta.</a>"};
+/* trending */
+const ART=['<svg viewBox="0 0 160 100"><circle cx="80" cy="52" r="38" fill="#f4a340"/><circle cx="80" cy="52" r="32" fill="#ffd98a"/><g stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M80 24v56M52 52h56M60 32l40 40M100 32L60 72"/></g><circle cx="80" cy="52" r="5" fill="#fff"/><path d="M120 28c14-4 24 4 26 14-14 2-24-2-26-14z" fill="#7bc79a"/><path d="M34 76c-12 0-20-8-20-18 14 0 22 6 20 18z" fill="#7bc79a"/></svg>','<svg viewBox="0 0 160 100"><path d="M36 74a44 44 0 0 1 88 0z" fill="#fff"/><circle cx="80" cy="24" r="6" fill="#fff"/><rect x="24" y="74" width="112" height="7" rx="3.5" fill="#fff"/><path d="M52 58a30 30 0 0 1 20-22" stroke="#f3c6c6" stroke-width="4" fill="none" stroke-linecap="round"/></svg>','<svg viewBox="0 0 160 100"><rect x="46" y="14" width="68" height="74" rx="6" fill="#fff"/><g fill="#bfebd7"><rect x="56" y="26" width="12" height="12" rx="2"/><rect x="74" y="26" width="12" height="12" rx="2"/><rect x="92" y="26" width="12" height="12" rx="2"/><rect x="56" y="46" width="12" height="12" rx="2"/><rect x="74" y="46" width="12" height="12" rx="2"/><rect x="92" y="46" width="12" height="12" rx="2"/></g><rect x="71" y="66" width="18" height="22" rx="3" fill="#e2bb4b"/><path d="M36 88h88" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>'];
+const SRC=[["Givaudan","https://www.givaudan.com","Flavour & taste","rose"],["ET HospitalityWorld","https://hospitality.economictimes.indiatimes.com","Hospitality news","peach"],["Hotelier India","https://www.hotelierindia.com","Hotel industry","mint"]];
+(async()=>{let D=[];try{D=await (await fetch("data/trending.json")).json()}catch(e){}
+ $("tc").innerHTML=SRC.map((s,i)=>{const p=D.find(d=>d.source==s[0])||{};const has=p.title;
+  return`<a class="card tr ${s[3]}" href="${has?p.link:s[1]}" target="_blank" rel="noopener"><div class="im" ${p.image?`style="background-image:url('${esc(p.image)}')"`:""}>${p.image?"":ART[i]}</div><div class="tx"><div><small>${s[0]} · ${s[2]}</small><h3>${has?esc(p.title):"Latest from "+s[0]}</h3></div><span>${has?"Read the post →":"Visit source →"}</span></div></a>`}).join("")})();
+/* visitors (counterapi.dev) */
+(async()=>{try{let n="";try{n=sessionStorage.getItem("fiq-v")?"":"/up";sessionStorage.setItem("fiq-v","1")}catch(e){n="/up"}
+ const r=await fetch("https://api.counterapi.dev/v1/flavouriq-site/visits"+n),j=await r.json();if(j.count){$("vn").textContent=j.count.toLocaleString();$("vc").hidden=false}}catch(e){}})();
+/* contact (Web3Forms) */
+const f=$("form"),sb=f.querySelector("button"),st=$("st");
+f.addEventListener("submit",async e=>{e.preventDefault();const fd=new FormData(f);fd.append("access_key","62a0868a-a733-4151-9a07-df85e49ea0cb");
+ const o=sb.textContent;sb.textContent="Sending…";sb.disabled=true;
+ try{const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:fd}),j=await r.json();if(r.ok){st.textContent="Thank you! Your message has been sent.";f.reset()}else st.textContent="Error: "+j.message}
+ catch(x){st.textContent="Something went wrong. Please try again."}finally{sb.textContent=o;sb.disabled=false}});
+</script></body></html>
