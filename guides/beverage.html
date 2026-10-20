@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Beverage Guide | FlavourIQ</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Karla:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f3ec;--card:#fffdf8;--ink:#14262b;--mut:#5b6b6e;--teal:#0f6b73;--gold:#d99a1e;--coral:#d4553f;--line:#e1dacb}
+:root[data-t=dark]{--bg:#0d1a1e;--card:#15262b;--ink:#eaf1ef;--mut:#9fb2b4;--teal:#4bc0c8;--gold:#f0b33c;--coral:#f0806a;--line:#25393f}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Karla,sans-serif}
+h1,h2,h3{font-family:Fraunces,serif;line-height:1.2;margin:0 0 .5em}
+h2{font-size:clamp(1.6rem,4vw,2.3rem)}section{max-width:1080px;margin:auto;padding:56px 18px 8px}
+p{margin:.5em 0}.mut{color:var(--mut)}
+#bar{position:fixed;top:0;left:0;height:3px;background:var(--gold);width:0;z-index:99}
+nav{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:10px 14px;align-items:center}
+nav a{white-space:nowrap;color:var(--ink);text-decoration:none;padding:5px 11px;border-radius:20px;font-size:.9rem}
+nav a:hover{background:var(--line)}nav b{font-family:Fraunces,serif;margin-right:8px;color:var(--teal)}
+#tg{margin-left:auto;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:20px;padding:5px 12px;cursor:pointer;font:inherit}
+.hero{background:linear-gradient(160deg,#0b3d44,#0f6b73 60%,#1b8f8a);color:#fff;text-align:center;padding:70px 18px 40px;overflow:hidden;position:relative}
+.hero h1{font-size:clamp(2.2rem,7vw,4.2rem)}.hero p{max-width:640px;margin:auto;opacity:.92}
+.bub{position:absolute;bottom:-20px;border-radius:50%;border:2px solid #ffffff66;animation:up 9s linear infinite}
+@keyframes up{to{transform:translateY(-420px);opacity:0}}
+@media(prefers-reduced-motion:reduce){.bub{animation:none}}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.f{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.f button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:20px;padding:6px 14px;cursor:pointer;font:inherit}
+.f button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+details[open]{border-color:var(--teal)}
+summary{cursor:pointer;display:flex;align-items:center;gap:12px;font-family:Fraunces,serif;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}summary small{display:block;font:400 .8rem Karla;color:var(--mut)}
+details p{font-size:.95rem}.ex{color:var(--teal);font-weight:600;font-size:.9rem}
+.tag{display:inline-block;font-size:.75rem;background:var(--line);border-radius:10px;padding:1px 9px;margin-left:6px}
+.t{overflow-x:auto;padding:8px 4px 16px}.t ul{display:flex;justify-content:center;padding:22px 0 0;margin:0;list-style:none;position:relative}
+.t>ul{width:max-content;margin:0 auto;padding-top:0}
+.t li{position:relative;display:flex;flex-direction:column;align-items:center;padding:22px 7px 0}
+.t li::before,.t li::after{content:"";position:absolute;top:0;right:50%;width:50%;height:22px;border-top:2px solid var(--mut)}
+.t li::after{right:auto;left:50%;border-left:2px solid var(--mut)}
+.t li:first-child::before,.t li:last-child::after{border:0}
+.t li:last-child::before{border-right:2px solid var(--mut);border-radius:0 8px 0 0}
+.t li:first-child::after{border-radius:8px 0 0 0}
+.t li:only-child::before,.t li:only-child::after{display:none}.t li:only-child{padding-top:0}
+.t>ul>li{padding-top:0}.t>ul>li::before,.t>ul>li::after{display:none}
+.t ul ul::before{content:"";position:absolute;top:0;left:50%;border-left:2px solid var(--mut);height:22px}
+.n{position:relative;z-index:1;display:block;background:var(--card);border:1.5px solid var(--c,var(--line));border-radius:9px;padding:6px 10px;font-size:.86rem;line-height:1.3;text-align:center;overflow-wrap:anywhere}
+.n small{display:block;color:var(--mut);font-size:.72rem;margin-top:2px}
+.n.r{font:700 1.1rem Fraunces,serif;border-color:var(--gold);padding:8px 26px}
+.n.g{font-weight:700;min-width:130px;background:var(--c);color:#fff;border-color:var(--c)}
+.n.b{font-weight:700;min-width:130px;color:var(--ink);border-width:2px}
+.n.s{font-weight:600;width:158px;border-color:var(--gold)}
+.lv{display:flex;flex-direction:column;align-items:center;margin-top:22px;position:relative}
+.n.l{width:154px;margin-top:12px;border-color:var(--line)}.n.l:first-child{margin-top:0}
+.n.l::before{content:"";position:absolute;left:50%;top:-12px;height:12px;border-left:2px solid var(--mut);z-index:-1}
+.n.l:first-child::before{top:-22px;height:22px}
+.eb{color:var(--coral);letter-spacing:.2em;text-transform:uppercase;font-weight:600;font-size:.85rem;margin:0 0 6px}
+#ge{display:inline-flex;align-items:center;gap:12px;border:1.5px solid var(--gold);background:var(--card);color:var(--ink);border-radius:30px;padding:12px 26px;font:600 1.05rem Karla,sans-serif;letter-spacing:.04em;cursor:pointer;margin:6px 0 16px}
+#ge svg{transition:transform .25s}#ge.x svg{transform:rotate(180deg)}#ge:hover{background:var(--line)}
+#gls{display:none}#gls.o{display:grid}
+.vm{margin-bottom:18px}.vm h3{margin:.2em 0 .6em}
+.vl{display:flex;gap:14px;align-items:center;padding:8px;margin:8px 0;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);text-decoration:none}
+.vl:hover{border-color:var(--coral)}
+.th{position:relative;flex:none;width:112px;aspect-ratio:16/9;border-radius:7px;overflow:hidden;background:#0b3d44;display:grid;place-items:center;color:#fff}
+.th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.th i{position:relative;font-style:normal;z-index:1;background:#000a;border-radius:50%;width:26px;height:26px;display:grid;place-items:center;font-size:.7rem}
+.vl b{display:block;font-size:.95rem;line-height:1.3}.vl small{color:var(--mut)}
+.nt{border-left:3px solid var(--teal);padding:8px 14px;font-size:.9rem;color:var(--mut);background:var(--bg);border-radius:0 8px 8px 0}
+.nt ul{margin:6px 0 0;padding-left:18px}.nt li{margin-bottom:4px}.nt strong{color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--teal)}.tw{overflow-x:auto}
+.lv{border-left:4px solid var(--gold)}.lv h3{font-size:1.15rem}
+.call{background:linear-gradient(135deg,var(--card),var(--bg));border:2px dashed var(--gold);border-radius:14px;padding:20px}
+.opt button{margin:4px 6px 4px 0;border:1px solid var(--teal);background:none;color:var(--ink);border-radius:20px;padding:6px 16px;cursor:pointer;font:inherit}
+.res{min-height:3em;font-size:.95rem;margin-top:6px}
+footer{text-align:center;padding:50px 18px 90px;color:var(--mut)}
+.fab{position:fixed;right:16px;width:46px;height:46px;border-radius:50%;border:0;background:var(--teal);color:#fff;font-size:1.3rem;cursor:pointer;z-index:60;box-shadow:0 3px 10px #0004}
+#top{bottom:16px;opacity:0;pointer-events:none;transition:.2s}#top.s{opacity:1;pointer-events:auto}
+#q{bottom:70px;background:var(--gold);color:#222;font-weight:700}
+#m{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+#m.o{display:flex}#m form{background:var(--card);padding:22px;border-radius:14px;width:100%;max-width:400px}
+#m input,#m textarea{width:100%;margin:6px 0 10px;padding:9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+#m .b{background:var(--teal);color:#fff;border:0;padding:9px 18px;border-radius:8px;cursor:pointer;font:inherit}
+</style><link rel="icon" href="../assets/favicon.png"></head><body>
+<div id="bar"></div>
+<nav><b>FlavourIQ</b><a href="#what">Basics</a><a href="#tree">Hierarchy</a><a href="#na">Non-Alcoholic</a><a href="#al">Alcoholic</a><a href="#soup">Soup?</a><a href="#pro">Service</a><a href="#watch">Videos</a><a href="#gl">Glossary</a><button id="tg">Dark</button></nav>
+
+<header class="hero" id="hero">
+<h1>The Beverage Guide</h1>
+<p>From a glass of water to a vintage whisky: what a beverage is, how it is classified, and how to speak about it like a professional. Built for beginners and experienced hospitality hands alike.</p>
+<svg width="190" height="140" viewBox="0 0 190 140" style="margin-top:18px" aria-hidden="true"><path d="M50 10h90l-12 110H62z" fill="#ffffff22" stroke="#fff" stroke-width="3"/><path d="M55 50h80l-8 70H63z" fill="#f0b33c"/><circle cx="95" cy="35" r="9" fill="#fff" opacity=".7"/><path d="M100 10l30-8" stroke="#d4553f" stroke-width="5" stroke-linecap="round"/></svg>
+</header>
+
+<section id="what">
+<h2>What is a beverage?</h2>
+<p>A <b>beverage</b> is any liquid prepared for human consumption by drinking. It quenches thirst, delivers nutrients or energy, carries flavour and is central to social ritual, from morning chai to a celebratory toast. In a hotel, beverages are one half of <b>F&amp;B (Food &amp; Beverage)</b>, with their own departments, cost controls, licences and service standards.</p>
+<div class="g2">
+<div class="box"><h3>Why we drink</h3><p>Hydration, nourishment, energy, comfort, social bonding, celebration, medicine and religion or tradition.</p></div>
+<div class="box"><h3>The one big split</h3><p>Everything divides on a single question: does it contain <b>ethanol</b> (alcohol)? If not, it is <b>non-alcoholic</b>; if yes, it is <b>alcoholic</b>.</p></div>
+<div class="box"><h3>Drink vs beverage</h3><p>In everyday speech they are the same. In the trade, “drinks” often implies alcohol (“drinks menu”) while “beverage” is the formal umbrella for everything.</p></div>
+<div class="box"><h3>Brief history</h3><p>Water and milk came first; fermented drinks (mead, beer, wine) appear about 7,000-9,000 years ago; tea in China, coffee in Ethiopia and Yemen, distillation in the medieval period, and carbonation in the 1700s.</p></div>
+</div></section>
+
+<section id="tree">
+<h2>The beverage hierarchy</h2>
+<p class="mut">Read from the top: the whole category splits into branches, then groups, then individual drinks with examples. Swipe sideways on a phone.</p>
+<div class="box"><div class="t" id="tr"></div></div>
+</section>
+
+<section id="na">
+<h2>Non-alcoholic beverages</h2>
+<p>Drinks with no alcohol (or under 0.5% ABV in most regulations), grouped by the job they do for the guest: stimulate, refresh, nourish, or offer something modern and zero-proof. Tap any card for detail and examples.</p>
+<div class="f" id="fn"></div><div class="grid" id="gn"></div></section>
+
+<section id="al">
+<h2>Alcoholic beverages</h2>
+<p>Alcohol (ethanol) is made by <b>fermentation</b>: yeast turns sugar into alcohol and CO₂. Fermented drinks top out near 15% ABV, because yeast dies beyond that. To go higher, the liquid is <b>distilled</b>, heated so alcohol vapour is collected and condensed. Strength is shown as <b>ABV</b> (alcohol by volume).</p>
+<div class="f" id="fa"></div><div class="grid" id="ga"></div>
+<h3 style="margin-top:28px">Strength and serving at a glance</h3>
+<div class="tw box"><table><tr><th>Category</th><th>Typical ABV</th><th>Serve</th><th>Glass</th></tr>
+<tr><td>Beer</td><td>4-6%</td><td>3-7°C (ales a little warmer)</td><td>Pint, pilsner, tulip</td></tr>
+<tr><td>White / rosé wine</td><td>11-13%</td><td>7-10°C</td><td>Medium tulip</td></tr>
+<tr><td>Red wine</td><td>12-15%</td><td>15-18°C</td><td>Large bowl</td></tr>
+<tr><td>Sparkling</td><td>11-12.5%</td><td>6-8°C</td><td>Flute or tulip</td></tr>
+<tr><td>Fortified</td><td>15-22%</td><td>Port room temp, sherry chilled</td><td>Small copita</td></tr>
+<tr><td>Spirits</td><td>35-50%+</td><td>Neat, rocks or mixed</td><td>Tumbler, snifter</td></tr>
+<tr><td>Liqueurs</td><td>15-40%</td><td>Neat, over ice, in cocktails</td><td>Small cordial</td></tr></table></div>
+</section>
+
+<section id="soup"><div class="call">
+<h2>Unique fact: is soup a food or a beverage?</h2>
+<p><b>Short answer: soup is classified as food.</b> It is cooked in the kitchen, sits on the food menu as a course, usually holds solids (vegetables, meat, noodles), is eaten with a spoon and is judged by how filling it is. A beverage is defined by being <i>drunk</i>, mainly to hydrate or refresh.</p>
+<p><b>The grey zone:</b> a clear consommé sipped from a cup, a chilled gazpacho in a glass, or bone broth served as a hot drink can feel like a beverage. Trade practice still files them under food because the kitchen makes and costs them. My view: use a three-part test: <i>how is it consumed, who prepares it, and does it contain solids?</i> Spoon + kitchen + solids = food. Sip + bar/beverage station + liquid = beverage.</p>
+<p><b>Try the test.</b> Is it food or beverage?</p>
+<h3 id="qi" style="margin-top:10px"></h3>
+<div class="opt"><button onclick="jd('Food')">Food</button><button onclick="jd('Beverage')">Beverage</button><button onclick="jd('Both')">Borderline</button></div>
+<div class="res" id="qr"></div></div></section>
+
+<section id="pro">
+<h2>Know it, serve it</h2>
+<p>Useful on your first day in the industry and on your thousandth service. Newcomers get the logic; professionals get the checkpoints.</p>
+<div class="g2">
+<div class="box"><h3>If you are new</h3><p>Start with the hierarchy above. Ask three questions about any drink: <b>Is there alcohol? Is it hot or cold? How is it made</b> (brewed, pressed, fermented, distilled, blended)? Those answers place almost any drink and predict its taste.</p></div>
+<div class="box"><h3>If you work the floor</h3><p>Right glass, right temperature, right garnish. Standard pours (30/60 ml), mise-en-place, allergen awareness (dairy, nuts, sulphites, gluten in beer), responsible service of alcohol, and always offering a zero-proof option.</p></div>
+<div class="box"><h3>If you run the numbers</h3><p>Beverage pour cost usually sits around 18-25%. Track wastage, breakage, par stock and portion control; mocktails and house-made sodas carry some of the best margins on a menu.</p></div>
+<div class="box"><h3>Pairing principles</h3><p>Match weight with weight, mirror or contrast flavours, acid cuts fat, sweet tames spice, tannin loves protein. Sparkling and tea cleanse the palate between courses.</p></div>
+</div>
+<h3 style="margin-top:24px">Cocktail methods every professional knows</h3>
+<div class="tw box"><table><tr><th>Method</th><th>How</th><th>Use for</th><th>Example</th></tr>
+<tr><td>Build</td><td>Pour straight into the serving glass over ice</td><td>Simple highballs</td><td>Gin &amp; Tonic</td></tr>
+<tr><td>Stir</td><td>Mixing glass and ice, spirit-only drinks</td><td>Clear, silky</td><td>Martini, Negroni</td></tr>
+<tr><td>Shake</td><td>Shaker with ice, hard shake</td><td>Juice, cream, egg white</td><td>Margarita</td></tr>
+<tr><td>Muddle</td><td>Crush herbs or fruit in glass</td><td>Fresh aromatics</td><td>Mojito</td></tr>
+<tr><td>Blend</td><td>Blender with ice</td><td>Frozen drinks</td><td>Piña Colada</td></tr></table></div>
+</section>
+
+<section id="watch"><h2>Watch and learn</h2>
+<p class="mut">Video lessons with quick notes. Links open on YouTube.</p>
+<div class="box vm"><h3>Types of Beverages Explained</h3><a class="vl" href="https://www.youtube.com/watch?v=y5XEwTDlriE" target="_blank" rel="noopener noreferrer"><span class="th"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/y5XEwTDlriE/mqdefault.jpg" onerror="this.remove()"><i>▶</i></span><span><b>A Brief History of Alcohol</b><small>TED-Ed</small></span></a><div class="nt"><strong>Core Classification:</strong><ul><li><strong>Fermented (3%-15% ABV):</strong> Beer (grains, hops, water, yeast) and Wine (fermented grape must).</li><li><strong>Distilled Spirits (35%-55%+ ABV):</strong> Ethanol concentrated via heat separation. Includes Whiskey (aged grain mash), Vodka (neutral spirit), Gin (botanical/juniper redistillation), Rum (sugarcane/molasses), and Tequila/Mezcal (agave).</li><li><strong>Aromatized &amp; Fortified:</strong> Vermouths, amaros, and cordials enhanced with botanical infusions and added sugars.</li></ul></div></div>
+<div class="box vm"><h3>How Beer, Wine and Whisky Are Made</h3><a class="vl" href="https://www.youtube.com/watch?v=ZNe4ZRFx9oY" target="_blank" rel="noopener noreferrer"><span class="th"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/ZNe4ZRFx9oY/mqdefault.jpg" onerror="this.remove()"><i>▶</i></span><span><b>How Scotch Whisky is Made: Grain to Glass</b><small>VisitScotland</small></span></a><a class="vl" href="https://www.youtube.com/watch?v=nezwMMDauaI" target="_blank" rel="noopener noreferrer"><span class="th"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/nezwMMDauaI/mqdefault.jpg" onerror="this.remove()"><i>▶</i></span><span><b>How Whiskey is Made (Made in a Day)</b><small>National Geographic</small></span></a><div class="nt"><strong>Production Flow:</strong><ul><li><strong>Wine:</strong> Harvest &rarr; Crushing/Pressing &rarr; Primary Fermentation &rarr; Clarification &rarr; Aging &rarr; Bottling.</li><li><strong>Beer:</strong> Malting &rarr; Mashing (starch conversion) &rarr; Boil with hops &rarr; Yeast fermentation &rarr; Carbonation.</li><li><strong>Whisky:</strong> Grain mashing &rarr; Fermentation (~8% ABV wash) &rarr; Pot/Column Still Distillation (60%-70%+ ABV) &rarr; Oak cask maturation &rarr; Dilution &amp; bottling.</li></ul></div></div>
+<div class="box vm"><h3>Bartending Basics: Shake, Stir, Build</h3><a class="vl" href="https://www.youtube.com/watch?v=b0IuTL3Z-kk" target="_blank" rel="noopener noreferrer"><span class="th"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/b0IuTL3Z-kk/mqdefault.jpg" onerror="this.remove()"><i>▶</i></span><span><b>How To Mix Every Cocktail (Method Mastery)</b><small>Epicurious</small></span></a><div class="nt"><strong>Execution Rules:</strong><ul><li><strong>Build:</strong> Assemble directly in glass over ice (e.g., Highball, Spritz). One smooth vertical lift with the bar spoon to blend without reducing carbonation.</li><li><strong>Stir:</strong> For clear, spirit-forward drinks (Martini, Manhattan, Negroni). Keep the spoon back flush to the glass; rotate smoothly for 25-30 seconds for clear, un-aerated dilution.</li><li><strong>Shake:</strong> For formulas with citrus, syrup, cream, or egg white (Sours, Margaritas). Hard horizontal/elliptical shake for 10-12 seconds; double strain to catch micro-ice shards.</li></ul></div></div>
+<div class="box vm"><h3>Mocktail Principles and Formulations</h3><a class="vl" href="https://www.youtube.com/watch?v=s7npkwZzacE" target="_blank" rel="noopener noreferrer"><span class="th"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/s7npkwZzacE/mqdefault.jpg" onerror="this.remove()"><i>▶</i></span><span><b>6 Easy Mocktails You Can Order at Any Bar</b><small>Michelle The Bartender</small></span></a><div class="nt"><strong>Standard Balancing Ratios:</strong><ul><li><strong>Zero-Proof Sour Ratio (2 : 1 : 1):</strong> 2 oz Base (chilled tea, cold brew, or non-alcoholic spirit) + 1 oz Fresh Citrus (lemon/lime) + 1 oz Sweet/Syrup balance. Shaken and fine-strained.</li><li><strong>Highball / Spritz Balance:</strong> 1.5 oz Flavored fruit pur&eacute;e or shrub + 0.75 oz Fresh acid + 4 oz Effervescent soda/tonic. Built over fresh cubes.</li></ul></div></div>
+</section>
+
+<section id="gl"><p class="eb">Speak the language</p><h2>A Glossary of Beverage Terms</h2><button id="ge" aria-expanded="false"><span>Expand</span><svg width="18" height="18" viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="g2" id="gls"></div></section>
+<footer>Compiled by Kamal Kant Gautam · FlavourIQ<br><small>Drink responsibly. Legal drinking age varies by state and country.</small></footer>
+
+<button class="fab" id="q" aria-label="Ask a question">?</button><button class="fab" id="top" aria-label="Back to top">↑</button>
+<div id="m"><form id="qf"><h3>Have a question?</h3><input name="name" placeholder="Name" required><input name="email" type="email" placeholder="Email" required><textarea name="message" rows="4" placeholder="Message" required></textarea><button class="b" id="sb">Send</button> <button type="button" class="b" style="background:var(--mut)" onclick="m.classList.remove('o')">Close</button></form></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const G={
+tall:c=>`<path d="M14 6h28l-4 46H18z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.4 22h25.2L38 52H18z" fill="${c}"/>`,
+wine:c=>`<path d="M16 6h24c0 16-4 26-12 26S16 22 16 6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17 14h22c-1 10-5 18-11 18s-10-8-11-18z" fill="${c}"/><path d="M28 32v16M20 50h16" stroke="currentColor" stroke-width="2"/>`,
+cup:c=>`<path d="M12 14h28v22a10 10 0 0 1-10 10H22a10 10 0 0 1-10-10z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 18h26v18a9 9 0 0 1-9 9H22a9 9 0 0 1-9-9z" fill="${c}"/><path d="M40 20h4a6 6 0 0 1 0 12h-4" fill="none" stroke="currentColor" stroke-width="2"/>`,
+bottle:c=>`<path d="M24 4h8v12l5 8v28H19V24l5-8z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 32h16v20H20z" fill="${c}"/>`,
+mart:c=>`<path d="M10 8h36L28 30z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 12h26L28 26z" fill="${c}"/><path d="M28 30v18M19 50h18" stroke="currentColor" stroke-width="2"/>`};
+const T={na:[["Stimulating Beverages","#b9792b",[["",[
+["Tea & Tisanes","Black, Green, White, Oolong, Herbal, Floral","True teas come from Camellia sinensis leaves; tisanes are herbal or floral infusions with no tea leaf.","cup","#b9792b"],
+["Coffee & Espresso","Drip, Pour-over, Espresso-based, Cold Brew","Brewed from roasted beans; the method (pressure, drip, immersion) shapes strength and flavour.","cup","#4b2e1b"],
+["Cocoa & Cacao","Drinking chocolate, hot cocoa","Drinking chocolate uses melted chocolate; hot cocoa uses cocoa powder. Comfort and dessert service.","cup","#6b3a24"]]]]],
+["Refreshing Beverages","#33a1c8",[["",[
+["Waters","Natural mineral, spring, purified, still, sparkling","The base of all hydration; mineral content and bubbles set the style. Always on the table.","tall","#8fd3e8"],
+["Aerated Waters & Soft Drinks","Colas, ginger ale, tonic, club soda","Carbonated drinks, sweet or plain; many double as bar mixers.","tall","#7a3b1d"],
+["Crushes, Cordials & Squashes","Concentrates diluted with water or soda","Fruit concentrates and syrups served long over ice; strong in Indian summer service.","tall","#e0405a"]]]]],
+["Nourishing Beverages","#e08a1e",[["",[
+["Fruit & Vegetable Juices","Fresh-squeezed, cold-pressed, blends","Pressed from fresh produce; cold-pressed keeps more freshness and colour.","tall","#f29b2c"],
+["Dairy & Milk-Based","Whole milk, spiced milks, buttermilk/chaas, lassi","Milk and its cultured or spiced forms; the Indian trio of haldi doodh, chaas and lassi sits here.","tall","#f4efe2"],
+["Plant-Based Milks","Oat, almond, soy, coconut","Dairy alternatives for vegan and lactose-intolerant guests; now standard on coffee menus.","tall","#e7dcc3"]]]]],
+["Modern Zero-Proof & Functional","#3fb98c",[["",[
+["Fermented & Probiotic","Kombucha, milk/water kefir, shrubs, tepache","Naturally fermented drinks with tang and live cultures; may hold trace alcohol.","tall","#c9a227"],
+["Dealcoholized Products","0.0% beer, de-alcoholized wine","Made like the real thing, then alcohol is removed; same ritual, no ethanol.","wine","#d9b24a"],
+["Non-Alcoholic Spirits","Distilled botanical waters, aperitifs","Botanical distillates with the bite of a spirit and no alcohol, built for zero-proof bars.","bottle","#cfe9e4"],
+["Contemporary Zero-Proof Cocktails","House-crafted mocktails, sodas","Balanced, craft-built drinks using juices, syrups, herbs, bitters and house sodas.","mart","#3fb98c"]]]]]],
+al:[["Fermented (Un-distilled)","#8e1b3a",[["Beers & Ciders (Grains & Pomaceous Fruits)",[
+["Ales","Top-fermenting: IPA, Stout, Porter, Wheat, Pale Ale","Warm-fermented with top-working yeast; fruity, full-bodied and often hoppy.","tall","#c98a1e"],
+["Lagers","Bottom-fermenting: Pilsner, Helles, Bock, Märzen","Cold-fermented and conditioned; crisp, clean and the world’s most served beer style.","tall","#e8bd3a"],
+["Ciders, Perry & Mead","Fermented apple juice, pear perry, mead","Fruit or honey fermented without distilling; typically 4-8% ABV.","tall","#d9a83a"]]],
+["Wines (Grape & Fruit Must)",[
+["Still / Table Wine","Red, White, Rosé, Orange","No bubbles. Colour and style come from grape variety and skin contact.","wine","#8e1b3a"],
+["Sparkling Wine","Traditional method, Charmat, Pét-Nat","Carbonated by a second fermentation in bottle, tank, or finished in bottle (pét-nat).","wine","#efe0a8"],
+["Fortified Wine","Port, Sherry, Madeira, Marsala, Vermouth","Wine with added spirit, 15-22% ABV; aperitif, dessert or cooking use.","wine","#6f1d2e"]]]]],
+["Distilled (Spirits / Liquor)","#b4691f",[["Grain Spirits",[
+["Whisk(e)y","Scotch, Bourbon, Rye, Irish, Japanese, Single Malt/Blend","Distilled grain mash aged in oak; origin and grain set the style.","bottle","#b4691f"],
+["Vodka","Neutral grain, potato, or grape distillate","Clean, neutral spirit, filtered to be almost flavourless; the cocktail workhorse.","bottle","#dfeef2"]]],
+["Cane Spirits",[["Rum / Cachaça","Molasses-based, Rhum Agricole from fresh cane juice","Rum uses molasses; agricole and Brazilian cachaça use fresh cane juice.","bottle","#8a4a1c"]]],
+["Agave Spirits",[
+["Tequila","100% Blue Weber Agave: Blanco, Reposado, Añejo, Extra Añejo","Aged styles run from unaged blanco to long-rested extra añejo.","bottle","#e6d8a2"],
+["Mezcal / Raicilla / Bacanora","Espadín, wild agaves; artisanal smoke","Made from many agave types, often pit-roasted for a signature smoke.","bottle","#cdbf88"]]],
+["Fruit Spirits (Eaux-de-Vie & Brandies)",[
+["Grape Brandies","Cognac, Armagnac, Pisco, Grappa","Distilled from wine or pomace; Cognac and Armagnac are protected French regions.","bottle","#a1561c"],
+["Fruit Brandies","Calvados, Kirschwasser, Slivovitz, Poire Williams","Distilled from apples, cherries, plums or pears; aroma-forward.","bottle","#c3763a"]]],
+["Botanical / Compound Spirits",[
+["Gin","London Dry, Plymouth, Old Tom, Contemporary Botanical","Neutral spirit flavoured mainly with juniper plus botanicals.","bottle","#cfe9e4"],
+["Aquavit / Absinthe / Pastis","Anise, caraway, wormwood bases","Herbal and spice-led spirits, often turning cloudy when water is added.","bottle","#b7d99a"]]]]],
+["Liqueurs, Cordials & Amari","#d4553f",[["Compounded / infused with sugar",[
+["Bittered & Herbal Digestifs","Amaro, Fernet, Chartreuse, Bénédictine","Bitter-sweet herbal spirits, sipped after meals or used as cocktail backbone.","mart","#6b3a24"],
+["Fruit & Citrus Liqueurs","Triple Sec, Curaçao, Limoncello, Maraschino","Sweetened spirits flavoured with fruit peel or juice; cocktail staples.","mart","#e08a1e"],
+["Nut, Seed & Bean Liqueurs","Amaretto, Kahlúa, Frangelico, Sambuca","Rich, sweet liqueurs from almonds, hazelnut, coffee beans or anise.","mart","#7a4a2a"],
+["Cream & Dairy Liqueurs","Irish cream, rum cream, egg liqueurs","Spirit blended with cream or eggs; dessert drinks and coffee additions.","mart","#e7d6b8"]]]]]]};
+const flat=k=>T[k].flatMap(g=>g[2].flatMap(sg=>sg[1].map(l=>[...l,g[0],sg[0]])));
+function build(k,fid,gid){
+ const arr=flat(k),cats=["All",...T[k].map(g=>g[0])];
+ $(fid).innerHTML=cats.map((c,i)=>`<button class="${i?'':'on'}" data-c="${c}">${c}</button>`).join("");
+ $(gid).innerHTML=arr.map(a=>`<details data-c="${a[5]}"><summary><svg width="46" height="52" viewBox="0 0 56 56" style="color:var(--ink);flex:none">${G[a[3]](a[4])}</svg><span>${a[0]}<small>${a[5]}</small></span></summary><p>${a[2]}</p><p class="ex">${a[1]}</p></details>`).join("");
+ $(fid).onclick=e=>{const c=e.target.dataset.c;if(!c)return;[...$(fid).children].forEach(b=>b.classList.toggle("on",b===e.target));[...$(gid).children].forEach(d=>d.style.display=(c=="All"||d.dataset.c==c)?"":"none")}}
+build("na","#fn","#gn");build("al","#fa","#ga");
+// hierarchy tree (top-down)
+const lf=l=>`<span class="n l">${l[0]}<small>${l[1]}</small></span>`;
+const grp=(g,col)=>{const subs=g[2].some(x=>x[0]);const inner=subs?`<ul>${g[2].map(sg=>`<li><span class="n s">${sg[0]}</span><div class="lv">${sg[1].map(lf).join("")}</div></li>`).join("")}</ul>`:`<div class="lv">${g[2][0][1].map(lf).join("")}</div>`;return `<li><span class="n g" style="--c:${g[1]}">${g[0]}</span>${inner}</li>`};
+const brn=(k,t,col)=>`<li><span class="n b" style="--c:${col}">${t}</span><ul>${T[k].map(g=>grp(g)).join("")}</ul></li>`;
+$("#tr").innerHTML=`<ul><li><span class="n r">Beverages</span><ul>${brn("na","Non-Alcoholic","var(--teal)")}${brn("al","Alcoholic","var(--coral)")}</ul></li></ul>`;
+// soup quiz
+const Q=[["Chicken noodle soup","Food","Cooked in the kitchen, has solids and is eaten with a spoon."],["Smoothie","Beverage","Blended and drunk through a straw, even though it can replace a meal."],["Gazpacho (served in a glass)","Both","Cold soup in beverage-like form. Filed as food by the kitchen, but often sipped."],["Lassi","Beverage","Diluted, cultured dairy drink, consumed by drinking."],["Clear consommé in a cup","Both","Sipped like tea, yet it is a classical kitchen soup, so trade practice calls it food."],["Hot chocolate","Beverage","A liquid served from the beverage station and drunk."]];
+let qi=0;function sh(){$("#qi").textContent=Q[qi][0];$("#qr").textContent=""}sh();
+function jd(a){const q=Q[qi];$("#qr").innerHTML=(a==q[1]?"✅ Correct: ":"❌ It is: ")+"<b>"+(q[1]=="Both"?"Borderline":q[1])+"</b>. "+q[2];qi=(qi+1)%Q.length;setTimeout(sh,3800)}
+// glossary
+const GL=[["ABV","Alcohol by volume, the % of ethanol in a drink."],["Proof","US measure: twice the ABV (40% = 80 proof)."],["Fermentation","Yeast converts sugar into alcohol and CO₂."],["Distillation","Heating a liquid and condensing the vapour to concentrate alcohol."],["Aperitif / Digestif","Drink before a meal to open the appetite / after to aid digestion."],["Congeners","Flavour compounds formed during fermentation and ageing."],["Tannin","Plant compound giving dryness in tea and red wine."],["Infusion","Steeping a flavour source in hot or cold liquid."],["Maceration","Soaking fruit, herbs or skins in liquid or alcohol."],["Vintage","The year a wine’s grapes were harvested."],["Mixer","Non-alcoholic ingredient added to spirits."],["Neat / On the rocks","Spirit alone / served over ice."],["Garnish","Edible decoration that adds aroma or flavour."],["Pour cost","Cost of the beverage as a % of its selling price."]];
+$("#gls").innerHTML=GL.map(g=>`<div class="box"><b>${g[0]}</b><p class="mut">${g[1]}</p></div>`).join("");
+$("#ge").onclick=()=>{const o=$("#gls").classList.toggle("o");$("#ge").classList.toggle("x",o);$("#ge").setAttribute("aria-expanded",o);$("#ge span").textContent=o?"Collapse":"Expand"};
+// ui
+const R=document.documentElement;try{if(localStorage.t)R.dataset.t=localStorage.t}catch(e){}
+function lb(){$("#tg").textContent=R.dataset.t=="dark"?"Light":"Dark"}lb();
+$("#tg").onclick=()=>{R.dataset.t=R.dataset.t=="dark"?"light":"dark";try{localStorage.t=R.dataset.t}catch(e){}lb()};
+const h=$("#hero");for(let i=0;i<10;i++){const b=document.createElement("i");b.className="bub";const z=8+Math.random()*22;b.style.cssText=`left:${Math.random()*100}%;width:${z}px;height:${z}px;animation-delay:${Math.random()*8}s`;h.appendChild(b)}
+addEventListener("scroll",()=>{const d=document.documentElement;$("#bar").style.width=(scrollY/(d.scrollHeight-innerHeight)*100)+"%";$("#top").classList.toggle("s",scrollY>400)});
+$("#top").onclick=()=>scrollTo({top:0,behavior:"smooth"});
+const m=$("#m");$("#q").onclick=()=>m.classList.add("o");
+$("#qf").onsubmit=async e=>{e.preventDefault();const b=$("#sb");b.textContent="Sending...";b.disabled=true;const f=new FormData(e.target);f.append("access_key","62a0868a-a733-4151-9a07-df85e49ea0cb");
+try{const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:f});const j=await r.json();if(j.success){alert("Success! Your message has been sent.");e.target.reset();m.classList.remove("o")}else alert("Error: "+j.message)}catch(x){alert("Something went wrong. Please try again.")}b.textContent="Send";b.disabled=false};
+</script><a href="../index.html" style="position:fixed;bottom:14px;left:12px;z-index:9999;padding:8px 14px;border-radius:999px;background:rgba(20,20,24,.78);color:#fff;font:600 13px system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(10px)">← Flavour IQ</a></body></html>
