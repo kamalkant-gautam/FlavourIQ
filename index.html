@@ -54,7 +54,7 @@ input,textarea{width:100%;padding:14px 18px;border-radius:20px;border:1px solid 
 .sr{position:fixed;z-index:90;width:min(330px,92vw);display:none}.sr.o{display:block}
 .sr input{height:64px;border-radius:999px;padding:0 26px;font-size:1rem;background:var(--glass);backdrop-filter:blur(18px);box-shadow:0 8px 32px var(--shadow)}
 #rs{margin-top:10px;border-radius:24px;padding:8px;max-height:46vh;overflow:auto;display:none}#rs a{display:block;padding:9px 12px;border-radius:14px;color:var(--ink);text-decoration:none;font-size:.88rem}#rs a:hover{background:var(--glass)}#rs b{display:block;color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}#rs mark{background:var(--peach);color:#16161a;border-radius:3px}
-footer{position:relative;z-index:2;background:var(--bg);text-align:center;padding:26px 20px 28px 120px;color:var(--mut);font-size:.88rem;border-top:1px solid var(--edge)}footer span{display:inline-flex;align-items:center;gap:6px;margin-left:14px;padding:4px 12px;border-radius:999px}
+footer{position:relative;z-index:2;background:var(--bg);text-align:center;padding:26px 20px 28px 120px;color:var(--mut);font-size:.88rem;border-top:1px solid var(--edge)}footer span[hidden]{display:none!important}footer span{display:inline-flex;align-items:center;gap:6px;margin-left:14px;padding:4px 12px;border-radius:999px}
 @media(max-width:800px){
 #home{padding:24px 16px 110px}.hbox{padding:32px 22px}.fact{left:50%;width:calc(100% - 32px);bottom:96px;border-radius:28px}
 .rail{top:auto;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));width:auto}.brand{display:none}
@@ -131,8 +131,8 @@ nav.glass{flex-direction:row;justify-content:space-around;border-radius:999px;pa
 <script src="data/search-index.js"></script>
 <script>
 const $=i=>document.getElementById(i),A=(s,f)=>document.querySelectorAll(s).forEach(f);
-const GD=[["Pasta","guides/pasta.html","var(--rose)"],["Cheese","guides/cheese.html","var(--peach)"],["Pastry","guides/pastry.html","var(--lav)"],["Tea","guides/tea.html","var(--mint)"],["Coffee","guides/coffee.html","var(--rose)"]];
-const G={food:["Food guides",[0,1,2]],bev:["Beverage guides",[3,4]]};
+const GD=[["Pasta","guides/pasta.html","var(--rose)"],["Cheese","guides/cheese.html","var(--peach)"],["Pastry","guides/pastry.html","var(--lav)"],["Tea","guides/tea.html","var(--mint)"],["Coffee","guides/coffee.html","var(--rose)"],["Beverages","guides/beverage.html","var(--lav)"]];
+const G={food:["Food guides",[0,1,2]],bev:["Beverage guides",[3,4,5]]};
 const F=["Coffee beans are really the seeds of a fruit called the coffee cherry.","White, green, oolong, black and pu-erh tea all come from the same plant, Camellia sinensis.","Espresso is a brewing method, not a type of bean.","The holes in Swiss cheese come from gas bubbles made by bacteria during ripening.","Parmigiano Reggiano is aged for at least 12 months.","Saffron threads are the hand-picked stigmas of a crocus flower.","Vanilla is often named the second most expensive spice, after saffron.","Traditional dried pasta is made from durum wheat semolina.","Cold brew coffee is steeped in cold water, usually for 12 hours or more.","Honey sealed in a jar barely spoils; edible honey has been found in ancient tombs.","Italy makes hundreds of pasta shapes, each paired with a sauce that suits it.","Laminated doughs like croissants get their flaky layers from folding butter into dough again and again."];
 $("fact").innerHTML="<b>Did you know?</b> "+F[Math.floor(Math.random()*F.length)];$("yr").textContent=new Date().getFullYear();
 const dd=$("dd"),sr=$("sr"),rail=$("rail");
@@ -159,10 +159,10 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)A("[dat
 addEventListener("scroll",()=>$("up").classList.toggle("s",scrollY>400),{passive:true});$("up").onclick=()=>scrollTo({top:0,behavior:"smooth"});
 /* search across guides: uses the pre-built index in data/search-index.js */
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-/*S*/function srch(q){const w=q.toLowerCase().split(/\s+/).filter(Boolean);if(!w.length)return[];const out=[];
- GD.forEach(g=>{if(w.some(x=>g[0].toLowerCase().includes(x)))out.push({n:g[0],u:g[1],s:"Open the "+g[0]+" guide",p:-1})});
- let m=SIDX.filter(x=>w.every(k=>x[2].toLowerCase().includes(k)));if(!m.length&&w.length>1)m=SIDX.filter(x=>w.some(k=>x[2].toLowerCase().includes(k)));
- const cnt={};m.map(x=>({n:x[0],u:x[1],s:x[2],p:x[2].toLowerCase().indexOf(w[0])})).sort((a,b)=>(a.p<0)-(b.p<0)||a.p-b.p).forEach(x=>{cnt[x.n]=(cnt[x.n]||0)+1;if(cnt[x.n]<=3)out.push(x)});
+/*S*/const nz=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");function srch(q){const w=nz(q).split(/\s+/).filter(Boolean);if(!w.length)return[];const out=[];
+ GD.forEach(g=>{if(w.some(x=>nz(g[0]).includes(x)))out.push({n:g[0],u:g[1],s:"Open the "+g[0]+" guide",p:-1})});
+ let m=SIDX.filter(x=>w.every(k=>nz(x[2]).includes(k)));if(!m.length&&w.length>1)m=SIDX.filter(x=>w.some(k=>nz(x[2]).includes(k)));
+ const cnt={};m.map(x=>({n:x[0],u:x[1],s:x[2],p:nz(x[2]).indexOf(w[0])})).sort((a,b)=>(a.p<0)-(b.p<0)||a.p-b.p).forEach(x=>{cnt[x.n]=(cnt[x.n]||0)+1;if(cnt[x.n]<=3)out.push(x)});
  return out.slice(0,10)}/*E*/
 $("sb").onclick=async e=>{e.stopPropagation();const o=sr.classList.contains("o");closeAll();if(o)return;$("ov").style.display="block";sr.classList.add("o");const r=$("sb").getBoundingClientRect();
  if(innerWidth>800){sr.style.left=r.right+14+"px";sr.style.top=Math.max(12,Math.min(r.top-8,innerHeight-330))+"px"}else{sr.style.left=Math.max(10,(innerWidth-330)/2)+"px";sr.style.top="16%"}
@@ -178,9 +178,10 @@ const SRC=[["Givaudan","https://www.givaudan.com","Flavour & taste","rose"],["ET
 (async()=>{let D=[];try{D=await (await fetch("data/trending.json")).json()}catch(e){}
  $("tc").innerHTML=SRC.map((s,i)=>{const p=D.find(d=>d.source==s[0])||{};const has=p.title;
   return`<a class="card tr ${s[3]}" href="${has?p.link:s[1]}" target="_blank" rel="noopener"><div class="im" ${p.image?`style="background-image:url('${esc(p.image)}')"`:""}>${p.image?"":ART[i]}</div><div class="tx"><div><small>${s[0]} · ${s[2]}</small><h3>${has?esc(p.title):"Latest from "+s[0]}</h3></div><span>${has?"Read the post →":"Visit source →"}</span></div></a>`}).join("")})();
-/* visitors (counterapi.dev) */
-(async()=>{try{let n="";try{n=sessionStorage.getItem("fiq-v")?"":"/up";sessionStorage.setItem("fiq-v","1")}catch(e){n="/up"}
- const r=await fetch("https://api.counterapi.dev/v1/flavouriq-site/visits"+n),j=await r.json();if(j.count){$("vn").textContent=j.count.toLocaleString();$("vc").hidden=false}}catch(e){}})();
+/* visitors: Abacus counting API, counts each new browser session once */
+(async()=>{let v=0;try{v=+sessionStorage.getItem("fiq-vc")||0}catch(e){}
+ if(!v){try{const r=await fetch("https://abacus.jasoncameron.dev/hit/flavouriq-kkg/visits"),j=await r.json();v=+j.value||0;try{sessionStorage.setItem("fiq-vc",v)}catch(e){}}catch(e){}}
+ if(v){$("vn").textContent=v.toLocaleString();$("vc").hidden=false}})();
 /* contact (Web3Forms) */
 const f=$("form"),sb=f.querySelector("button"),st=$("st");
 f.addEventListener("submit",async e=>{e.preventDefault();const fd=new FormData(f);fd.append("access_key","62a0868a-a733-4151-9a07-df85e49ea0cb");

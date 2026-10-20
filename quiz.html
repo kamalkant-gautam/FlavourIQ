@@ -28,10 +28,16 @@ input,textarea{width:100%;padding:14px 18px;border-radius:20px;border:1px solid 
 .tg{display:inline-block;margin:8px 6px 0 0;padding:3px 12px;border-radius:99px;border:1px solid rgba(0,0,0,.25);font-size:.78rem;cursor:pointer;background:rgba(255,255,255,.5)}.tg.s{background:#16161a;color:#fff}
 .stars button{font-size:2rem;background:none;border:0;cursor:pointer;color:var(--mut);padding:0 2px}.stars button.s{color:var(--gold)}
 #msg{margin-top:10px;color:var(--mut)}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px;max-width:1020px;margin:0 auto;align-items:start}
+.lb{border-radius:28px;padding:22px;position:sticky;top:84px}.lb h3{font-size:1.3rem;margin-bottom:2px}
+.lr{display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px solid var(--edge)}.lr:last-child{border:0}
+.rk{width:26px;height:26px;border-radius:50%;background:var(--lav);color:#16161a;font-weight:700;font-size:.8rem;display:grid;place-items:center;flex:none}.lr:nth-child(1) .rk{background:var(--gold)}
+.nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}.lb{position:static}}
 </style></head><body>
 <div class="top"><a href="index.html"><img src="assets/logo.png" alt="">Flavour IQ</a><button id="tg" class="glass" aria-label="Day or night mode">🌙</button></div>
 
-<main>
+<div class="wrap"><main>
 <section class="box glass on" id="s1"><h1>Test your Flavour IQ</h1>
 <p class="mut">30 fresh questions on food and beverage. Enter your details to begin and earn your badge.</p>
 <form id="reg"><input id="nm" placeholder="Your name" required autocomplete="name"><input id="mb" type="tel" placeholder="Mobile number" pattern="[0-9+ ]{10,15}" title="Enter a valid mobile number" required autocomplete="tel"><input id="em" type="email" placeholder="Email address" required autocomplete="email">
@@ -51,7 +57,7 @@ input,textarea{width:100%;padding:14px 18px;border-radius:20px;border:1px solid 
 <textarea id="cm" placeholder="Anything else? (optional)" style="min-height:80px"></textarea>
 <button class="btn d" id="fs">Send feedback</button><div id="msg" role="status"></div>
 <p class="mut" style="margin-top:18px;font-size:.85rem"><a href="index.html" style="color:var(--gold)">← Back to Flavour IQ</a></p></section>
-</main>
+</main><aside class="lb glass"><h3>🏆 Leaderboard</h3><p class="mut" style="font-size:.85rem;margin-bottom:8px">Top scores. Can you beat them?</p><div id="bl"></div></aside></div>
 <script src="data/questions.js"></script>
 <script>
 const $=i=>document.getElementById(i),KEY="62a0868a-a733-4151-9a07-df85e49ea0cb",N=30;
@@ -87,13 +93,19 @@ function finish(){sc=Q.filter((q,i)=>q.o[ans[i]].ok).length;const[e,t]=BD(sc);$(
   $("rvw").appendChild(d)});
  $("st").innerHTML="";for(let n=1;n<=5;n++){const b=document.createElement("button");b.textContent="★";b.onclick=()=>{stars=n;[...$("st").children].forEach((x,y)=>x.classList.toggle("s",y<n))};$("st").appendChild(b)}
  $("msg").textContent="";$("fs").disabled=false;show("s3");
- send("Flavour IQ quiz result: "+P.name,{name:P.name,email:P.email,mobile:P.mobile,score:sc+"/"+N,badge:t})}
+ send("Flavour IQ quiz result: "+P.name,{name:P.name,email:P.email,mobile:P.mobile,score:sc+"/"+N,badge:t});toSheet({type:"result",name:P.name,mobile:P.mobile,email:P.email,score:sc,total:N,badge:t});setTimeout(board,2500)}
 document.querySelectorAll("#df .tg").forEach(t=>t.onclick=()=>{diff=t.dataset.v;document.querySelectorAll("#df .tg").forEach(x=>x.classList.toggle("s",x==t))});
 $("fs").onclick=async()=>{if(!stars&&!diff){$("msg").textContent="Please choose a star rating or difficulty first.";return}$("fs").disabled=true;
  const flags=Object.entries(fb).filter(x=>x[1]).map(([id,v])=>v+": "+BANK[id][1]).join("\n");
- const ok=await send("Flavour IQ quiz feedback: "+P.name,{name:P.name,email:P.email,rating:stars+"/5",difficulty:diff,comment:$("cm").value,question_flags:flags||"none"});
+ toSheet({type:"feedback",name:P.name,email:P.email,rating:stars,difficulty:diff,comment:$("cm").value,flags:flags||"none"});const ok=await send("Flavour IQ quiz feedback: "+P.name,{name:P.name,email:P.email,rating:stars+"/5",difficulty:diff,comment:$("cm").value,question_flags:flags||"none"});
  $("msg").textContent=ok?"Thank you for your feedback! It helps us improve every question.":"Could not send. Please try again.";if(!ok)$("fs").disabled=false};
+const SHEET="https://script.google.com/macros/s/AKfycbweAYUrXNcx2Zsge1eMXOZjA8FnYRzCQ8cdYPOb-DjtoidtHM2-hc956KqSiIAGONFgVA/exec";/* paste your Google Apps Script web app URL between the quotes */
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const toSheet=o=>{if(SHEET)try{fetch(SHEET,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(o)})}catch(e){}};
+async function board(){const b=$("bl");if(!SHEET){b.innerHTML="<p class='mut'>The leaderboard goes live soon. Be among the first names on it!</p>";return}
+ try{const r=await(await fetch(SHEET)).json();b.innerHTML=r.length?r.map((x,i)=>`<div class="lr"><span class="rk">${i+1}</span><span class="nm">${esc(x.name)}</span><span>${BD(+x.score)[0]}</span><b>${+x.score}</b></div>`).join(""):"<p class='mut'>No scores yet. Be the first!</p>"}catch(e){b.innerHTML="<p class='mut'>Leaderboard unavailable right now.</p>"}}
+board();
 $("again").onclick=start;
 $("reg").onsubmit=e=>{e.preventDefault();P={name:$("nm").value.trim(),mobile:$("mb").value.trim(),email:$("em").value.trim()};
- send("Flavour IQ quiz: new player "+P.name,{name:P.name,email:P.email,mobile:P.mobile});start()};
+ send("Flavour IQ quiz: new player "+P.name,{name:P.name,email:P.email,mobile:P.mobile});toSheet({type:"player",name:P.name,mobile:P.mobile,email:P.email});start()};
 </script></body></html>
