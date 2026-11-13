@@ -319,14 +319,14 @@
   ::-webkit-scrollbar{height:8px; width:8px;}
   ::-webkit-scrollbar-thumb{background:var(--line); border-radius:6px;}
 </style>
-<link rel="icon" href="../assets/favicon.png"></head>
+<link rel="icon" href="../assets/favicon.png"><link rel="stylesheet" href="../assets/fiq-common.css"></head>
 <body>
 
 <div id="progress"></div>
 
 <nav>
   <div class="navwrap">
-    <div class="brand">🧀 <span>The Cheese Guide</span></div>
+    <div class="brand"><a class="fiq-home" href="../index.html" aria-label="Flavour IQ home"><img src="../assets/logo.png" alt="Flavour IQ"></a>🧀 <span>The Cheese Guide</span></div>
     <div class="navlinks">
       <a href="#overview">Overview</a>
       <a href="#milk">Milk &amp; Origin</a>
@@ -1169,5 +1169,5 @@
   });
 </script>
 
-<a href="../index.html" style="position:fixed;top:12px;left:12px;z-index:9999;padding:8px 14px;border-radius:999px;background:rgba(20,20,24,.72);color:#fff;font:600 13px system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(10px)">← Flavour IQ</a></body>
+<script src="../assets/fiq-common.js" defer></script></body>
 </html>

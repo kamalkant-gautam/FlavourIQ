@@ -96,7 +96,7 @@ footer{text-align:center;padding:34px 20px 70px;color:var(--mute);font-size:.9re
 .js .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
 </style>
-<link rel="icon" href="../assets/favicon.png"></head>
+<link rel="icon" href="../assets/favicon.png"><link rel="stylesheet" href="../assets/fiq-common.css"></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <linearGradient id="gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8e6a6"/><stop offset=".55" stop-color="#e3b24c"/><stop offset="1" stop-color="#b98a14"/></linearGradient>
@@ -105,7 +105,7 @@ footer{text-align:center;padding:34px 20px 70px;color:var(--mute);font-size:.9re
 </defs></svg>
 <div id="prog"></div>
 <button id="theme" aria-label="Toggle dark or light mode">🌙</button>
-<nav>
+<nav><a class="fiq-home" href="../index.html" aria-label="Flavour IQ home"><img src="../assets/logo.png" alt="Flavour IQ"></a>
 <a href="#basics">Basics</a><a href="#history">History</a><a href="#making">Making</a><a href="#shapes">Types &amp; Shapes</a><a href="#sauces">Sauces</a><a href="#cook">Cooking</a><a href="#glossary">Glossary</a>
 </nav>
 
@@ -334,5 +334,5 @@ catch(err){alert('Something went wrong. Please try again.')}
 finally{btn.textContent=orig;btn.disabled=false}});
 })();
 </script>
-<a href="../index.html" style="position:fixed;top:12px;left:12px;z-index:9999;padding:8px 14px;border-radius:999px;background:rgba(20,20,24,.72);color:#fff;font:600 13px system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(10px)">← Flavour IQ</a></body>
+<script src="../assets/fiq-common.js" defer></script></body>
 </html>

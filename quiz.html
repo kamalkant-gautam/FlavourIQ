@@ -34,7 +34,7 @@ input,textarea{width:100%;padding:14px 18px;border-radius:20px;border:1px solid 
 .rk{width:26px;height:26px;border-radius:50%;background:var(--lav);color:#16161a;font-weight:700;font-size:.8rem;display:grid;place-items:center;flex:none}.lr:nth-child(1) .rk{background:var(--gold)}
 .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:900px){.wrap{grid-template-columns:1fr}.lb{position:static}}
-</style></head><body>
+</style><link rel="stylesheet" href="assets/fiq-common.css"></head><body>
 <div class="top"><a href="index.html"><img src="assets/logo.png" alt="">Flavour IQ</a><button id="tg" class="glass" aria-label="Day or night mode">🌙</button></div>
 
 <div class="wrap"><main>
@@ -108,4 +108,4 @@ board();
 $("again").onclick=start;
 $("reg").onsubmit=e=>{e.preventDefault();P={name:$("nm").value.trim(),mobile:$("mb").value.trim(),email:$("em").value.trim()};
  send("Flavour IQ quiz: new player "+P.name,{name:P.name,email:P.email,mobile:P.mobile});toSheet({type:"player",name:P.name,mobile:P.mobile,email:P.email});start()};
-</script></body></html>
+</script><script src="assets/fiq-common.js" defer></script></body></html>

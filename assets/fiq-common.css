@@ -1,0 +1,380 @@
+/* ==========================================================================
+   Compact Day & Night Toggle Switch (56px x 28px)
+   You can set --sw-w between 48px and 60px, and --sw-h between 24px and 32px.
+   ========================================================================== */
+:root {
+  --sw-w: 56px;
+  --sw-h: 28px;
+  --sw-bevel: 1.5px;
+  --knob-pad: 2.5px;
+  --track-w: calc(var(--sw-w) - (var(--sw-bevel) * 2));
+  --track-h: calc(var(--sw-h) - (var(--sw-bevel) * 2));
+  --knob-size: calc(var(--track-h) - (var(--knob-pad) * 2));
+  --knob-travel: calc(var(--track-w) - var(--knob-size) - (var(--knob-pad) * 2));
+  --knob-center-x: calc(var(--knob-pad) + (var(--knob-size) / 2));
+  --spring-easing: cubic-bezier(0.34, 1.52, 0.64, 1);
+  --smooth-easing: cubic-bezier(0.65, 0, 0.35, 1);
+  --anim-duration: 0.68s;
+}
+
+
+
+.day-night-switch {
+  position: relative;
+  width: var(--sw-w);
+  height: var(--sw-h);
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-block;
+  padding: var(--sw-bevel);
+  -webkit-tap-highlight-color: transparent;
+  background: linear-gradient(180deg, #95a2b3 0%, #cdd7e4 48%, #ffffff 100%);
+  box-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.92),
+    0 -1px 1.5px rgba(18, 33, 56, 0.2),
+    0 6px 14px -3px rgba(24, 42, 70, 0.18);
+}
+
+.day-night-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.switch-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #2d93ee 0%, #44a6fc 55%, #5ab2ff 100%);
+  transition: background var(--anim-duration) var(--smooth-easing);
+  isolation: isolate;
+}
+
+.day-night-switch input:checked + .switch-track {
+  background: linear-gradient(180deg, #151922 0%, #1e2431 60%, #252c3b 100%);
+}
+
+.track-inner-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 30;
+  box-shadow:
+    inset 0 2.5px 4px -0.5px rgba(8, 20, 40, 0.56),
+    inset 0 1px 2px 0 rgba(8, 20, 40, 0.42),
+    inset 0 -1px 2px 0 rgba(255, 255, 255, 0.42);
+  transition: box-shadow var(--anim-duration) var(--smooth-easing);
+}
+
+.day-night-switch input:checked + .switch-track .track-inner-shadow {
+  box-shadow:
+    inset 0 3px 5px 0 rgba(0, 0, 0, 0.84),
+    inset 0 1.5px 2.5px 0 rgba(0, 0, 0, 0.65),
+    inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Concentric Pulsing Halo Rings */
+.halo-group {
+  position: absolute;
+  top: 50%;
+  left: var(--knob-center-x);
+  width: 0;
+  height: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: transform var(--anim-duration) var(--spring-easing);
+}
+
+.day-night-switch input:checked + .switch-track .halo-group {
+  transform: translateX(var(--knob-travel));
+}
+
+@keyframes haloBreathe1 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.06); }
+}
+@keyframes haloBreathe2 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.085); }
+}
+@keyframes haloBreathe3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.11); }
+}
+
+.halo-ring {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.13);
+  transition:
+    width 0.45s var(--smooth-easing),
+    height 0.45s var(--smooth-easing),
+    background-color var(--anim-duration) var(--smooth-easing);
+}
+
+.halo-ring-1 {
+  width: calc(var(--knob-size) * 1.78);
+  height: calc(var(--knob-size) * 1.78);
+  animation: haloBreathe1 3.4s ease-in-out infinite;
+}
+.halo-ring-2 {
+  width: calc(var(--knob-size) * 2.55);
+  height: calc(var(--knob-size) * 2.55);
+  animation: haloBreathe2 3.4s ease-in-out 0.35s infinite;
+}
+.halo-ring-3 {
+  width: calc(var(--knob-size) * 3.35);
+  height: calc(var(--knob-size) * 3.35);
+  animation: haloBreathe3 3.4s ease-in-out 0.7s infinite;
+}
+
+.day-night-switch:hover .halo-ring-1 {
+  width: calc(var(--knob-size) * 1.88);
+  height: calc(var(--knob-size) * 1.88);
+}
+.day-night-switch:hover .halo-ring-2 {
+  width: calc(var(--knob-size) * 2.68);
+  height: calc(var(--knob-size) * 2.68);
+}
+.day-night-switch:hover .halo-ring-3 {
+  width: calc(var(--knob-size) * 3.5);
+  height: calc(var(--knob-size) * 3.5);
+}
+
+.day-night-switch input:checked + .switch-track .halo-ring {
+  background-color: rgba(255, 255, 255, 0.085);
+}
+
+/* Floating & Parallax Day Clouds */
+@keyframes cloudFloatBack {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-1.5px, -1px, 0) scale(1.02); }
+}
+@keyframes cloudFloatFront {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(1.2px, -1.2px, 0) scale(1.015); }
+}
+
+.clouds-container {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.cloud-back-wrap,
+.cloud-front-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cloud-back-wrap {
+  transition:
+    transform calc(var(--anim-duration) * 1.05) var(--spring-easing),
+    opacity calc(var(--anim-duration) * 0.75) var(--smooth-easing);
+}
+
+.cloud-front-wrap {
+  transition:
+    transform var(--anim-duration) var(--spring-easing),
+    opacity calc(var(--anim-duration) * 0.75) var(--smooth-easing);
+}
+
+.cloud-back-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: cloudFloatBack 4.2s ease-in-out infinite;
+}
+
+.cloud-front-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 -1px 1.5px rgba(24, 92, 168, 0.12));
+  animation: cloudFloatFront 3.5s ease-in-out 0.4s infinite;
+}
+
+.day-night-switch input:checked + .switch-track .cloud-back-wrap {
+  opacity: 0;
+  transform: translate3d(-6px, 115%, 0) scale(0.92);
+}
+
+.day-night-switch input:checked + .switch-track .cloud-front-wrap {
+  opacity: 0;
+  transform: translate3d(5px, 100%, 0) scale(0.95);
+}
+
+/* Night Stars & Sparkles */
+.stars-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.star-item {
+  opacity: 0;
+  transform: translateY(-16px) scale(0.2);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    transform var(--anim-duration) var(--spring-easing),
+    opacity calc(var(--anim-duration) * 0.7) var(--smooth-easing);
+}
+
+.day-night-switch input:checked + .switch-track .star-item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.day-night-switch input:checked + .switch-track .star-delay-1 { transition-delay: 0.04s; }
+.day-night-switch input:checked + .switch-track .star-delay-2 { transition-delay: 0.10s; }
+.day-night-switch input:checked + .switch-track .star-delay-3 { transition-delay: 0.16s; }
+.day-night-switch input:checked + .switch-track .star-delay-4 { transition-delay: 0.22s; }
+.day-night-switch input:checked + .switch-track .star-delay-5 { transition-delay: 0.28s; }
+
+@keyframes sparkleTwinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(0.72) rotate(15deg); opacity: 0.72; }
+}
+@keyframes dotTwinkle {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.65); opacity: 0.55; }
+}
+
+.sparkle-anim-1 { transform-box: fill-box; transform-origin: center; animation: sparkleTwinkle 2.8s ease-in-out infinite; }
+.sparkle-anim-2 { transform-box: fill-box; transform-origin: center; animation: sparkleTwinkle 3.4s ease-in-out 0.9s infinite; }
+.sparkle-anim-3 { transform-box: fill-box; transform-origin: center; animation: sparkleTwinkle 3.1s ease-in-out 1.6s infinite; }
+.dot-anim-1     { transform-box: fill-box; transform-origin: center; animation: dotTwinkle 2.5s ease-in-out 0.3s infinite; }
+.dot-anim-2     { transform-box: fill-box; transform-origin: center; animation: dotTwinkle 3.2s ease-in-out 1.2s infinite; }
+
+/* 3D Sun / Moon Knob */
+.knob-wrapper {
+  position: absolute;
+  top: var(--knob-pad);
+  left: var(--knob-pad);
+  width: var(--knob-size);
+  height: var(--knob-size);
+  border-radius: 50%;
+  z-index: 18;
+  transition:
+    transform var(--anim-duration) var(--spring-easing),
+    filter var(--anim-duration) var(--smooth-easing);
+  filter:
+    drop-shadow(0 2px 2.5px rgba(14, 30, 56, 0.38))
+    drop-shadow(1px 1px 1.5px rgba(14, 30, 56, 0.24));
+}
+
+.day-night-switch input:checked + .switch-track .knob-wrapper {
+  transform: translateX(var(--knob-travel));
+  filter:
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.65))
+    drop-shadow(-1px 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.day-night-switch:hover .knob-wrapper {
+  transform: translateX(1.2px) scale(1.04);
+}
+.day-night-switch:hover input:checked + .switch-track .knob-wrapper {
+  transform: translateX(calc(var(--knob-travel) - 1.2px)) scale(1.04);
+}
+.day-night-switch:active .knob-wrapper {
+  transform: translateX(2px) scaleX(1.12) scaleY(0.92);
+}
+.day-night-switch:active input:checked + .switch-track .knob-wrapper {
+  transform: translateX(calc(var(--knob-travel) - 2px)) scaleX(1.12) scaleY(0.92);
+}
+
+.knob-rotor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: transform var(--anim-duration) var(--spring-easing);
+}
+
+.day-night-switch input:checked + .switch-track .knob-rotor {
+  transform: rotate(180deg);
+}
+
+.sun-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(150deg, #ffe242 0%, #ffcf21 62%, #f4b406 100%);
+  box-shadow:
+    inset 0 1.2px 1.2px 0 rgba(255, 250, 185, 0.92),
+    inset 0 -1.6px 0 0 #e69600,
+    inset 0 -2.2px 1.8px 0 rgba(214, 128, 0, 0.65);
+  transition:
+    opacity calc(var(--anim-duration) * 0.65) var(--smooth-easing),
+    transform var(--anim-duration) var(--spring-easing);
+}
+
+.moon-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transform: rotate(-180deg) scale(0.86);
+  background: linear-gradient(145deg, #e5eaf2 0%, #d3dae5 62%, #bfc8d6 100%);
+  box-shadow:
+    inset -0.8px 1px 1.2px 0 rgba(255, 255, 255, 0.96),
+    inset 0.8px -1.5px 1.8px 0 rgba(118, 130, 148, 0.68),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  transition:
+    opacity calc(var(--anim-duration) * 0.65) var(--smooth-easing),
+    transform var(--anim-duration) var(--spring-easing);
+}
+
+.day-night-switch input:checked + .switch-track .sun-face {
+  opacity: 0;
+  transform: scale(0.84);
+}
+
+.day-night-switch input:checked + .switch-track .moon-face {
+  opacity: 1;
+  transform: rotate(-180deg) scale(1);
+}
+
+.moon-crater {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #96a0b2 0%, #adb6c5 55%, #bcc4d2 100%);
+  box-shadow:
+    inset 0.8px 1px 1.4px rgba(68, 77, 92, 0.65),
+    inset -0.4px -0.6px 0.8px rgba(245, 248, 255, 0.78),
+    0 0.4px 0.5px rgba(255, 255, 255, 0.85);
+  transform: scale(0.3);
+  opacity: 0;
+  transition:
+    transform 0.45s var(--spring-easing),
+    opacity 0.35s var(--smooth-easing);
+}
+
+.crater-large  { width: 31%; height: 31%; top: 33%; left: 13%; transition-delay: 0.08s; }
+.crater-small  { width: 16.5%; height: 16.5%; top: 13.5%; left: 44.5%; transition-delay: 0.14s; }
+.crater-medium { width: 23%; height: 23%; top: 58%; left: 58%; transition-delay: 0.2s; }
+
+.day-night-switch input:checked + .switch-track .moon-crater {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.day-night-switch,.day-night-switch *,.day-night-switch *::before,.day-night-switch *::after{box-sizing:border-box}
+.dn-wrap{display:inline-block;width:56px;height:28px;flex:none;line-height:0;vertical-align:middle;position:relative}
+.dn-wrap .day-night-switch{margin:0}
+.fiq-home{display:inline-flex;align-items:center;flex:none;margin-right:10px;text-decoration:none}
+.fiq-home img{width:34px;height:34px;display:block}
+nav.fn{display:flex;align-items:center;gap:8px;overflow:visible}
+nav.fn .nl{display:flex;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}nav.fn .nl::-webkit-scrollbar{display:none}
+nav.fn .dn-wrap{margin-left:4px}

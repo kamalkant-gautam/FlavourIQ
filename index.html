@@ -64,7 +64,7 @@ nav.glass{flex-direction:row;justify-content:space-around;border-radius:999px;pa
 .pop a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:16px;color:var(--ink);text-decoration:none;font-size:.95rem}
 .cur{padding:80px 18px 120px;border-radius:28px 28px 0 0}footer{padding:24px 16px 100px}
 #tg{top:max(14px,env(safe-area-inset-top));right:14px}#up{bottom:92px}.me{grid-template-columns:1fr;text-align:center;padding:24px}.me img{margin:auto;width:180px;height:180px}.me .btn{margin:4px}}
-</style></head><body>
+</style><link rel="stylesheet" href="assets/fiq-common.css"></head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
 <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
 <symbol id="i-food" viewBox="0 0 24 24"><path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v6M9 3v6M17 21V3c-2.5 1.5-4 4-4 7 0 2 1.5 3 4 3"/></symbol>
@@ -131,8 +131,8 @@ nav.glass{flex-direction:row;justify-content:space-around;border-radius:999px;pa
 <script src="data/search-index.js"></script>
 <script>
 const $=i=>document.getElementById(i),A=(s,f)=>document.querySelectorAll(s).forEach(f);
-const GD=[["Pasta","guides/pasta.html","var(--rose)"],["Cheese","guides/cheese.html","var(--peach)"],["Pastry","guides/pastry.html","var(--lav)"],["Tea","guides/tea.html","var(--mint)"],["Coffee","guides/coffee.html","var(--rose)"],["Beverages","guides/beverage.html","var(--lav)"]];
-const G={food:["Food guides",[0,1,2]],bev:["Beverage guides",[3,4,5]]};
+const GD=[["Pasta","guides/pasta.html","var(--rose)"],["Cheese","guides/cheese.html","var(--peach)"],["Pastry","guides/pastry.html","var(--lav)"],["Tea","guides/tea.html","var(--mint)"],["Coffee","guides/coffee.html","var(--rose)"],["Beverages","guides/beverage.html","var(--lav)"],["Non-Alcoholic","guides/non-alcoholic.html","var(--mint)"]];
+const G={food:["Food guides",[0,1,2]],bev:["Beverage guides",[3,4,5,6]]};
 const F=["Coffee beans are really the seeds of a fruit called the coffee cherry.","White, green, oolong, black and pu-erh tea all come from the same plant, Camellia sinensis.","Espresso is a brewing method, not a type of bean.","The holes in Swiss cheese come from gas bubbles made by bacteria during ripening.","Parmigiano Reggiano is aged for at least 12 months.","Saffron threads are the hand-picked stigmas of a crocus flower.","Vanilla is often named the second most expensive spice, after saffron.","Traditional dried pasta is made from durum wheat semolina.","Cold brew coffee is steeped in cold water, usually for 12 hours or more.","Honey sealed in a jar barely spoils; edible honey has been found in ancient tombs.","Italy makes hundreds of pasta shapes, each paired with a sauce that suits it.","Laminated doughs like croissants get their flaky layers from folding butter into dough again and again."];
 $("fact").innerHTML="<b>Did you know?</b> "+F[Math.floor(Math.random()*F.length)];$("yr").textContent=new Date().getFullYear();
 const dd=$("dd"),sr=$("sr"),rail=$("rail");
@@ -188,4 +188,4 @@ f.addEventListener("submit",async e=>{e.preventDefault();const fd=new FormData(f
  const o=sb.textContent;sb.textContent="Sending…";sb.disabled=true;
  try{const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:fd}),j=await r.json();if(r.ok){st.textContent="Thank you! Your message has been sent.";f.reset()}else st.textContent="Error: "+j.message}
  catch(x){st.textContent="Something went wrong. Please try again."}finally{sb.textContent=o;sb.disabled=false}});
-</script></body></html>
+</script><script src="assets/fiq-common.js" defer></script></body></html>

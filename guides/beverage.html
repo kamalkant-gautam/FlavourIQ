@@ -81,9 +81,9 @@ footer{text-align:center;padding:50px 18px 90px;color:var(--mut)}
 #m.o{display:flex}#m form{background:var(--card);padding:22px;border-radius:14px;width:100%;max-width:400px}
 #m input,#m textarea{width:100%;margin:6px 0 10px;padding:9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
 #m .b{background:var(--teal);color:#fff;border:0;padding:9px 18px;border-radius:8px;cursor:pointer;font:inherit}
-</style><link rel="icon" href="../assets/favicon.png"></head><body>
+</style><link rel="icon" href="../assets/favicon.png"><link rel="stylesheet" href="../assets/fiq-common.css"></head><body>
 <div id="bar"></div>
-<nav><b>FlavourIQ</b><a href="#what">Basics</a><a href="#tree">Hierarchy</a><a href="#na">Non-Alcoholic</a><a href="#al">Alcoholic</a><a href="#soup">Soup?</a><a href="#pro">Service</a><a href="#watch">Videos</a><a href="#gl">Glossary</a><button id="tg">Dark</button></nav>
+<nav class="fn"><a class="fiq-home" href="../index.html" aria-label="Flavour IQ home"><img src="../assets/logo.png" alt="Flavour IQ"></a><div class="nl"><a href="#what">Basics</a><a href="#tree">Hierarchy</a><a href="#na">Non-Alcoholic</a><a href="#al">Alcoholic</a><a href="#soup">Soup?</a><a href="#pro">Service</a><a href="#watch">Videos</a><a href="#gl">Glossary</a></div><button id="tg">Dark</button></nav>
 
 <header class="hero" id="hero">
 <h1>The Beverage Guide</h1>
@@ -249,4 +249,4 @@ $("#top").onclick=()=>scrollTo({top:0,behavior:"smooth"});
 const m=$("#m");$("#q").onclick=()=>m.classList.add("o");
 $("#qf").onsubmit=async e=>{e.preventDefault();const b=$("#sb");b.textContent="Sending...";b.disabled=true;const f=new FormData(e.target);f.append("access_key","62a0868a-a733-4151-9a07-df85e49ea0cb");
 try{const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:f});const j=await r.json();if(j.success){alert("Success! Your message has been sent.");e.target.reset();m.classList.remove("o")}else alert("Error: "+j.message)}catch(x){alert("Something went wrong. Please try again.")}b.textContent="Send";b.disabled=false};
-</script><a href="../index.html" style="position:fixed;bottom:14px;left:12px;z-index:9999;padding:8px 14px;border-radius:999px;background:rgba(20,20,24,.78);color:#fff;font:600 13px system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(10px)">← Flavour IQ</a></body></html>
+</script><script src="../assets/fiq-common.js" defer></script></body></html>

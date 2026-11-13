@@ -239,12 +239,12 @@
   #topBtn.show{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
   #topBtn svg{width:1.3rem; height:1.3rem;}
 </style>
-<link rel="icon" href="../assets/favicon.png"></head>
+<link rel="icon" href="../assets/favicon.png"><link rel="stylesheet" href="../assets/fiq-common.css"></head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <div class="brand">☕ The World of Coffee</div>
+    <div class="brand"><a class="fiq-home" href="../index.html" aria-label="Flavour IQ home"><img src="../assets/logo.png" alt="Flavour IQ"></a>☕ The World of Coffee</div>
     <div class="nav-links">
       <a href="#what-is-coffee">What Is Coffee</a>
       <a href="#anatomy">Bean Anatomy</a>
@@ -1071,5 +1071,5 @@
   });
 </script>
 
-<a href="../index.html" style="position:fixed;top:12px;left:12px;z-index:9999;padding:8px 14px;border-radius:999px;background:rgba(20,20,24,.72);color:#fff;font:600 13px system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(10px)">← Flavour IQ</a></body>
+<script src="../assets/fiq-common.js" defer></script></body>
 </html>
