@@ -44,3 +44,7 @@ To use a custom domain (for example flavouriq.in), buy the domain, then add it u
 Logo: replace assets/logo.png, assets/favicon.png and assets/apple-touch-icon.png with your new files (keep the same file names).
 
 Qui
+
+NEW GUIDE POSTS
+- Home page popup: edit data/latest.js (id, title, text, url) whenever a new guide is published.
+- Water guide: guides/water.html. Optional brand logos go in assets/brands/ (see README.txt there).
